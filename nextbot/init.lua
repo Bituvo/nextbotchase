@@ -137,11 +137,15 @@ minetest.register_chatcommand("spawn", {
         if param ~= "" then
             local player = minetest.get_player_by_name(param)
             
-            if player and minetest.check_player_privs(name, {server = true}) then
-                player:set_pos({x = 8, y = -4.5, z = 8})
-                minetest.chat_send_player(name, 'Teleported "' .. param .. '" to spawn')
+            if player then
+                if minetest.check_player_privs(name, {server = true}) then
+                    player:set_pos({x = 8, y = -4.5, z = 8})
+                    minetest.chat_send_player(name, 'Teleported "' .. param .. '" to spawn')
+                else
+                    minetest.chat_send_player(name, "You cannot send another player to spawn")
+                end
             else
-                minetest.chat_send_player(name, "You cannot send another player to spawn")
+                minetest.chat_send_player(name, '"' .. param .. '" either does not exist or is not logged in')
             end
         else
             local player = minetest.get_player_by_name(name)
@@ -161,6 +165,6 @@ minetest.register_chatcommand("who", {
             message = message .. player:get_player_name() .. ", "
         end
 
-        minetest.chat_send_player(name, message)
+        minetest.chat_send_player(name, string.sub(message, 1, -3))
     end
 })
