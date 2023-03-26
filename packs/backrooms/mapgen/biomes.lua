@@ -52,35 +52,11 @@ br_core.register_biome({
         {name=sch("0_20_1_columns_0"), vertical_segments={1,0}},
         --
         {name=sch("0_20_2_columns_0"), vertical_segments={0,1}, rotation="0"},
-        {name=sch("0_20_2_pitfalls_0"), vertical_segments={0,1}, can_generate=function(pos, perlin)
-            return ((pos.x%3==0) and pos.z%2==0)
-        end},
+
         {name=sch("0_20_2_walls_0"), vertical_segments={0,1}},
         {name=sch("0_20_2_walls_1"), vertical_segments={0,1}},
         {name=sch("0_20_2_walls_2"), vertical_segments={0,1}},
         {name=sch("0_20_2_walls_3"), vertical_segments={0,1}},
-    }
-})
-br_core.register_biome({
-    level = 0,
-    desc = "Level 0 main with doors",
-    danger = 1,
-    on_generate = nil,
-    segheight = 20,
-    prevalence = 1,
-    schems = {
-        {name=sch("0_20_1_columns_0"), vertical_segments={1,0}},
-        --
-        {name=sch("0_20_2_columns_0"), vertical_segments={0,1}, rotation="0", prevalence=12},
-        {name=sch("0_20_2_walls_0"), vertical_segments={0,1}, prevalence=12},
-        {name=sch("0_20_2_walls_1"), vertical_segments={0,1}, prevalence=12},
-        {name=sch("0_20_2_walls_2"), vertical_segments={0,1}, prevalence=12},
-        {name=sch("0_20_2_walls_3"), vertical_segments={0,1}, prevalence=12},
-        {name=sch("0_20_2_doors_0"), vertical_segments={0,1}, prevalence=2},
-        {name=sch("0_20_2_doors_1"), vertical_segments={0,1}, prevalence=2},
-        {name=sch("0_20_2_doors_0_portal"), vertical_segments={0,1}, prevalence=2},
-        {name=sch("0_20_2_doors_1_portal"), vertical_segments={0,1}, prevalence=2},
-        {name=sch("0_20_2_stairs_0_portal"), vertical_segments={0,1}, prevalence=1},
     }
 })
 br_core.register_biome({
@@ -102,7 +78,6 @@ br_core.register_biome({
         --
         {name=sch("0_20_2_walls_concrete_0"), vertical_segments={0,1}, prevalence=9},
         {name=sch("0_20_2_walls_concrete_1"), vertical_segments={0,1}, prevalence=5},
-        {name=sch("0_20_2_walls_concrete_1_portal"), vertical_segments={0,1}, prevalence=1},
     }
 })
 br_core.register_biome({
@@ -115,7 +90,6 @@ br_core.register_biome({
     schems = {
         {name=sch("0_20_1_columns_0"), vertical_segments={1,0}},
         --
-        {name=sch("0_20_2_nolight_portal_0"), vertical_segments={0,1}, prevalence=1},
         {name=sch("0_20_2_nolight_walls_0"), vertical_segments={0,1}, prevalence=3},
         {name=sch("0_20_2_nolight_walls_1"), vertical_segments={0,1}, prevalence=3},
         {name=sch("0_20_2_nolight_walls_2"), vertical_segments={0,1}, prevalence=3},
@@ -144,6 +118,5 @@ br_core.register_biome({
         {name=sch("0_20_2_dark_walls_1"), vertical_segments={0,1}, prevalence=8},
         --
         {name=sch("0_20_2_dark_walls_2"), vertical_segments={0,1}, prevalence=4},
-        {name=sch("0_20_2_dark_walls_2_portal"), vertical_segments={0,1}},
     }
 })
