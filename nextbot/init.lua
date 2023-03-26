@@ -254,3 +254,12 @@ minetest.register_chatcommand("delete_nextbot", {
         delete_player_nextbot(player)
     end
 })
+
+minetest.register_chatcommand("restart", {
+    description = "Restart the server after 20 seconds",
+    privs = {server = true},
+    params = "[reason]",
+    func = function(name, param)
+        minetest.request_shutdown(param, true, 20)
+    end
+})
