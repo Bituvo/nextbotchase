@@ -8,7 +8,6 @@ end
 br_core.register_level({
     level = 0,
     desc = "Level 0",
-    danger = 1,
     grace_dist = 5,
     biome = {},
     segsize = 20,
@@ -17,7 +16,7 @@ br_core.register_level({
     biome_pixelization = 4,
     sky = {
         clouds = false,
-        base_color = "#001",
+        base_color = "#726a56",
         type = "plain"
     },
 })
