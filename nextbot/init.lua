@@ -1,12 +1,11 @@
 local nextbots = {}
 local static_spawn = {x = 8, y = -4.5, z = 8}
 
-minetest.register_entity("nextbot:obunga", {
+local default_nextbot_definition = {
     initial_properties = {
         pointable = false,
         visual = "sprite",
-        visual_size = {x = 5, y = 5},
-        textures = {"obunga.png"},
+        visual_size = {x = 5, y = 5}
     },
 
     dtime = 0,
@@ -15,9 +14,15 @@ minetest.register_entity("nextbot:obunga", {
 
     on_activate = function(self, staticdata)
         self.player = minetest.get_player_by_name(staticdata)
-    end,
+    end
+}
 
-    on_step = function(self, dtime, collisions)
+function register_nextbot(name, speed)
+    local new_nextbot_definition = default_nextbot_definition
+
+    new_nextbot_definition.initial_properties.textures = {name .. ".png"}
+    new_nextbot_definition.name = name
+    new_nextbot_definition.on_step = function(self, dtime)
         if not self.player then
             self.object:remove()
             return
@@ -31,15 +36,15 @@ minetest.register_entity("nextbot:obunga", {
         
         local player_pos = self.player:get_pos()
         if player_pos == nil then return end
-        local obunga_pos = vector.round(self.object:get_pos())
+        local bot_pos = vector.round(self.object:get_pos())
         local real_player_pos = player_pos
         player_pos.y = -4
-        obunga_pos.y = -4
+        bot_pos.y = -4
 
-        if self.dtime > 0.1 then
+        if self.dtime > 1 / speed then
             self.dtime = 0
 
-            local new_path = minetest.find_path(obunga_pos, player_pos, 10, 2, 5, "A*")
+            local new_path = minetest.find_path(bot_pos, player_pos, 10, 2, 5, "A*")
             if new_path and #new_path > 1 then
                 self.next_pos = new_path[2]
                 self.next_pos.y = -2
@@ -48,26 +53,30 @@ minetest.register_entity("nextbot:obunga", {
             end
 
             if self.next_pos then
-                local obunga_pos = vector.round(self.object:get_pos())
-                self.object:set_pos(obunga_pos)
+                local bot_pos = vector.round(self.object:get_pos())
+                self.object:set_pos(bot_pos)
 
-                local velocity = vector.subtract(self.next_pos, obunga_pos)
+                local velocity = vector.subtract(self.next_pos, bot_pos)
                 velocity.y = 0
-                velocity = vector.multiply(velocity, 10)
+                velocity = vector.multiply(velocity, speed)
                 self.object:set_velocity(velocity)
             end
         end
 
-        if vector.distance(real_player_pos, obunga_pos) < 2 then
+        if vector.distance(real_player_pos, bot_pos) < 2 then
             self.player:set_hp(0)
             self.chasing = false
             self.object:set_velocity({x = 0, y = 0, z = 0})
-            minetest.chat_send_all(self.player:get_player_name() .. " was killed by Obunga")
+            minetest.chat_send_all(self.player:get_player_name() .. " was killed by " .. self.name)
             
-            minetest.after(2, function() self.object:remove() end)
+            minetest.after(2, function () self.object:remove() end)
         end
     end
-})
+
+    minetest.register_entity("nextbot:" .. name, new_nextbot_definition)
+end
+
+register_nextbot("obunga", 10)
 
 function add_nextbot(player, nextbot)
     local random = math.random(1, 4)
