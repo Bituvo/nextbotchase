@@ -76,7 +76,7 @@ function register_nextbot(name, chat_name, speed)
                 self.object:remove()
                 return
             end
-            
+
             if self.deletion_timer == 0 then
                 self.player:set_hp(0)
                 self.chasing = false
@@ -181,7 +181,6 @@ minetest.register_chatcommand("spawn", {
     description = "Teleport yourself or another player to spawn",
     params = "[player]",
     func = function(name, param)
-        minetest.chat_send_all(minetest.serialize(param))
         if param ~= "" then
             local player = minetest.get_player_by_name(param)
             
