@@ -32,8 +32,11 @@ br_core.fullbright = 0
 
 minetest.register_on_joinplayer(function(player)
     if not minetest.check_player_privs(player, {server = true}) then
-        player:hud_set_flags({hotbar = false, healthbar = false, wielditem = false})
+        player:hud_set_flags({hotbar = false, healthbar = false, wielditem = false, crosshair = false})
+        return
     end
+
+    player:hud_set_flags({hotbar = true, healthbar = true, wielditem = true, crosshair = true})
 end)
 
 dofile(mod_path .. DIR_DELIM .. "core" .. DIR_DELIM .. "on_generate.lua")
