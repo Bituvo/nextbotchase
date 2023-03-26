@@ -168,3 +168,28 @@ minetest.register_chatcommand("who", {
         minetest.chat_send_player(name, string.sub(message, 1, -3))
     end
 })
+
+minetest.register_chatcommand("add_nextbot", {
+    description = "Add a nextbot for a player at your location",
+    privs = {server = true},
+    params = "<player> <bot>",
+    func = function(name, param)
+        local victim, bot = string.match(param, "(%w+)%s(%w+)")
+        if victim == "" or bot == "" then
+            minetest.chat_send_player(name, "Invalid parameters; see /help add_nextbot")
+            return
+        end
+        local invoker = minetest.get_player_by_name(name)
+        victim = minetest.get_player_by_name(victim)
+
+        if victim then
+            local invoker_pos = invoker:get_pos()
+            invoker_pos.y = -2.5
+
+            local nextbot = minetest.add_entity(invoker_pos, "nextbot:" .. bot, victim:get_player_name())
+            nextbots[victim:get_player_name()] = nextbot
+        else
+            minetest.chat_send_player(name, '"' .. victim:get_player_name() .. '" either does not exist or is not logged in')
+        end
+    end
+})
