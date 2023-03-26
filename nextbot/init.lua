@@ -61,6 +61,7 @@ minetest.register_entity("nextbot:obunga", {
         if vector.distance(real_player_pos, obunga_pos) < 2 then
             self.player:set_hp(0)
             self.chasing = false
+            self.object:set_velocity({x = 0, y = 0, z = 0})
             minetest.chat_send_all(self.player:get_player_name() .. " was killed by Obunga")
             
             minetest.after(2, function() self.object:remove() end)
