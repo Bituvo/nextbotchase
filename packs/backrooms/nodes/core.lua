@@ -17,10 +17,9 @@ end
 
 minetest.register_node("br_core:null_node", {
     description = "just to trick minetest into loading mapblocks",
-    pointable = br_core.dev_mode or false,
+    pointable = false,
     groups = { dig_immediate = 3 },
     drawtype = "airlike",
-    tiles = { 'br_barrier.png^[colorize:#9f9:255' },
     use_texture_alpha = "clip",
     sounds = {},
     paramtype = "light",
