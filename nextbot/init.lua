@@ -9,30 +9,38 @@ local default_nextbot_definition = {
     },
 
     dtime = 0,
+    deletion_timer = 0,
     next_pos = nil,
-    chasing = true,
+    started = false,
+    chasing = false,
 
     on_activate = function(self, staticdata)
         self.player = minetest.get_player_by_name(staticdata)
     end
 }
 
-function register_nextbot(name, speed)
+function register_nextbot(name, chat_name, speed)
     local new_nextbot_definition = default_nextbot_definition
 
     new_nextbot_definition.initial_properties.textures = {name .. ".png"}
-    new_nextbot_definition.name = name
+    new_nextbot_definition.chat_name = chat_name
     new_nextbot_definition.on_step = function(self, dtime)
         if not self.player then
             self.object:remove()
             return
         end
 
-        if not self.chasing then
-            return
-        end
-
         self.dtime = self.dtime + dtime
+
+        if not self.started then
+            if self.dtime > 1 then
+                self.started = true
+                self.chasing = true
+                self.dtime = 0
+            else
+                return
+            end
+        end
         
         local player_pos = self.player:get_pos()
         if player_pos == nil then return end
@@ -41,7 +49,7 @@ function register_nextbot(name, speed)
         player_pos.y = -4
         bot_pos.y = -4
 
-        if self.dtime > 1 / speed then
+        if self.chasing and self.dtime > 1 / speed then
             self.dtime = 0
 
             local new_path = minetest.find_path(bot_pos, player_pos, 10, 2, 5, "A*")
@@ -64,21 +72,39 @@ function register_nextbot(name, speed)
         end
 
         if vector.distance(real_player_pos, bot_pos) < 2 then
-            self.player:set_hp(0)
-            self.chasing = false
-            self.object:set_velocity({x = 0, y = 0, z = 0})
-            minetest.chat_send_all(self.player:get_player_name() .. " was killed by " .. self.name)
-            
-            minetest.after(2, function () self.object:remove() end)
+            if self.deletion_timer == 0 then
+                self.player:set_hp(0)
+                self.chasing = false
+                self.object:set_velocity({x = 0, y = 0, z = 0})
+
+                minetest.chat_send_all(self.player:get_player_name() .. " was killed by " .. self.chat_name)
+            elseif self.deletion_timer > 2 then
+                self.object:remove()
+                return
+            end
+
+            self.deletion_timer = self.deletion_timer + dtime
         end
     end
 
     minetest.register_entity("nextbot:" .. name, new_nextbot_definition)
 end
 
-register_nextbot("obunga", 10)
+-- Nextbot registration
+register_nextbot("obunga", "Obunga", 10)
 
+local nextbot_names = {"obunga"}
+
+-- Helper functions
 function add_nextbot(player, nextbot)
+    local nextbot_exists = false
+    for _, value in ipairs(nextbot_names) do
+        if value == nextbot then
+            nextbot_exists = true
+        end
+    end
+    if not nextbot_exists then return end
+
     local random = math.random(1, 4)
     local offset = {
         {x = 20, y = 2.5, z = 0},
@@ -88,8 +114,9 @@ function add_nextbot(player, nextbot)
     }
     offset = offset[random]
 
+    local bot_pos = vector.add(player:get_pos(), offset)
     if nextbot == "obunga" then
-        local obunga = minetest.add_entity(vector.add(player:get_pos(), offset), "nextbot:obunga", player:get_player_name())
+        local obunga = minetest.add_entity(bot_pos, "nextbot:obunga", player:get_player_name())
         nextbots[player:get_player_name()] = obunga
     end
 
@@ -104,13 +131,13 @@ function add_nextbot(player, nextbot)
     end
 
     player:set_look_horizontal(math.rad(yaw))
+    player:set_look_vertical(0)
 end
 
--- Helper functions
 function handle_new_player(player)
     player:set_physics_override({speed = 2})
 
-    if not minetest.check_player_privs(player, {no_nextbot = true}) then
+    if not minetest.check_player_privs(player, {no_nextbot = true}) and player:get_hp() > 0 then
         player:set_pos(static_spawn)
         add_nextbot(player, "obunga")
     end
@@ -133,7 +160,6 @@ minetest.register_on_respawnplayer(function(player)
     return true
 end)
 
-minetest.register_on_dieplayer(delete_player_nextbot)
 minetest.register_on_leaveplayer(delete_player_nextbot)
 
 -- Priveleges
@@ -212,5 +238,15 @@ minetest.register_chatcommand("add_nextbot", {
         else
             minetest.chat_send_player(name, '"' .. victim:get_player_name() .. '" either does not exist or is not logged in')
         end
+    end
+})
+
+minetest.register_chatcommand("delete_nextbot", {
+    description = "Delete a player's nextbot",
+    privs = {server = true},
+    params = "<player>",
+    func = function(name, param)
+        local player = minetest.get_player_by_name(param)
+        delete_player_nextbot(player)
     end
 })
