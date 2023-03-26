@@ -1,4 +1,5 @@
 local nextbots = {}
+local static_spawn = {x = 8, y = -4.5, z = 8}
 
 minetest.register_entity("nextbot:obunga", {
     initial_properties = {
@@ -100,7 +101,7 @@ function handle_new_player(player)
     player:set_physics_override({speed = 2})
 
     if not minetest.check_player_privs(player, {server = true}) then
-        player:set_pos({x = 8, y = -4.5, z = 8})
+        player:set_pos(static_spawn)
         add_nextbot(player, "obunga")
     end
 end
@@ -139,7 +140,7 @@ minetest.register_chatcommand("spawn", {
             
             if player then
                 if minetest.check_player_privs(name, {server = true}) then
-                    player:set_pos({x = 8, y = -4.5, z = 8})
+                    player:set_pos(static_spawn)
                     minetest.chat_send_player(name, 'Teleported "' .. param .. '" to spawn')
                 else
                     minetest.chat_send_player(name, "You cannot send another player to spawn")
@@ -150,7 +151,7 @@ minetest.register_chatcommand("spawn", {
         else
             local player = minetest.get_player_by_name(name)
 
-            player:set_pos({x = 8, y = -4.5, z = 8})
+            player:set_pos(static_spawn)
             minetest.chat_send_player(name, "Teleported to spawn")
         end
     end
