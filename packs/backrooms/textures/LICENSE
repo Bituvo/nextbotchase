@@ -1,0 +1,59 @@
+
+
+===============================
+Copyright (c) 2022 Sumi, SumianVoice <info[at]sumianvoice.com> <https://codeberg.org/SumianVoice/backroomtest>
+Permission to use, copy, modify, and/or distribute this work for any purpose with or without fee is hereby granted.
+
+THE WORK IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD
+TO THIS WORK INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS.
+IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR
+CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA
+OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS WORK.
+
+List of files under this license:
+
+br_achieve_bg.png               br_meta_catwalk.png
+br_achieve_bg_shadow.png        br_meta_overlay_carpet_1.png
+br_achievement_button.png       br_meta_overlay_crisscross_0.png
+br_achievement_rebirth.png      br_meta_overlay_crisscross_1.png
+br_achievement_visit_0.png      br_meta_overlay_crisscross_2.png
+br_achievement_visit_12.png     br_meta_overlay_dirt_0.png
+br_achievement_visit_167.png    br_meta_overlay_dirt_1.png
+br_achievement_visit_17.png     br_meta_overlay_dirt_2.png
+br_achievement_visit_180.png    br_meta_overlay_dirt_3.png
+br_achievement_visit_1.png      br_meta_overlay_holes_0.png
+br_achievement_visit_2.png      br_meta_overlay_rebar_0.png
+br_achievement_visit_31.png     br_meta_overlay_wallpaper_1.png
+br_achievement_visit_37.png     br_meta_overlay_wallpaper_2.png
+br_achievement_visit_45.png     br_number.png
+br_achievement_visit_51.png     br_portal_0.png
+br_achievement_visit_5.png      br_power_socket.png
+br_achievement_visit_62.png     br_sign_exclaim.png
+br_achievement_visit_96.png     br_sign_exit.png
+br_achievement_whatwasthat.png  br_sign_exit_side.png
+br_barrier.png                  br_sign_no_entry.png
+br_carpet_0.png                 br_sign_phone.png
+br_ceiling_light_0.png          br_sign_various_0.png
+br_ceiling_light_1.png          br_sign_various_1.png
+br_ceiling_tiles_0.png          br_sign_x.png
+br_concrete_meta_0.png          br_skirting_board_0.png
+br_concrete_meta_2.png          br_tiles_0.png
+br_concrete_meta_3.png          br_tiles_1.png
+br_door_0.png                   br_tiles_2.png
+br_duct_0.png                   br_ui_achievement_background.png
+br_emergency_light_0.png        br_use_when_stuck.png
+br_emergency_light_0_side.png   br_wallpaper_0.png
+br_fire_alarm.png               br_white.png
+br_flashlight_off.png           br_wield_hand.png
+br_flashlight.png               crosshair2.png
+br_ladder_steel_0.png           crosshair.png
+br_loot_area.png                hand.png
+br_meta_baseplate_0.png         
+br_meta_blank.png
+===============================
+
+
+
+
+
