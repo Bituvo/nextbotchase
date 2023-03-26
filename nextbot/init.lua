@@ -182,7 +182,7 @@ minetest.register_chatcommand("add_nextbot", {
     params = "<player> <bot>",
     func = function(name, param)
         local victim, bot = string.match(param, "(%w+)%s(%w+)")
-        if victim == "" or bot == "" then
+        if not victim or not bot or victim == "" or bot == "" then
             minetest.chat_send_player(name, "Invalid parameters; see /help add_nextbot")
             return
         end
