@@ -100,7 +100,7 @@ end
 function handle_new_player(player)
     player:set_physics_override({speed = 2})
 
-    if not minetest.check_player_privs(player, {server = true}) then
+    if not minetest.check_player_privs(player, {no_nextbot = true}) then
         player:set_pos(static_spawn)
         add_nextbot(player, "obunga")
     end
@@ -125,6 +125,12 @@ end)
 
 minetest.register_on_dieplayer(delete_player_nextbot)
 minetest.register_on_leaveplayer(delete_player_nextbot)
+
+-- Priveleges
+minetest.register_privilege("no_nextbot", {
+    description = "No nextbots will chase players with this privelege",
+    give_to_admin = true
+})
 
 -- Chat commands
 minetest.unregister_chatcommand("serverinfo")
@@ -184,11 +190,15 @@ minetest.register_chatcommand("add_nextbot", {
         victim = minetest.get_player_by_name(victim)
 
         if victim then
-            local invoker_pos = invoker:get_pos()
-            invoker_pos.y = -2.5
+            if minetest.check_player_privs(victim, {no_nextbot = true}) then
+                minetest.chat_send_player(invoker:get_player_name(), '"' .. victim:get_player_name() .. '" has the "no_nextbot" privilege')
+            else
+                local invoker_pos = invoker:get_pos()
+                invoker_pos.y = -2.5
 
-            local nextbot = minetest.add_entity(invoker_pos, "nextbot:" .. bot, victim:get_player_name())
-            nextbots[victim:get_player_name()] = nextbot
+                local nextbot = minetest.add_entity(invoker_pos, "nextbot:" .. bot, victim:get_player_name())
+                nextbots[victim:get_player_name()] = nextbot
+            end
         else
             minetest.chat_send_player(name, '"' .. victim:get_player_name() .. '" either does not exist or is not logged in')
         end
