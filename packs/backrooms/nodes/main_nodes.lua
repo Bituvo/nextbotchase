@@ -75,9 +75,7 @@ end
 minetest.register_node("br_core:ceiling_conduit_grey", {
     tiles = {{
         name = "(br_meta_blank.png^[colorize:#889:255"..
-        "^(br_meta_overlay_dirt_3.png^[multiply:#223^[opacity:50))"..
-        "^(br_meta_overlay_crisscross_0.png^[multiply:#99a^[opacity:80)"..
-        "^(br_meta_overlay_crisscross_1.png^[multiply:#99a^[opacity:255)",
+        "^(br_meta_overlay_dirt_1.png^[multiply:#223^[opacity:10))",
         align_style = "world",
         scale = 16,
     }},
