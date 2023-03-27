@@ -1,4 +1,5 @@
 minetest.unregister_chatcommand("spawn")
+minetest.unregister_chatcommand("killme")
 
 minetest.register_chatcommand("spawn", {
     description = "Teleport yourself or another player to spawn",
