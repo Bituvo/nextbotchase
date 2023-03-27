@@ -7,9 +7,14 @@ else
 end
 
 function handle_message(name, message)
+	if minetest.check_player_privs(name, {server = true}) then return end
+	
+	message = string.lower(message)
+
 	for _, word in ipairs(banned_words) do
 		if string.find(message, word) then
 			minetest.kick_player(name, "No cursing allowed!\n\nYou said: " .. message)
+			server.admin_chat_send(minetest.colorize("red", name .. ": ") .. message)
 			minetest.chat_send_all(name .. " kicked for cursing")
 			minetest.log("action", name .. ' warned for cursing: "' .. message .. '"')
 			

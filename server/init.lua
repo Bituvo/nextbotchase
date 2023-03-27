@@ -1,3 +1,5 @@
+server = {}
+
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
 
@@ -55,7 +57,15 @@ minetest.register_chatcommand("restart", {
     privs = {server = true},
     params = "[reason]",
     func = function(name, param)
-        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. param or "No reason specified" .. " (wait a bit before reconnecting)"))
+        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. param .. " (wait a bit before reconnecting)"))
         minetest.request_shutdown(param .. "\n\nWait a bit before reconnecting.\nIf the server doesn't reboot, Discord PM the admin: Thresher#9632", true, 20)
     end
 })
+
+function server.admin_chat_send(message)
+    for _, player in ipairs(minetest.get_connected_players()) do
+        if minetest.check_player_privs(player, {server = true}) then
+            minetest.chat_send_player(player:get_player_name(), message)
+        end
+    end
+end
