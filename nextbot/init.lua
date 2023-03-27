@@ -176,28 +176,38 @@ minetest.register_privilege("no_nextbot", {
 minetest.register_chatcommand("add_nextbot", {
     description = "Add a nextbot for a player at your location",
     privs = {server = true},
-    params = "<player> <bot>",
+    params = "<player> <bot> [force]",
     func = function(name, param)
-        local victim, bot = string.match(param, "(%w+)%s(%w+)")
-        if not victim or not bot or victim == "" or bot == "" then
+        local victim_name, bot, force = string.match(param, "(%w+)%s(%w+)%s?(%w*)")
+        if not victim_name or not bot or victim_name == "" or bot == "" then
             minetest.chat_send_player(name, "Invalid parameters; see /help add_nextbot")
             return
         end
         local invoker = minetest.get_player_by_name(name)
-        victim = minetest.get_player_by_name(victim)
+        local victim = minetest.get_player_by_name(victim_name)
 
         if victim then
-            if minetest.check_player_privs(victim, {no_nextbot = true}) then
-                minetest.chat_send_player(invoker:get_player_name(), '"' .. victim:get_player_name() .. '" has the "no_nextbot" privilege')
-            else
-                local invoker_pos = invoker:get_pos()
-                invoker_pos.y = -2.5
+            local should_spawn_nextbot = false
 
-                local nextbot = minetest.add_entity(invoker_pos, "nextbot:" .. bot, victim:get_player_name())
-                nextbots[victim:get_player_name()] = nextbot
+            if minetest.check_player_privs(victim, {no_nextbot = true}) then
+                if force == "" then
+                    minetest.chat_send_player(name, '"' .. victim_name.. '" has the "no_nextbot" privilege')
+                else
+                    should_spawn_nextbot = true
+                end
+            else
+                should_spawn_nextbot = true
+            end
+
+            if should_spawn_nextbot then
+                local invoker_pos = invoker:get_pos()
+                invoker_pos.y = -2
+
+                local nextbot = minetest.add_entity(invoker_pos, "nextbot:" .. bot, victim_name)
+                nextbots[victim_name] = nextbot
             end
         else
-            minetest.chat_send_player(name, '"' .. victim:get_player_name() .. '" either does not exist or is not logged in')
+            minetest.chat_send_player(name, '"' .. victim_name .. '" either does not exist or is not logged in')
         end
     end
 })
