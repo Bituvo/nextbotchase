@@ -52,6 +52,11 @@ function register_nextbot(name, chat_name, speed)
         if self.chasing and self.dtime > 1 / speed then
             self.dtime = 0
 
+            if self.player:get_hp() == 0 then
+                self.object:remove()
+                return
+            end
+
             local new_path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*_noprefetch")
             if new_path and #new_path > 1 then
                 self.next_pos = new_path[2]
@@ -72,11 +77,6 @@ function register_nextbot(name, chat_name, speed)
         end
 
         if vector.distance(real_player_pos, bot_pos) < 2 then
-            if self.chasing and self.player:get_hp() == 0 then
-                self.object:remove()
-                return
-            end
-
             if self.deletion_timer == 0 then
                 self.player:set_hp(0)
                 self.chasing = false
