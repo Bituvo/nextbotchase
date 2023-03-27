@@ -49,3 +49,13 @@ minetest.register_on_joinplayer(function(player)
 
     player:set_nametag_attributes({text = text})
 end)
+
+minetest.register_chatcommand("restart", {
+    description = "Restart the server after 20 seconds",
+    privs = {server = true},
+    params = "[reason]",
+    func = function(name, param)
+        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. param))
+        minetest.request_shutdown(param, true, 20)
+    end
+})
