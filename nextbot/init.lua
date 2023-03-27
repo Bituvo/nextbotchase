@@ -1,5 +1,5 @@
 local nextbots = {}
-local static_spawn = {x = 8, y = -4.5, z = 8}
+nextbot = {static_spawn = {x = 8, y = -4.5, z = 8}}
 
 local default_nextbot_definition = {
     initial_properties = {
@@ -57,7 +57,7 @@ function register_nextbot(name, chat_name, speed)
                 return
             end
 
-            local new_path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*_noprefetch")
+            local new_path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*")
             if new_path and #new_path > 1 then
                 self.next_pos = new_path[2]
                 self.next_pos.y = -2
@@ -142,7 +142,7 @@ function handle_new_player(player)
     player:set_physics_override({speed = 2})
 
     if not minetest.check_player_privs(player, {no_nextbot = true}) and player:get_hp() > 0 then
-        player:set_pos(static_spawn)
+        player:set_pos(nextbot.static_spawn)
         add_nextbot(player, "obunga")
     end
 end
