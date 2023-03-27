@@ -120,10 +120,8 @@ function add_nextbot(player, nextbot)
     offset = offset[random]
 
     local bot_pos = vector.add(player:get_pos(), offset)
-    if nextbot == "obunga" then
-        local obunga = minetest.add_entity(bot_pos, "nextbot:obunga", player:get_player_name())
-        nextbots[player:get_player_name()] = obunga
-    end
+    local bot = minetest.add_entity(bot_pos, "nextbot:" .. nextbot, player:get_player_name())
+    nextbots[player:get_player_name()] = bot
 
     local yaw = 0
 
@@ -140,6 +138,7 @@ function add_nextbot(player, nextbot)
 end
 
 function handle_new_player(player)
+    delete_player_nextbot(player)
     player:set_physics_override({speed = 2})
 
     if not minetest.check_player_privs(player, {no_nextbot = true}) and player:get_hp() > 0 then
