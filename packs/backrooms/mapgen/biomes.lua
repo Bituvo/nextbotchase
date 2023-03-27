@@ -60,27 +60,6 @@ br_core.register_biome({
 })
 br_core.register_biome({
     level = 0,
-    desc = "Level 0 concrete",
-    danger = 1,
-    on_generate = nil,
-    segheight = 20,
-    prevalence = 1,
-    can_generate = function(pos) -- must be deterministic
-        if vector.distance(pos, vector.new(0, pos.y, 0)) > 30 then
-            return true
-        else
-            return false
-        end
-    end,
-    schems = {
-        {name=sch("0_20_1_columns_0"), vertical_segments={1,0}},
-        --
-        {name=sch("0_20_2_walls_concrete_0"), vertical_segments={0,1}, prevalence=9},
-        {name=sch("0_20_2_walls_concrete_1"), vertical_segments={0,1}, prevalence=5},
-    }
-})
-br_core.register_biome({
-    level = 0,
     desc = "Level 0 nolight",
     danger = 1,
     on_generate = nil,
