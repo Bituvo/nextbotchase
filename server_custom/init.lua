@@ -39,3 +39,13 @@ minetest.register_chatcommand("who", {
         minetest.chat_send_player(name, string.sub(message, 1, -3))
     end
 })
+
+minetest.register_on_joinplayer(function(player)
+    local text = player:get_player_name()
+
+    if minetest.check_player_privs(player, {server = true}) then
+        text = minetest.colorize("purple", "[OWNER] ") .. text
+    end
+
+    player:set_nametag_attributes({text = text})
+end)
