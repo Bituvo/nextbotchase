@@ -1,4 +1,3 @@
-minetest.unregister_chatcommand("serverinfo")
 minetest.unregister_chatcommand("spawn")
 
 minetest.register_chatcommand("spawn", {

@@ -19,7 +19,6 @@ dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "set_fov.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "prevent_digging.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "item_entity.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "on_move_item.lua")
-dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "server_info.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "abm_tracker.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "nodelight_unfck.lua")
 
