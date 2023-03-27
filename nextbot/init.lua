@@ -212,6 +212,29 @@ minetest.register_chatcommand("add_nextbot", {
     end
 })
 
+minetest.register_chatcommand("find_nextbot", {
+    description = "Find a player's nextbot",
+    privs = {server = true},
+    params = "<player>",
+    func = function(name, param)
+        local invoker = minetest.get_player_by_name(name)
+        local player = minetest.get_player_by_name(param)
+
+        if player then
+            local nextbot = nextbots[param]
+
+            if nextbot then
+                invoker:set_pos(nextbot:get_pos())
+                minetest.chat_send_player(name, "Teleported to " .. param .. "'s nextbot")
+            else
+                minetest.chat_send_player(name, "Nextbot not found")
+            end
+        else
+            minetest.chat_send_player(name, '"' .. param .. '" either does not exist or is not logged in')
+        end
+    end
+})
+
 minetest.register_chatcommand("delete_nextbot", {
     description = "Delete a player's nextbot",
     privs = {server = true},
