@@ -8,7 +8,7 @@ end
 
 function handle_message(name, message)
 	if minetest.check_player_privs(name, {server = true}) then return end
-	
+
 	message = string.lower(message)
 
 	for _, word in ipairs(banned_words) do
@@ -40,7 +40,7 @@ minetest.register_on_chat_message(function(name, message)
 end)
 
 minetest.register_on_chatcommand(function(name, command, params)
-	if command == "msg" or command == "me" then
+	if command == "msg" or command == "me" or command == "pm" then
 		return handle_message(name, "/" .. command .. " " .. params)
 	end
 end)
