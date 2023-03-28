@@ -137,7 +137,7 @@ function add_nextbot(player, nextbot)
     player:set_look_vertical(0)
 end
 
-function handle_new_player(player)
+function handle_new_player(player)    
     delete_player_nextbot(player)
     player:set_physics_override({speed = 2})
 

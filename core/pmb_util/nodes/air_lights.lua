@@ -25,14 +25,3 @@ for i = 1, 14 do
         end
     })
 end
-
--- minetest.register_abm({
---     nodenames = {"group:pmb_util_transient_light"},
---     interval = 5.0,
---     chance = 10,
---     action = function(pos, node, active_object_count, active_object_count_wider)
---         if not minetest.get_node_timer(pos).is_started then
---             minetest.get_node_timer(pos):start(1)
---         end
---     end
--- })

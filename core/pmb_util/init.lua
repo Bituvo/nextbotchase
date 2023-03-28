@@ -16,7 +16,6 @@ dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "output_node_list.lua"
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "description_formatter.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "on_change_wielditem.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "set_fov.lua")
-dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "prevent_digging.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "item_entity.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "on_move_item.lua")
 dofile(mod_path .. DIR_DELIM .. "scripts" .. DIR_DELIM .. "abm_tracker.lua")
