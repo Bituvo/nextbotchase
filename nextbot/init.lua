@@ -50,6 +50,7 @@ function register_nextbot(name, chat_name, speed)
         local real_player_pos = player_pos
         player_pos.y = -4
         bot_pos.y = -4
+        local distance_to_player = vector.distance(bot_pos, player_pos)
 
         if self.chasing and self.dtime > 1 / speed then
             self.dtime = 0
@@ -59,12 +60,17 @@ function register_nextbot(name, chat_name, speed)
                 return
             end
 
-            if self.steps % 2 == 0 then
+            local modulo = 2
+            if distance_to_player > 20 then
+                modulo = 4
+            end
+
+            if self.steps % modulo == 0 then
                 self.path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*")
             end
 
             if self.path and #self.path > 1 then
-                self.next_pos = self.path[self.steps % 2 + 2]
+                self.next_pos = self.path[self.steps % modulo + 2]
                 self.next_pos.y = -2
             else
                 self.next_pos = nil
@@ -83,7 +89,7 @@ function register_nextbot(name, chat_name, speed)
             end
         end
 
-        if vector.distance(real_player_pos, bot_pos) < 2 then
+        if distance_to_player < 2 then
             if self.deletion_timer == 0 then
                 self.player:set_hp(0)
                 self.chasing = false
@@ -229,8 +235,8 @@ minetest.register_chatcommand("find_nextbot", {
 
         if player then
             local nextbot = nextbots[param]
-
             if nextbot then
+                nextbot = nextbot:get_luaentity()
                 invoker:set_pos(nextbot:get_pos())
                 minetest.chat_send_player(name, "Teleported to " .. param .. "'s nextbot")
             else
