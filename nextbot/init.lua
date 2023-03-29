@@ -10,9 +10,11 @@ local default_nextbot_definition = {
 
     dtime = 0,
     deletion_timer = 0,
+    path = {},
     next_pos = nil,
     started = false,
     chasing = false,
+    steps = 0,
 
     on_activate = function(self, staticdata)
         self.player = minetest.get_player_by_name(staticdata)
@@ -57,9 +59,12 @@ function register_nextbot(name, chat_name, speed)
                 return
             end
 
-            local new_path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*")
-            if new_path and #new_path > 1 then
-                self.next_pos = new_path[2]
+            if self.steps % 2 == 0 then
+                self.path = minetest.find_path(bot_pos, player_pos, 10, 0, 0, "A*")
+            end
+
+            if self.path and #self.path > 1 then
+                self.next_pos = self.path[self.steps % 2 + 2]
                 self.next_pos.y = -2
             else
                 self.next_pos = nil
@@ -73,6 +78,8 @@ function register_nextbot(name, chat_name, speed)
                 velocity.y = 0
                 velocity = vector.multiply(velocity, speed)
                 self.object:set_velocity(velocity)
+
+                self.steps = self.steps + 1
             end
         end
 
