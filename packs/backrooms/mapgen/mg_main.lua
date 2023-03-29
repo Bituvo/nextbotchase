@@ -16,12 +16,6 @@ local nam = {}
 local air = nil
 
 minetest.register_on_mods_loaded(function()
-    local on_gen_list = br_core.get_on_generate_node_list()
-    for node_name, list in pairs(on_gen_list) do
-        local contentid = minetest.get_content_id(node_name)
-        cid[node_name] = contentid
-        nam[contentid] = node_name
-    end
     air = minetest.get_content_id("air")
 end)
 

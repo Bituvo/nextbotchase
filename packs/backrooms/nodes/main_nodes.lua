@@ -18,13 +18,11 @@ end
 
 minetest.register_node("br_core:carpet_0", {
     tiles = { "br_".."carpet_0.png" },
-    sounds = br_sounds.carpet(),
     light_source = (br_core.fullbright) or 0,
 })
 
 minetest.register_node("br_core:wallpaper_0", {
     tiles = { "br_".."wallpaper_0.png" },
-    sounds = br_sounds.carpet(),
     light_source = (br_core.fullbright) or 0,
 }) add_overlay_variant("br_core:wallpaper_0", "(br_skirting_board_0.png^[sheet:16x16:0,0^[multiply:#d9d8c4)", "skirting", {})
 
@@ -79,7 +77,6 @@ minetest.register_node("br_core:ceiling_conduit_grey", {
         align_style = "world",
         scale = 16,
     }},
-    sounds = br_sounds.default(),
     light_source = (br_core.fullbright) or 0,
 })
 
@@ -89,7 +86,6 @@ minetest.register_node("br_core:concrete_grey", {
         align_style = "world",
         scale = 16,
     }},
-    sounds = br_sounds.concrete(),
     light_source = (br_core.fullbright) or minetest.LIGHT_MAX,
 })
 
@@ -98,7 +94,6 @@ minetest.register_node("br_core:ceiling_tiles_yellow", {
         "br_meta_blank.png^[colorize:#c5b794:255"..
         "^(br_meta_overlay_crisscross_2.png^[multiply:#ddc^[opacity:100)"..
         "^(br_meta_overlay_dirt_1.png^[multiply:#112^[opacity:10)"),
-    sounds = br_sounds.default(),
     light_source = 1,
 })
 
@@ -125,7 +120,6 @@ nodebox = {
 minetest.register_node("br_core:ceiling_light_3", {
     drawtype = (debug and "airlike") or "nodebox",
     tiles = { "br_ceiling_light_1.png" },
-    sounds = br_sounds.default(),
     node_box = nodebox,
     selection_box = selectionbox,
     paramtype2 = "facedir",
@@ -140,11 +134,9 @@ minetest.register_node("br_core:ceiling_light_3", {
 minetest.register_node("br_core:ceiling_light_3_off", {
     drawtype = (debug and "airlike") or "nodebox",
     tiles = { "br_ceiling_light_1.png^[multiply:#cfcecf" },
-    sounds = br_sounds.default(),
     node_box = nodebox,
     selection_box = selectionbox,
     paramtype2 = "facedir",
-    -- light_source = 0,
     walkable = false,
     on_place = function(itemstack, placer, pointed_thing)
         return minetest.rotate_and_place(itemstack, placer, pointed_thing, nil, {})

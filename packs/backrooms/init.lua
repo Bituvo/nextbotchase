@@ -39,10 +39,6 @@ minetest.register_on_joinplayer(function(player)
     player:hud_set_flags({hotbar = true, healthbar = true, wielditem = true, crosshair = true})
 end)
 
-dofile(mod_path .. DIR_DELIM .. "core" .. DIR_DELIM .. "on_generate.lua")
-dofile(mod_path .. DIR_DELIM .. "core" .. DIR_DELIM .. "soundspecs.lua")
-dofile(mod_path .. DIR_DELIM .. "core" .. DIR_DELIM .. "frames.lua")
-dofile(mod_path .. DIR_DELIM .. "core" .. DIR_DELIM .. "core.lua")
 dofile(mod_path .. DIR_DELIM .. "mapgen" .. DIR_DELIM .. "mapgen.lua")
 -- makes nodes
 dofile(mod_path .. DIR_DELIM .. "nodes" .. DIR_DELIM .. "main_nodes.lua")

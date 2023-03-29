@@ -7,7 +7,7 @@ local get_biome = function(pos)
 end
 br_core.get_biome = get_biome
 
-br_core.generator = world_storage:get_key("br_mapgen") or "main"
+br_core.generator = "main"
 
 br_core.generators = {}
 
