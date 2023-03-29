@@ -12,7 +12,6 @@ local default_nextbot_definition = {
     deletion_timer = 0,
     path = {},
     next_pos = nil,
-    started = false,
     chasing = false,
     steps = 0,
 
@@ -34,9 +33,8 @@ function register_nextbot(name, chat_name, speed)
 
         self.dtime = self.dtime + dtime
 
-        if not self.started then
+        if not self.chasing then
             if self.dtime > 1 then
-                self.started = true
                 self.chasing = true
                 self.dtime = 0
             else
@@ -87,21 +85,21 @@ function register_nextbot(name, chat_name, speed)
 
                 self.steps = self.steps + 1
             end
-        end
 
-        if distance_to_player < 2 then
-            if self.deletion_timer == 0 then
-                self.player:set_hp(0)
-                self.chasing = false
-                self.object:set_velocity({x = 0, y = 0, z = 0})
+            if distance_to_player < 2 then
+                if self.deletion_timer == 0 then
+                    self.player:set_hp(0)
+                    self.chasing = false
+                    self.object:set_velocity({x = 0, y = 0, z = 0})
 
-                minetest.chat_send_all(self.player:get_player_name() .. " was killed by " .. self.chat_name)
-            elseif self.deletion_timer > 2 then
-                self.object:remove()
-                return
+                    minetest.chat_send_all(self.player:get_player_name() .. " was killed by " .. self.chat_name)
+                elseif self.deletion_timer > 2 then
+                    self.object:remove()
+                    return
+                end
+
+                self.deletion_timer = self.deletion_timer + dtime
             end
-
-            self.deletion_timer = self.deletion_timer + dtime
         end
     end
 
