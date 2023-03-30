@@ -65,7 +65,7 @@ function nextbot.add_nextbot(name, target, pos)
 			target_pos.y = -4
 			bot_pos.y = -4
 
-			self.path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
+			self.path = minetest.find_path(vector.round(bot_pos), target_pos, 10, 0, 0, "A*")
 
 			if self.path and #self.path > 1 then
 				self.next_pos = self.path[2]
