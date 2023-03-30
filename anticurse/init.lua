@@ -41,7 +41,7 @@ end)
 
 minetest.register_on_chatcommand(function(name, command, params)
 	if command == "msg" or command == "me" or command == "pm" then
-		return handle_message(name, params)
+		return handle_message(name, "/" .. command .. " " .. params)
 	end
 end)
 
