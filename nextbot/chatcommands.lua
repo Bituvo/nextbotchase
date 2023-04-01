@@ -11,6 +11,7 @@ minetest.register_chatcommand("add_nextbot", {
 		local target_name, nextbot_name, force = string.match(param, "(%w+)%s(%w+)%s?(%w*)")
 
 		if not target_name or not nextbot_name or target_name == "" or nextbot_name == "" then
+			-- One of the required arguments is empty
 			minetest.chat_send_player(name, "Invalid arguments, see /help add_nextbot")
 			return
 		end
@@ -21,6 +22,7 @@ minetest.register_chatcommand("add_nextbot", {
 		if target then
 			local should_spawn_nextbot = false
 
+			-- Don't add nextbots to players with the no_nextbot privelege
 			if minetest.check_player_privs(target, {no_nextbot = true}) then
 				if force == "" then
 					minetest.chat_send_player(target_name.. ' has the "no_nextbot" privilege')

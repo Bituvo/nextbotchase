@@ -1,4 +1,5 @@
 local storage = minetest.get_mod_storage()
+-- Load current banned words, or empty list
 local banned_words = storage:get_string("banned_words")
 if banned_words == "" then
 	banned_words = {}
@@ -6,6 +7,7 @@ else
 	banned_words = minetest.deserialize(banned_words)
 end
 
+-- Return true if the message contains banned words
 function handle_message(name, message)
 	if minetest.check_player_privs(name, {server = true}) then return end
 
@@ -23,6 +25,7 @@ function handle_message(name, message)
 	end
 end
 
+-- If a word is banned, return true and its index in the banned words list
 function is_banned(word)
 	for index, value in ipairs(banned_words) do
 		if value == word then
@@ -31,10 +34,12 @@ function is_banned(word)
 	end
 end
 
+-- Save desynced banned words list to mod storage
 function update_banned_words()
 	storage:set_string("banned_words", minetest.serialize(banned_words))
 end
 
+-- Handle all chat messages and chat commands
 minetest.register_on_chat_message(function(name, message)
 	return handle_message(name, message)
 end)
@@ -45,6 +50,7 @@ minetest.register_on_chatcommand(function(name, command, params)
 	end
 end)
 
+-- Server chat commands
 minetest.register_chatcommand("ban_word", {
 	description = "Bans a word",
 	privs = {server = true},

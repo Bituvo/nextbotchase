@@ -1,3 +1,4 @@
+-- Entity definition that all nextbots have in common
 local default_nextbot_definition = {
 	initial_properties = {
         pointable = false,
@@ -12,10 +13,12 @@ local default_nextbot_definition = {
     chasing = false,
 
 	on_reach_target = function(self)
+		-- Kill player and stop moving
 		self.target:set_hp(0)
 		self.chasing = false
 		self.object:set_velocity(vector.new())
 
+		-- Delete self after two seconds
 		minetest.after(2, function() self.object:remove() end)
 	end
 }
@@ -32,13 +35,15 @@ end
 
 function nextbot.add_nextbot(name, target, pos)
 	local new_nextbot = minetest.add_entity(pos, "nextbot:" .. name)
-	minetest.chat_send_all("nextbot:" .. name)
 
+	-- Set position and target
 	new_nextbot:set_pos(pos)
 	new_nextbot:get_luaentity().target = target
+	-- Set on_step function (contains pathfinding logic)
 	new_nextbot:get_luaentity().on_step = function(self, dtime)
 		self.dtime = self.dtime + dtime
 
+		-- Start moving after one second
 		if not self.chasing then
 			if self.dtime > 1 then
 				self.dtime = 0
@@ -48,26 +53,32 @@ function nextbot.add_nextbot(name, target, pos)
 			end
 		end
 
+		-- The nextbot "steps" <speed> times per second
 		if self.chasing and self.dtime > (1 / self.speed) then
 			self.dtime = 0
 
+			-- Stop if target is already dead
 			if self.target:get_hp() == 0 then
 				self.on_reach_target(self)
 				return
 			end
 
+			-- Delete self if target can't be found
 			if not self.target:get_pos() then
 				self.object:remove()
 				return
 			end
 
 			local target_pos = self.target:get_pos()
+			-- Round bot position for pathfinding
 			local bot_pos = vector.round(self.object:get_pos())
 			target_pos.y = -4
 			bot_pos.y = -4
 
+			-- Find path using A* algorithm
 			self.path = minetest.find_path(vector.round(bot_pos), target_pos, 10, 0, 0, "A*")
 
+			-- Set next position if a path was found
 			if self.path and #self.path > 1 then
 				self.next_pos = self.path[2]
 				self.next_pos.y = -2
@@ -76,6 +87,7 @@ function nextbot.add_nextbot(name, target, pos)
 			end
 
 			if self.next_pos then
+				-- Smoothly move toward next point
 				local velocity = vector.multiply(vector.subtract(self.next_pos, bot_pos), self.speed)
 				velocity.y = 0
 
@@ -83,6 +95,7 @@ function nextbot.add_nextbot(name, target, pos)
 			end
 
 			if vector.distance(bot_pos, target_pos) < 2 then
+				-- Collided with player
 				self.on_reach_target(self)
 				minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
 			end

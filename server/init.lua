@@ -1,5 +1,6 @@
 server = {}
 
+-- For use on modded servers
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
 
@@ -42,6 +43,7 @@ minetest.register_chatcommand("who", {
     end
 })
 
+-- Make owners have purple nametags
 minetest.register_on_joinplayer(function(player)
     local text = player:get_player_name()
 
@@ -62,6 +64,7 @@ minetest.register_chatcommand("restart", {
     end
 })
 
+-- Send a message in chat that is only visible to staff
 function server.admin_chat_send(message)
     for _, player in ipairs(minetest.get_connected_players()) do
         if minetest.check_player_privs(player, {server = true}) then
