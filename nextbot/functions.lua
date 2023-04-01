@@ -52,3 +52,5 @@ function nextbot.on_new_player(player)
         nextbot.add_nextbot(nextbot.nextbots[math.random(1, #nextbot.nextbots)].name, player, bot_pos)
     end
 end
+
+minetest.register_on_shutdown(minetest.clear_objects)
