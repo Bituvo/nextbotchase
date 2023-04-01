@@ -21,17 +21,18 @@ local default_nextbot_definition = {
 }
 
 function nextbot.register_nextbot(nextbot_def)
-	local new_nextbot_definition = default_nextbot_definition
+	local new_nextbot_definition = table.copy(default_nextbot_definition)
 
 	new_nextbot_definition.initial_properties.textures = {nextbot_def.name .. ".png"}
 	new_nextbot_definition.formal_name = nextbot_def.formal_name
 	new_nextbot_definition.speed = nextbot_def.speed
 
-	minetest.register_entity("nextbot:" .. nextbot_def.name, default_nextbot_definition)
+	minetest.register_entity("nextbot:" .. nextbot_def.name, new_nextbot_definition)
 end
 
 function nextbot.add_nextbot(name, target, pos)
 	local new_nextbot = minetest.add_entity(pos, "nextbot:" .. name)
+	minetest.chat_send_all("nextbot:" .. name)
 
 	new_nextbot:set_pos(pos)
 	new_nextbot:get_luaentity().target = target
