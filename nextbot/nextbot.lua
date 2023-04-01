@@ -10,6 +10,7 @@ local default_nextbot_definition = {
     deletion_timer = 0,
     path = {},
     next_pos = nil,
+	steps = 0,
     chasing = false,
 
 	on_reach_target = function(self)
@@ -74,19 +75,33 @@ function nextbot.add_nextbot(name, target, pos)
 			local bot_pos = vector.round(self.object:get_pos())
 			target_pos.y = -4
 			bot_pos.y = -4
+			local distance_to_target = vector.distance(bot_pos, target_pos)
 
-			-- Find path using A* algorithm
-			self.path = minetest.find_path(vector.round(bot_pos), target_pos, 10, 0, 0, "A*")
+			-- Set pathfinding frequency depending on distance to target
+			local modulo = 1
+			if distance_to_target > 50 then
+				modulo = 4
+			elseif distance_to_target > 35 then
+				modulo = 3
+			elseif distance_to_target > 20 then
+				modulo = 2
+			end
+
+			-- Pathfind
+			if self.steps % modulo == 0 then
+				self.path = minetest.find_path(vector.round(bot_pos), target_pos, 10, 0, 0, "A*")
+			end
 
 			-- Set next position if a path was found
 			if self.path and #self.path > 1 then
-				self.next_pos = self.path[2]
+				self.next_pos = self.path[self.steps % modulo + 2]
 				self.next_pos.y = -2
 			else
 				self.next_pos = nil
 			end
 
 			if self.next_pos then
+				self.steps = self.steps + 1
 				-- Smoothly move toward next point
 				local velocity = vector.multiply(vector.subtract(self.next_pos, bot_pos), self.speed)
 				velocity.y = 0
@@ -94,7 +109,7 @@ function nextbot.add_nextbot(name, target, pos)
 				self.object:set_velocity(velocity)
 			end
 
-			if vector.distance(bot_pos, target_pos) < 2 then
+			if distance_to_target < 2 then
 				-- Collided with player
 				self.on_reach_target(self)
 				minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
