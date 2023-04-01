@@ -98,6 +98,8 @@ function nextbot.add_nextbot(name, target, pos)
 				self.next_pos.y = -2
 			else
 				self.next_pos = nil
+				bot_pos.y = -2
+				self.object:set_pos(bot_pos)
 			end
 
 			if self.next_pos then
