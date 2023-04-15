@@ -1,6 +1,3 @@
-server = {}
-
--- For use on modded servers
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
 
@@ -43,17 +40,6 @@ minetest.register_chatcommand("who", {
     end
 })
 
--- Make owners have purple nametags
-minetest.register_on_joinplayer(function(player)
-    local text = player:get_player_name()
-
-    if minetest.check_player_privs(player, {server = true}) then
-        text = minetest.colorize("purple", "[OWNER] ") .. text
-    end
-
-    player:set_nametag_attributes({text = text})
-end)
-
 minetest.register_chatcommand("restart", {
     description = "Restart the server after 20 seconds",
     privs = {server = true},
@@ -63,12 +49,3 @@ minetest.register_chatcommand("restart", {
         minetest.request_shutdown(param .. "\n\nWait a bit before reconnecting.\nIf the server doesn't reboot, Discord PM the admin: Thresher#9632", true, 20)
     end
 })
-
--- Send a message in chat that is only visible to staff
-function server.admin_chat_send(message)
-    for _, player in ipairs(minetest.get_connected_players()) do
-        if minetest.check_player_privs(player, {server = true}) then
-            minetest.chat_send_player(player:get_player_name(), message)
-        end
-    end
-end
