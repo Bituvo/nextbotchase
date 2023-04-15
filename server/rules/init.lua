@@ -50,3 +50,23 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		nextbot.on_new_player(player)
 	end
 end)
+
+minetest.register_chatcommand("rules", {
+	description = "Show the server rules",
+	func = function(name)
+		minetest.show_formspec(name, "rules",
+			"formspec_version[5]" ..
+			"size[10, 6.5]" ..
+			"no_prepend[]" ..
+			"bgcolor[#111a]" ..
+			"label[1, 1;" .. S("Backrooms Chase rules:") .. "]" ..
+			"textlist[1, 1.5;8, 2.6;rules;1. " .. S("Don't swear or harass other players") ..
+				",2. " .. S("Don't spam in chat") ..
+				",3. " .. S("Don't use nonsense usernames (\"asjdhsdag\")") ..
+				",4. " .. S("Don't ask for priveleges (\"can I have creative?\")") ..
+				",5. " .. S("Don't roleplay (no exceptions)") ..
+				",6. " .. S("Don't talk about controversial topics") .. "]" ..
+			"button_exit[1, 4.5;3, 1;exit;OK]"
+		)
+	end
+})
