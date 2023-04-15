@@ -34,8 +34,11 @@ minetest.register_on_joinplayer(function(player)
 	if not minetest.check_player_privs(player, {server = true}) then
 		if player:get_meta():get_int("rules_agreed") == 0 then
 			show_rules(player)
+			return
 		end
 	end
+
+	nextbot.on_new_player(player)
 end)
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
