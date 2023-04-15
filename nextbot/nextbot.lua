@@ -9,6 +9,7 @@ local default_nextbot_definition = {
     dtime = 0,
     deletion_timer = 0,
     path = {},
+	previous_pos = nil,
     next_pos = nil,
 	steps = 0,
     chasing = false,
@@ -40,6 +41,7 @@ function nextbot.add_nextbot(name, target, pos)
 	-- Set position and target
 	new_nextbot:set_pos(pos)
 	new_nextbot:get_luaentity().target = target
+	new_nextbot:get_luaentity().previous_pos = pos
 	-- Set on_step function (contains pathfinding logic)
 	new_nextbot:get_luaentity().on_step = function(self, dtime)
 		self.dtime = self.dtime + dtime
@@ -102,7 +104,9 @@ function nextbot.add_nextbot(name, target, pos)
 				self.object:set_pos(bot_pos)
 			end
 
-			if self.next_pos then
+			if self.next_pos and self.next_pos.x ~= self.previous_pos.x and self.next_pos.z ~= self.previous_pos.z then
+				self.previous_pos = bot_pos
+
 				self.steps = self.steps + 1
 				-- Smoothly move toward next point
 				local velocity = vector.multiply(vector.subtract(self.next_pos, bot_pos), self.speed)
