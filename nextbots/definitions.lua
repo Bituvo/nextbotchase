@@ -19,6 +19,7 @@ local common_nextbot_definition = {
 		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
+		minetest.sound_fade(self.sound_handle, 2, 0)
 		minetest.after(2, function() self.object:remove() end)
 	end,
 
@@ -61,6 +62,7 @@ local function get_new_nextbot_definition(name, formal_name, speed, size)
 	new_nextbot_definition.initial_properties.textures = {name .. ".png"}
 	new_nextbot_definition.initial_properties.visual_size = {x = size, y = size}
 	new_nextbot_definition.formal_name = formal_name
+	new_nextbot_definition.real_name = name
 	new_nextbot_definition.speed = speed
 
 	return new_nextbot_definition
