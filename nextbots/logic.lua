@@ -48,6 +48,9 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				if path and #path > 1 then
 					next_pos = path[2]
 					next_pos.y = self.fixed_y_position
+				else
+					self.stay_unstuck(self)
+					return
 				end
 
 				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self.speed)

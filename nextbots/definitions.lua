@@ -20,6 +20,37 @@ local common_nextbot_definition = {
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
 		minetest.after(2, function() self.object:remove() end)
+	end,
+
+	-- If nextbot is stuck in a wall
+	stay_unstuck = function(self)
+		if minetest.get_node(self.object:get_pos()).name ~= "air" then
+			local origin = vector.round(self.object:get_pos())
+			origin.y = -4
+
+			local left = origin
+			local right = origin
+			local forwards = origin
+			local backwards = origin
+
+			left.x = left.x - 1
+			right.x = right.x + 1
+			forwards.z = forwards.z + 1
+			backwards.z = backwards.z - 1
+
+			if minetest.get_node(left).name == "air" then
+				self.object:move_to(left)
+			elseif minetest.get_node(right).name == "air" then
+				self.object:move_to(right)
+			elseif minetest.get_node(forwards).name == "air" then
+				self.object:move_to(forwards)
+			elseif minetest.get_node(backwards).name == "air" then
+				self.object:move_to(backwards)
+			else
+				-- We are too stuck
+				self.object:remove()
+			end
+		end
 	end
 }
 
