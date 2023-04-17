@@ -45,4 +45,5 @@ end
 
 -- In order of appearance
 nextbots.register_nextbot("obunga", "Obunga", 10, 5)
-nextbots.register_nextbot("selene", "Selene Delgado López", 10, 5)
+nextbots.register_nextbot("selene", "Selene Delgado López", 11, 4)
+nextbots.register_nextbot("thisman", "This Man", 11, 5)
