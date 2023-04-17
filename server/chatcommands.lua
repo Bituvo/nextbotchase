@@ -56,5 +56,6 @@ minetest.register_chatcommand("restart", {
 		
         minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. param .. " (wait a bit before reconnecting)"))
         minetest.request_shutdown(param .. "\n\nWait a bit before reconnecting.\nIf the server doesn't reboot, Discord PM the admin: Thresher#9632", true, 20)
+        minetest.clear_objects()
     end
 })
