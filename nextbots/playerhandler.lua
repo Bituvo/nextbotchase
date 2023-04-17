@@ -25,7 +25,6 @@ end
 -- Do relocating and nextbot spawning when a player is ready
 function nextbots.handle_new_player(player)
 	player:set_pos(server.static_spawn)
-	player:set_physics_override({speed = 2})
 
 	-- Ignore staff (you shouldn't do this or I will punish you)
 	if minetest.check_player_privs(player, {server = true}) then return end
