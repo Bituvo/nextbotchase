@@ -20,7 +20,11 @@ local common_nextbot_definition = {
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
 		minetest.sound_fade(self.sound_handle, 2, 0)
-		minetest.after(2, function() self.object:remove() end)
+		minetest.after(2, function()
+			local target_name = self.target:get_player_name()
+			self.object:remove()
+			nextbots.spawned_nextbots[target_name] = nil
+		end)
 	end,
 
 	-- If nextbot is stuck in a wall
