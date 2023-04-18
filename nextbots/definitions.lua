@@ -51,9 +51,6 @@ local common_nextbot_definition = {
 				self.object:move_to(forwards)
 			elseif minetest.get_node(backwards).name == "air" then
 				self.object:move_to(backwards)
-			else
-				-- We are too stuck
-				self.object:remove()
 			end
 		end
 	end
