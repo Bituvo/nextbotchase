@@ -19,8 +19,8 @@ local common_nextbot_definition = {
 		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
-		minetest.sound_fade(self.sound_handle, 2, 0)
 		minetest.after(2, function()
+			minetest.sound_stop(self.sound_handle)
 			local target_name = self.target:get_player_name()
 			self.object:remove()
 			nextbots.spawned_nextbots[target_name] = nil
