@@ -62,6 +62,10 @@ local function get_new_nextbot_definition(name, formal_name, speed, size)
 	
 	new_nextbot_definition.initial_properties.textures = {name .. ".png"}
 	new_nextbot_definition.initial_properties.visual_size = {x = size, y = size}
+	new_nextbot_definition.initial_properties.selectionbox = {
+		-0.75, size / -2 + 0.5, -0.75,
+		0.75, size / 2 - 0.5, 0.75
+	}
 	new_nextbot_definition.formal_name = formal_name
 	new_nextbot_definition.real_name = name
 	new_nextbot_definition.speed = speed
