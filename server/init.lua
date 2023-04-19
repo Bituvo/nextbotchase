@@ -7,4 +7,5 @@ server = {
 dofile(modpath .. "/chatcommands.lua")
 dofile(modpath .. "/rules.lua")
 dofile(modpath .. "/playerregistrations.lua")
+dofile(modpath .. "/death.lua")
 dofile(modpath .. "/staffstuff.lua")
