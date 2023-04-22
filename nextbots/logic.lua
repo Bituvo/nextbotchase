@@ -32,7 +32,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				self.dtime = 0
 
 				-- Delete self if target is already dead or can't be found
-				if not self.target:get_pos() or self.target:get_hp() == 0 then
+				if not self.target or not self.target:get_pos() or self.target:get_hp() == 0 then
 					minetest.sound_fade(self.sound_handle, 2, 0)
 					self.object:remove()
 					return
