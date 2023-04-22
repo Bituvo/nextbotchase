@@ -20,7 +20,6 @@ local common_nextbot_definition = {
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
 		minetest.after(2, function()
-			minetest.sound_stop(self.sound_handle)
 			local target_name = self.target:get_player_name()
 			self.object:remove()
 			nextbots.spawned_nextbots[target_name] = nil

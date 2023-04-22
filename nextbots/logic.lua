@@ -18,12 +18,11 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		new_nextbot:get_luaentity().chasing = true
 
 		new_nextbot:get_luaentity().sound_handle = minetest.sound_play(name, {
-            object = new_nextbot,
-            loop = true,
-            max_hear_distance = 16,
-			gain = 3,
+			object = new_nextbot,
+			loop = true,
+			max_hear_distance = 16,
 			to_player = target:get_player_name()
-        })
+		})
 
 		new_nextbot:get_luaentity().on_step = function(self, dtime)
 			self.dtime = self.dtime + dtime
@@ -33,7 +32,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 				-- Delete self if target is already dead or can't be found
 				if not self.target or not self.target:get_pos() or self.target:get_hp() == 0 then
-					minetest.sound_fade(self.sound_handle, 2, 0)
+					minetest.sound_fade(self.sound_handle, 1.5, 0)
 					self.object:remove()
 					return
 				end
@@ -46,6 +45,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 				-- Check if we have reached the target before pathfinding
 				if vector.distance(bot_pos, target_pos) < 2 then
+					minetest.sound_fade(self.sound_handle, 1.5, 0)
 					self.on_reach_target(self)
 					return
 				end
