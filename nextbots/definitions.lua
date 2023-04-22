@@ -53,6 +53,12 @@ local common_nextbot_definition = {
 				self.object:move_to(backwards)
 			end
 		end
+	end,
+
+	on_punch = function(self, puncher)
+		minetest.chat_send_player(puncher:get_player_name(), self.target:get_player_name())
+
+		return true
 	end
 }
 
