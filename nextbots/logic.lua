@@ -14,11 +14,6 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 	-- Pathfinding logic
 	minetest.after(wait_time, function()
-		if not new_nextbot:get_luaentity() then
-			new_nextbot:remove()
-			return
-		end
-		
 		new_nextbot:get_luaentity().chasing = true
 
 		-- Play sound
@@ -40,7 +35,9 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				-- Delete self if target is already dead or can't be found
 				if not self.target or self.target:get_hp() == 0 then
 					minetest.sound_stop(self.sound_handle)
+					local id = self.id
 					self.object:remove()
+					nextbots.spawned_nextbots[id] = nil
 					return
 				end
 
