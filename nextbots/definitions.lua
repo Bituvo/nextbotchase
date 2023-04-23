@@ -21,6 +21,7 @@ local common_nextbot_definition = {
 		local target_deaths = target_meta:get_int("deaths") + 1
 		target_meta:set_float("chased_time", target_chased_time)
 		target_meta:set_int("deaths", target_deaths)
+		target_meta:set_int("being_chased", 0)
 
 		-- Score calculation
 		local score = 0

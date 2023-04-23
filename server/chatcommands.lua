@@ -2,32 +2,15 @@
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
 
--- I don't know why you would need to teleport another player to spawn, but it's there
 minetest.register_chatcommand("spawn", {
-    description = "Teleport yourself or another player to spawn",
-    params = "[player]",
-    func = function(name, param)
-        if param ~= "" then
-            local player = minetest.get_player_by_name(param)
-            
-            if player then
-                if minetest.check_player_privs(name, {server = true}) then
-                    player:set_pos(server.static_spawn)
+    description = "Teleport to spawn",
+    privs = {server = true},
+    
+    func = function(name)
+        local player = minetest.get_player_by_name(name)
+        player:set_pos(server.static_spawn)
 
-                    minetest.chat_send_player(name, "Teleported " .. param .. " to spawn")
-					minetest.chat_send_player(param, name .. " teleported you to spawn")
-                else
-                    minetest.chat_send_player(name, "You cannot send another player to spawn")
-                end
-            else
-                minetest.chat_send_player(name, "'" .. param .. "' either does not exist or is not logged in")
-            end
-        else
-            local player = minetest.get_player_by_name(name)
-            player:set_pos(server.static_spawn)
-
-            minetest.chat_send_player(name, "Teleported to spawn")
-        end
+        minetest.chat_send_player(name, "Teleported to spawn")
     end
 })
 

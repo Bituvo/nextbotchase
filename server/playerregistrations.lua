@@ -14,6 +14,7 @@ end
 -- Show a player the rules if they have not agreed to them yet
 minetest.register_on_newplayer(function(player)
 	player:set_physics_override({speed = nextbots.player_speed})
+	target:get_meta:set_int("being_chased", 0)
 	
 	if not minetest.check_player_privs(player, {server = true}) then
 		set_hud(player)
@@ -28,6 +29,7 @@ end)
 -- Ditto, but also spawn a nextbot
 minetest.register_on_joinplayer(function(player)
 	player:set_physics_override({speed = nextbots.player_speed})
+	target:get_meta:set_int("being_chased", 0)
 
 	if not minetest.check_player_privs(player, {server = true}) then
 		set_hud(player)
@@ -46,4 +48,19 @@ end)
 minetest.register_on_respawnplayer(function(player)
 	nextbots.handle_new_player(player)
 	return true
+end)
+
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	if formname ~= "new_player" then return end
+	local name = player:get_player_name()
+
+	-- Kick player if they don't agree to the rules
+	if fields.rules_disagree or fields.quit then
+		minetest.kick_player(name, S("Please read and agree to the rules."))
+	elseif fields.rules_agree then
+		player:get_meta():set_int("rules_agreed", 1)
+		minetest.close_formspec(name, "new_player")
+		
+		nextbots.handle_new_player(player)
+	end
 end)
