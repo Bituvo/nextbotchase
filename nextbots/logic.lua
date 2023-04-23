@@ -26,13 +26,14 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 		new_nextbot:get_luaentity().on_step = function(self, dtime)
 			self.dtime = self.dtime + dtime
+			self.chase_time = self.chase_time + dtime
 
 			if self.dtime > 1 / self.speed and self.chasing then
 				self.dtime = 0
 
 				-- Delete self if target is already dead or can't be found
 				if not self.target or not self.target:get_pos() or self.target:get_hp() == 0 then
-					minetest.sound_fade(self.sound_handle, 1.5, 0)
+					minetest.sound_stop(self.sound_handle)
 					self.object:remove()
 					return
 				end

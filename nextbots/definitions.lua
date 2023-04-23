@@ -7,6 +7,7 @@ local common_nextbot_definition = {
 	},
 
 	dtime = 0,
+	chase_time = 0,
 	chasing = false,
 
 	-- "But Ma, what happens when I get him?"
@@ -16,7 +17,22 @@ local common_nextbot_definition = {
 		self.target:set_hp(0)
 		self.object:set_velocity(vector.new())
 
+		local target_meta = self.target:get_meta()
+		local target_chased_time = target_meta:get_float("chased_time") + self.chase_time
+		local target_deaths = target_meta:get_int("deaths") + 1
+		target_meta:set_float("chased_time", target_chased_time)
+		target_meta:set_int("deaths", target_deaths)
+
+		if target_deaths < 5 then
+			score = target_chased_time / (target_deaths * 3)
+		else
+			score = target_chased_time / (target_deaths + 3)
+		end
+
+		target_meta:set_float("score", score)
+
 		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
+		minetest.chat_send_player(self.target:get_player_name(), "Score: " .. tostring(target_meta:get_float("score")))
 
 		-- "Then kill yourself after a couple seconds" (stay mad)
 		minetest.after(2, function()
