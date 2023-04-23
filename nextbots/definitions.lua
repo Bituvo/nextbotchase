@@ -3,7 +3,8 @@ local common_nextbot_definition = {
 	initial_properties = {
 		physical = false,
 		show_on_minimap = true,
-		use_texture_alpha = true
+		use_texture_alpha = true,
+		static_save = false
 	},
 
 	dtime = 0,
