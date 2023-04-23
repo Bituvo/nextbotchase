@@ -19,6 +19,7 @@ end
 minetest.register_node("br_core:carpet_0", {
     tiles = { "br_".."carpet_0.png" },
     light_source = (br_core.fullbright) or 0,
+    sounds = {footstep = "0_step"}
 })
 
 minetest.register_node("br_core:wallpaper_0", {
