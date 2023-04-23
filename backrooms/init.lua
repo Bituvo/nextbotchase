@@ -26,18 +26,9 @@ end
 if minetest.is_creative_enabled() or br_core.mapgen == "flat" then
     br_core.fullbright = 1
     br_core.dev_mode = true
-    br_core.nodes_pointable = true
+    br_core.nodes_pointable = false
 end
 br_core.fullbright = 0
-
-minetest.register_on_joinplayer(function(player)
-    if not minetest.check_player_privs(player, {server = true}) then
-        player:hud_set_flags({hotbar = false, healthbar = false, wielditem = false, crosshair = false})
-        return
-    end
-
-    player:hud_set_flags({hotbar = true, healthbar = true, wielditem = true, crosshair = true})
-end)
 
 dofile(mod_path .. DIR_DELIM .. "mapgen" .. DIR_DELIM .. "mapgen.lua")
 -- makes nodes

@@ -33,7 +33,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				self.dtime = 0
 
 				-- Delete self if target is already dead or can't be found
-				if not self.target or self.target:get_hp() == 0 then
+				if not self.target or not self.target:get_pos() or self.target:get_hp() == 0 then
 					minetest.sound_stop(self.sound_handle)
 					local id = self.id
 					self.object:remove()
