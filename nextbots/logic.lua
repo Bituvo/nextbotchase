@@ -12,9 +12,12 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 	new_nextbot:get_luaentity().id = current_nextbot_id
 	new_nextbot:get_luaentity().target = target
 
+	local created_successfully = true
+
 	-- Pathfinding logic
 	minetest.after(wait_time, function()
 		if not new_nextbot:get_luaentity() then
+			created_successfully = false
 			return
 		end
 
@@ -77,6 +80,8 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		end
 	end)
 
-	nextbots.spawned_nextbots[current_nextbot_id] = new_nextbot
-	current_nextbot_id = current_nextbot_id + 1
+	if created_successfully then
+		nextbots.spawned_nextbots[current_nextbot_id] = new_nextbot
+		current_nextbot_id = current_nextbot_id + 1
+	end
 end
