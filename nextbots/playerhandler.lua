@@ -26,8 +26,7 @@ end
 function nextbots.handle_new_player(player)
 	player:set_pos(server.static_spawn)
 
-	-- Ignore staff (you shouldn't do this or I will punish you)
-	if minetest.check_player_privs(player, {server = true}) then return end
+	if minetest.check_player_privs(player, {no_nextbot = true}) then return end
 
 	local bot_offset = offsets[math.random(1, 4)]
 	local bot_pos = vector.add(player:get_pos(), bot_offset)

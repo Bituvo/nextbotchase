@@ -45,12 +45,11 @@ local function show_rules(player)
 	)
 end
 
--- "But Ma, what happens when I press a button?"
 minetest.register_on_player_receive_fields(function(player, formname, fields)
-	-- "Either kick 'em or give 'em a nextbot"
 	if formname ~= "new_player" then return end
 	local name = player:get_player_name()
 
+	-- Kick player if they don't agree to the rules
 	if fields.rules_disagree or fields.quit then
 		minetest.kick_player(name, S("Please read and agree to the rules."))
 	elseif fields.rules_agree then

@@ -1,7 +1,7 @@
--- Each nextbot has an ID so we can, well, IDentify it
+-- Each nextbot has an ID
 local current_nextbot_id = 1
 
--- Spawn the nextbot just above the ground and then add the functions 'n stuff
+-- Spawn the nextbot just above the ground then add the functions
 function nextbots.spawn_nextbot(name, pos, target, wait_time)
 	local y_offset = nextbots.registered_nextbots[name].size / 2
 	pos = vector.round(pos)
@@ -14,9 +14,9 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 	-- Pathfinding logic
 	minetest.after(wait_time, function()
-		-- It's chasin' time
 		new_nextbot:get_luaentity().chasing = true
 
+		-- Play sound
 		new_nextbot:get_luaentity().sound_handle = minetest.sound_play(name, {
 			object = new_nextbot,
 			loop = true,
@@ -28,6 +28,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 			self.dtime = self.dtime + dtime
 			self.chase_time = self.chase_time + dtime
 
+			-- Step <speed> times every second
 			if self.dtime > 1 / self.speed and self.chasing then
 				self.dtime = 0
 
@@ -51,7 +52,6 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 					return
 				end
 
-				-- Here's the fun part
 				local path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
 				local next_pos = bot_pos
 
@@ -63,9 +63,8 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 					return
 				end
 
+				-- Actually move
 				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self.speed)
-				velocity.y = 0 -- Probably not needed, but we'll do it anyways (for good measure)
-
 				self.object:set_velocity(velocity)
 			end
 		end

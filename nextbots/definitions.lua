@@ -10,9 +10,7 @@ local common_nextbot_definition = {
 	chase_time = 0,
 	chasing = false,
 
-	-- "But Ma, what happens when I get him?"
 	on_reach_target = function(self)
-		-- "Kill him and stop moving"
 		self.chasing = false
 		self.target:set_hp(0)
 		self.object:set_velocity(vector.new())
@@ -23,18 +21,17 @@ local common_nextbot_definition = {
 		target_meta:set_float("chased_time", target_chased_time)
 		target_meta:set_int("deaths", target_deaths)
 
+		-- Score calculation
 		if target_deaths < 5 then
 			score = target_chased_time / (target_deaths * 3)
 		else
 			score = target_chased_time / (target_deaths + 3)
 		end
-
 		target_meta:set_float("score", score)
 
 		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
-		minetest.chat_send_player(self.target:get_player_name(), "Score: " .. tostring(target_meta:get_float("score")))
 
-		-- "Then kill yourself after a couple seconds" (stay mad)
+		-- Remove self
 		minetest.after(2, function()
 			local target_name = self.target:get_player_name()
 			self.object:remove()
@@ -77,7 +74,7 @@ local common_nextbot_definition = {
 	end
 }
 
--- Nextbot-definitionator factory constructor
+-- Nextbot definition factory
 local function get_new_nextbot_definition(name, formal_name, speed, size)
 	local new_nextbot_definition = table.copy(common_nextbot_definition)
 	
@@ -106,9 +103,9 @@ function nextbots.register_nextbot(name, formal_name, speed, size)
 end
 
 -- In order of appearance
-nextbots.register_nextbot("obunga", "Obunga", 10, 5)
-nextbots.register_nextbot("selene", "Selene Delgado López", 11, 4)
-nextbots.register_nextbot("thisman", "This Man", 11, 5)
-nextbots.register_nextbot("alternate", "Alternate", 10, 4)
-nextbots.register_nextbot("pinhead", "Pinhead", 11, 4)
-nextbots.register_nextbot("munci", "Munci", 11, 5)
+nextbots.register_nextbot("obunga",    "Obunga", 			   10,   5)
+nextbots.register_nextbot("selene",    "Selene Delgado López", 11,   4)
+nextbots.register_nextbot("thisman",   "This Man",			   11,   5)
+nextbots.register_nextbot("alternate", "Alternate",            10,   4)
+nextbots.register_nextbot("pinhead",   "Pinhead",              11.5, 4)
+nextbots.register_nextbot("munci",     "Munci",                10.5, 5)
