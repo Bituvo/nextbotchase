@@ -27,6 +27,7 @@ local common_nextbot_definition = {
 		else
 			score = target_chased_time / (target_deaths + 3)
 		end
+		score = score + self.speed / 8
 		target_meta:set_float("score", score)
 
 		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
