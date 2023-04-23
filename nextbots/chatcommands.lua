@@ -61,12 +61,10 @@ minetest.register_chatcommand("find", {
 
 		if player then
 			for id, nextbot in pairs(nextbots.spawned_nextbots) do
-				if nextbot then
-					if nextbot:get_luaentity().target == player then
-						invoker:set_pos(nextbot:get_pos())
-						minetest.chat_send_player(invoker_name, "Teleporting to " .. minetest.pos_to_string(nextbot:get_pos()))
-						break
-					end
+				if nextbot:get_luaentity() and nextbot:get_luaentity().target == player then
+					invoker:set_pos(nextbot:get_pos())
+					minetest.chat_send_player(invoker_name, "Teleporting to " .. minetest.pos_to_string(nextbot:get_pos()))
+					break
 				end
 			end
 		else
