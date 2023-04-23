@@ -65,7 +65,6 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 				-- Set pathfinding frequency depending on distance to target
 				local modulo = math.max(math.min(math.floor(distance_to_target / 10), 5), 1)
-				minetest.chat_send_all(minetest.pos_to_string(bot_pos))
 				
 				if self.steps % modulo == 0 then
 					self.path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
