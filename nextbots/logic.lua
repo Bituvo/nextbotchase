@@ -16,7 +16,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 	-- Pathfinding logic
 	minetest.after(wait_time, function()
-		if not new_nextbot:get_luaentity() then
+		if not new_nextbot:get_luaentity() or not target then
 			created_successfully = false
 			return
 		end
