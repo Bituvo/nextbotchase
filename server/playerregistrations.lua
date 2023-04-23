@@ -29,14 +29,16 @@ end)
 minetest.register_on_joinplayer(function(player)
 	player:set_physics_override({speed = nextbots.player_speed})
 
-	if not minetest.check_player_privs(player, {server = true}) and player:get_hp() > 0 then
+	if not minetest.check_player_privs(player, {server = true}) then
 		set_hud(player)
-
-		if player:get_meta():get_int("rules_agreed") == 0 then
-			server.show_new_player_rules(player)
-			return
-		else
-			nextbots.handle_new_player(player)
+		
+		if player:get_hp() > 0 then
+			if player:get_meta():get_int("rules_agreed") == 0 then
+				server.show_new_player_rules(player)
+				return
+			else
+				nextbots.handle_new_player(player)
+			end
 		end
 	end
 end)
