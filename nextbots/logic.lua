@@ -14,7 +14,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 	-- Pathfinding logic
 	minetest.after(wait_time, function()
-		target:get_meta:set_int("being_chased", 1)
+		target:get_meta():set_int("being_chased", 1)
 		new_nextbot:get_luaentity().chasing = true
 
 		-- Play sound
