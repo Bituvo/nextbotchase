@@ -54,19 +54,27 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				-- Set both y-positions to ground level
 				bot_pos.y = -4
 				target_pos.y = -4
+				local distance_to_target = vector.distance(bot_pos, target_pos)
 
 				-- Check if we have reached the target before pathfinding
-				if vector.distance(bot_pos, target_pos) < 2 then
+				if distance_to_target < 2 then
 					minetest.sound_fade(self.sound_handle, 1.5, 0)
 					self.on_reach_target(self)
 					return
 				end
 
-				local path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
+				-- Set pathfinding frequency depending on distance to target
+				local modulo = math.max(math.min(math.floor(distance_to_target / 10), 5), 1)
+				minetest.chat_send_all(minetest.pos_to_string(bot_pos))
+				
+				if self.steps % modulo == 0 then
+					self.path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
+				end
+
 				local next_pos = bot_pos
 
-				if path and #path > 1 then
-					next_pos = path[2]
+				if self.path and #self.path > 1 then
+					next_pos = self.path[self.steps % modulo + 2]
 					next_pos.y = self.fixed_y_position
 				else
 					self.stay_unstuck(self)
@@ -76,6 +84,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				-- Actually move
 				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self.speed)
 				self.object:set_velocity(velocity)
+				self.steps = self.steps + 1
 			end
 		end
 	end)

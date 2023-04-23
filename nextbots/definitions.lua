@@ -10,6 +10,8 @@ local common_nextbot_definition = {
 	dtime = 0,
 	chase_time = 0,
 	chasing = false,
+	steps = 0,
+	path = {},
 
 	on_reach_target = function(self)
 		self.chasing = false
