@@ -22,6 +22,7 @@ local common_nextbot_definition = {
 		target_meta:set_int("deaths", target_deaths)
 
 		-- Score calculation
+		local score = 0
 		if target_deaths < 5 then
 			score = target_chased_time / (target_deaths * 3)
 		else
