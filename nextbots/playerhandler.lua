@@ -25,6 +25,7 @@ end
 -- Do relocating and nextbot spawning when a player is ready
 function nextbots.handle_new_player(player)
 	player:set_pos(server.static_spawn)
+	player:hud_set_flags({basic_debug = false})
 
 	if minetest.check_player_privs(player, {no_nextbot = true}) then return end
 
