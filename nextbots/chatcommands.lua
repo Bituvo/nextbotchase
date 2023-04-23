@@ -18,7 +18,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 			if target then
 				nextbots.spawn_nextbot(nextbot_name, invoker:get_pos(), target, 1)
 			else
-				minetest.chat_send_player(invoker, "The player '" .. target_name .. "' either does not exist or is not logged in")
+				minetest.chat_send_player(invoker_name, "The player '" .. target_name .. "' either does not exist or is not logged in")
 			end
 		end
 	})
@@ -50,3 +50,27 @@ minetest.register_chatcommand("clear", {
 	end
 })
 
+minetest.register_chatcommand("find", {
+	description = "Finds a player's nextbot",
+	privs = {server = true},
+	params = "<player_name>",
+
+	func = function(invoker_name, player_name)
+		local invoker = minetest.get_player_by_name(invoker_name)
+		local player = minetest.get_player_by_name(player_name)
+
+		if player then
+			for id, nextbot in pairs(nextbots.spawned_nextbots) do
+				if nextbot then
+					if nextbot:get_luaentity().target == player then
+						invoker:set_pos(nextbot:get_pos())
+						minetest.chat_send_player(invoker_name, "Teleporting to " .. minetest.pos_to_string(nextbot:get_pos()))
+						break
+					end
+				end
+			end
+		else
+			minetest.chat_send_player(invoker_name, "The player '" .. player_name .. "' either does not exist or is not logged in")
+		end
+	end
+})
