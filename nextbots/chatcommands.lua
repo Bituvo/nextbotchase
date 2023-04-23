@@ -4,6 +4,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 	minetest.register_chatcommand(nextbot_name, {
 		description = "Spawns " .. data.formal_name .. " at your location",
+		privs = {server = true},
 		params = "<player_name>",
 
 		func = function(invoker_name, target_name)
@@ -25,6 +26,7 @@ end
 
 minetest.register_chatcommand("clear", {
 	description = "Deletes each nextbot with a certain name (empty name to delete all)",
+	privs = {server = true},
 	params = "[nextbot_name]",
 
 	func = function(invoker_name, nextbot_name)
