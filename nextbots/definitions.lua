@@ -104,9 +104,9 @@ function nextbots.register_nextbot(name, formal_name, speed, size)
 end
 
 -- In order of appearance
-nextbots.register_nextbot("obunga",    "Obunga", 			   10,   5)
-nextbots.register_nextbot("selene",    "Selene Delgado López", 11,   4)
-nextbots.register_nextbot("thisman",   "This Man",			   11,   5)
-nextbots.register_nextbot("alternate", "Alternate",            10,   4)
-nextbots.register_nextbot("pinhead",   "Pinhead",              11.5, 4)
-nextbots.register_nextbot("munci",     "Munci",                10.5, 5)
+nextbots.register_nextbot("obunga",    "Obunga", 			   20, 5)
+nextbots.register_nextbot("selene",    "Selene Delgado López", 22, 4)
+nextbots.register_nextbot("thisman",   "This Man",			   22, 5)
+nextbots.register_nextbot("alternate", "Alternate",            20, 4)
+nextbots.register_nextbot("pinhead",   "Pinhead",              23, 4)
+nextbots.register_nextbot("munci",     "Munci",                21, 5)
