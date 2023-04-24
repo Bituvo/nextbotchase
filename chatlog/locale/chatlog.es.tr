@@ -1,4 +1,5 @@
 # textdomain: chatlog
+
 Chat log is empty=El registro del chat está vacío
 Chat log not found (path: @1)=Registro de chat no encontrado (ruta: @1)
 Show the last <lines> lines of the chat log=Mostrar las últimas <líneas> del registro de chat

@@ -1,4 +1,5 @@
 # textdomain: nextbots_chatcommands
+
 Spawns @1 at your location with a given target=Añade @1 en tu ubicación con un jugador objetivo determinado
 player_name=nombre_jugador
 Invalid parameters, see "@1"=Parámetros no válidos, escriba "@1"
