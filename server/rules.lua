@@ -1,4 +1,4 @@
-local translate = minetest.get_translator("server")
+local translate = minetest.get_translator("rules")
 -- Normal translation is not enough, we need hyper-translation (formspec escaping)
 local function S(message)
 	return minetest.formspec_escape(translate(message))

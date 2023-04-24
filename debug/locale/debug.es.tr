@@ -1,0 +1,11 @@
+# textdomain: debug
+The debug file is empty=El archivo de depuración está vacío
+Debug file not found (path: @1)=Archivo de depuración no encontrado (ruta: @1)
+Shows the last <lines> lines of debug.txt=Muestra las últimas <líneas> de debug.txt
+Invalid line count=Recuento de líneas no válido
+Last @1 lines of debug file:=Últimas @1 líneas del archivo de depuración:
+Close=Cerrar
+Clear debug file=Borrar archivo de depuración
+Are you sure you want to clear the debug file?=¿Estás seguro de que quieres borrar el archivo de depuración?
+Cancel=Cancelar
+Delete=Borrar

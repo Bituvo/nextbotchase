@@ -1,3 +1,4 @@
+local S = minetest.get_translator("chatlog")
 local chat_path = minetest.get_worldpath() .. "/chat.txt"
 
 local function get_chat_lines(num_lines)
@@ -33,15 +34,15 @@ local function get_chat_lines(num_lines)
 		if lines_read > 0 then
 			return lines
 		else
-			return {"Chat log is empty"}
+			return {S("Chat log is empty")}
 		end
 	else
-		return {"Chat log not found (path: " .. chat_path .. ")"}
+		return {S("Chat log not found (path: @1)", chat_path)}
 	end
 end
 
-minetest.register_chatcommand("chat", {
-	description = "Show the last <lines> lines of the chat log",
+minetest.register_chatcommand("chatlog", {
+	description = S("Show the last <lines> lines of the chat log"),
 	privs = {server = true},
 	params = "<lines>",
 
@@ -49,7 +50,7 @@ minetest.register_chatcommand("chat", {
 		local num_lines = tonumber(lines)
 
 		if not num_lines then
-			minetest.chat_send_player(name, "Invalid line count")
+			minetest.chat_send_player(name, S("Invalid line count"))
 			return
 		end
 
@@ -57,13 +58,13 @@ minetest.register_chatcommand("chat", {
 			"size[15, 10.5]" ..
 			"no_prepend[]" ..
 			"bgcolor[#111a]" ..
-			"label[1, 1;Last " .. lines .. " lines of the chat:]" ..
-			"button_exit[10, 8.5;4, 1;exit_chatlog;Close]" ..
-			"button[5.5, 8.5;4, 1;clear_chatlog_btn;Clear chat log]" ..
+			"label[1, 1;" .. S("Last @1 lines of the chat:", lines) .. "]" ..
+			"button_exit[10, 8.5;4, 1;exit_chatlog;" .. S("Close") .. "]" ..
+			"button[5.5, 8.5;4, 1;clear_chatlog_btn;" .. S("Clear chat log") .. "]" ..
 			"textlist[1, 1.5;13, 6.5;chatlog;"
 
-		minetest.chat_send_player(name, "Retrieving...")
-		
+		-- Add retrieving text here
+
 		local chat_lines = get_chat_lines(num_lines)
 		for _, line in ipairs(chat_lines) do
 			formspec = formspec .. minetest.formspec_escape(line) .. ","
@@ -81,9 +82,9 @@ local function show_clear_chatlog_confirmation_formspec(player)
 		"size[8.5, 4]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
-		"label[1, 1;Are you sure you want to delete the chat log?]" ..
-		"button_exit[1, 2;3, 1;cancel_clear_chatlog;Cancel]" ..
-		"button[4.5, 2;3, 1;confirm_clear_chatlog;Delete]"
+		"label[1, 1;" .. S("Are you sure you want to delete the chat log?") .. "]" ..
+		"button_exit[1, 2;3, 1;cancel_clear_chatlog;" .. S("Cancel") .. "]" ..
+		"button[4.5, 2;3, 1;confirm_clear_chatlog;" .. S("Delete") .. "]"
 	)
 end
 

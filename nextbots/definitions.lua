@@ -1,3 +1,5 @@
+local S = minetest.get_translator("definitions")
+
 -- Properties that all nextbots share
 local common_nextbot_definition = {
 	initial_properties = {
@@ -36,7 +38,7 @@ local common_nextbot_definition = {
 		score = score + self.speed / 15
 		target_meta:set_float("score", score)
 
-		minetest.chat_send_all(self.target:get_player_name() .. " was killed by " .. self.formal_name)
+		minetest.chat_send_all(S("@1 was killed by @2", self.target:get_player_name(), self.formal_name))
 
 		-- Remove self
 		minetest.after(2, function()

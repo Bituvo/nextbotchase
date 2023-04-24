@@ -1,25 +1,25 @@
-local S = minetest.get_translator("chatcommands")
+local S = minetest.get_translator("server_chatcommands")
 
 -- Remove garbage
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
 
 minetest.register_chatcommand("spawn", {
-    description = "Teleport to spawn",
+    description = S("Teleport to spawn"),
     privs = {server = true},
     
     func = function(name)
         local player = minetest.get_player_by_name(name)
         player:set_pos(server.static_spawn)
 
-        minetest.chat_send_player(name, "Teleported to spawn")
+        minetest.chat_send_player(name, S("Teleported to spawn"))
     end
 })
 
 minetest.register_chatcommand("who", {
-    description = "List who is currently logged in",
+    description = S("List who is currently logged in"),
     func = function(name)
-        local message = "Clients: "
+        local message = S("Clients: ")
 
         for _, player in ipairs(minetest.get_connected_players()) do
             message = message .. player:get_player_name() .. ", "
@@ -31,13 +31,13 @@ minetest.register_chatcommand("who", {
 
 -- For updating stuff (etim3 has an auto-pull + restart script running)
 minetest.register_chatcommand("restart", {
-    description = "Restart the server after 20 seconds",
+    description = S("Restarts the server after 20 seconds"),
     privs = {server = true},
-    params = "[reason]",
+    params = "[" .. S("reason") .. "]",
     func = function(name, param)
         local reason = param
         if reason == "" then
-			reason = "No reason specified"
+			reason = S("No reason specified")
 		end
 
         for _, player in ipairs(minetest.get_connected_players()) do

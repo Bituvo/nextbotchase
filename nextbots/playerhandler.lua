@@ -1,5 +1,7 @@
+local S = minetest.get_translator("playerhandler")
+
 minetest.register_privilege("no_nextbot", {
-	description = "Nextbots will not automatically spawn for players with this privilege",
+	description = S("Nextbots will not automatically spawn for players with this privilege"),
 	give_to_admin = true
 })
 

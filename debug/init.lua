@@ -1,3 +1,4 @@
+local S = minetest.get_translator("debug")
 local debug_path = minetest.get_worldpath() .. "/debug.txt"
 
 -- Get the last <num_lines> lines of debug.txt (etim3 put it in the worldpath)
@@ -44,15 +45,15 @@ local function get_debug_lines(num_lines)
 		if lines_read > 0 then
 			return lines
 		else
-			return {"debug.txt is empty"}
+			return {S("The debug file is empty")}
 		end
 	else
-		return {"debug.txt not found (path: " .. debug_path .. ")"}
+		return {S("Debug file not found (path: @1)", debug_path)}
 	end
 end
 
 minetest.register_chatcommand("debug", {
-	description = "Shows the last <lines> lines of debug.txt",
+	description = S("Shows the last <lines> lines of debug.txt"),
 	privs = {server = true},
 	params = "<lines>",
 
@@ -60,7 +61,7 @@ minetest.register_chatcommand("debug", {
 		local num_lines = tonumber(lines)
 
 		if not num_lines then
-			minetest.chat_send_player(name, "Invalid line count")
+			minetest.chat_send_player(name, S("Invalid line count"))
 			return
 		end
 
@@ -68,12 +69,12 @@ minetest.register_chatcommand("debug", {
 			"size[20, 10.5]" ..
 			"no_prepend[]" ..
 			"bgcolor[#111a]" ..
-			"label[1, 1;Last " .. lines .. " lines of debug.txt:]" ..
-			"button_exit[15, 8.5;4, 1;exit_debug;Close]" ..
-			"button[10.5, 8.5;4, 1;clear_debug_btn;Clear debug.txt]" ..
+			"label[1, 1;" .. S("Last @1 lines of debug file:", lines) .. "]" ..
+			"button_exit[15, 8.5;4, 1;exit_debug;" .. S("Close") .. "]" ..
+			"button[10, 8.5;4.5, 1;clear_debug_btn;" .. S("Clear debug file") .. "]" ..
 			"textlist[1, 1.5;18, 6.5;debug;"
 
-		minetest.chat_send_player(name, "Retrieving...")
+		-- Add retrieving text here
 
 		local debug_lines = get_debug_lines(num_lines)
 		for _, line in ipairs(debug_lines) do
@@ -92,9 +93,9 @@ local function show_clear_debug_confirmation_formspec(player)
 		"size[8.5, 4]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
-		"label[1, 1;Are you sure you want to clear debug.txt?]" ..
-		"button_exit[1, 2;3, 1;cancel_clear_debug;Cancel]" ..
-		"button[4.5, 2;3, 1;confirm_clear_debug;Delete]"
+		"label[1, 1;" .. S("Are you sure you want to clear the debug file?") .. "]" ..
+		"button_exit[1, 2;3, 1;cancel_clear_debug;" .. S("Cancel") .. "]" ..
+		"button[4.5, 2;3, 1;confirm_clear_debug;" .. S("Delete") .. "]"
 	)
 end
 
