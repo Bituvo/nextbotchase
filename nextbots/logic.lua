@@ -91,5 +91,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 	if created_successfully then
 		nextbots.spawned_nextbots[current_nextbot_id] = new_nextbot
 		current_nextbot_id = current_nextbot_id + 1
+
+		target:get_meta():set_int("nextbot_id", current_nextbot_id)
 	end
 end

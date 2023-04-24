@@ -1,3 +1,5 @@
+local S = minetest.get_translator("chatcommands")
+
 -- Remove garbage
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
@@ -33,11 +35,26 @@ minetest.register_chatcommand("restart", {
     privs = {server = true},
     params = "[reason]",
     func = function(name, param)
-		if param == "" then
-			param = "No reason specified"
+        local reason = param
+        if reason == "" then
+			reason = "No reason specified"
 		end
+
+        for _, player in ipairs(minetest.get_connected_players()) do
+            -- if not minetest.check_player_privs(player, {server = true}) then
+            minetest.show_formspec(player:get_player_name(), "restart_notification", "formspec_version[5]" ..
+                "size[8, 6]" ..
+                "no_prepend[]" ..
+                "bgcolor[#111a]" ..
+                "label[1, 1;" .. S("The server will restart in 20 seconds!") .. "]" ..
+                "label[1, 2;" .. S("Reason: @1", minetest.wrap_text(reason, 35)) .. "]" ..
+                "button_exit[2.5, 4;3, 1;close_restart_notification;Ok]"
+            )
+            -- end
+        end
 		
-        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. param .. " (wait a bit before reconnecting)"))
+        minetest.log("action", name .. " restarted the server (reason: " .. reason .. ")")
+        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. reason .. " (wait a bit before reconnecting)"))
         minetest.request_shutdown(param .. "\n\nWait a bit before reconnecting.\nIf the server doesn't reboot, Discord PM the admin: Thresher#9632", true, 20)
         minetest.clear_objects()
     end
