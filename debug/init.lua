@@ -65,13 +65,13 @@ minetest.register_chatcommand("debug", {
 		end
 
 		local formspec = "formspec_version[5]" ..
-			"size[15, 10.5]" ..
+			"size[20, 10.5]" ..
 			"no_prepend[]" ..
 			"bgcolor[#111a]" ..
 			"label[1, 1;Last " .. lines .. " lines of debug.txt:]" ..
-			"button_exit[10, 8.5;4, 1;exit_debug;Close]" ..
-			"button[5.5, 8.5;4, 1;clear_debug_btn;Clear debug.txt]" ..
-			"textlist[1, 1.5;13, 6.5;debug;"
+			"button_exit[15, 8.5;4, 1;exit_debug;Close]" ..
+			"button[10.5, 8.5;4, 1;clear_debug_btn;Clear debug.txt]" ..
+			"textlist[1, 1.5;18, 6.5;debug;"
 
 		minetest.chat_send_player(name, "Retrieving...")
 
