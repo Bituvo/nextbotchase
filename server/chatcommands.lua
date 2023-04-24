@@ -54,8 +54,15 @@ minetest.register_chatcommand("restart", {
         end
 		
         minetest.log("action", name .. " restarted the server (reason: " .. reason .. ")")
-        minetest.chat_send_all(minetest.colorize("red", "Server restart requested by " .. name .. ": " .. reason .. " (wait a bit before reconnecting)"))
-        minetest.request_shutdown(param .. "\n\nWait a bit before reconnecting.\nIf the server doesn't reboot, Discord PM the admin: Thresher#9632", true, 20)
+
+        minetest.chat_send_all(minetest.colorize("red",
+            S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason)
+        ))
+        minetest.request_shutdown(
+            param .. "\n\n" .. S("Wait three minutes before reconnecting.") .. "\n" ..
+            S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
+        true, 20)
+
         minetest.clear_objects()
     end
 })
