@@ -6,7 +6,7 @@ import os
 def modify_translation_files(dir_path, target_lang_code):
     for root, dirs, files in os.walk(dir_path):
         for filename in files:
-            if filename.endswith(".tr"):
+            if filename.endswith("es.tr"):
                 textdomain, lang_code, ext = filename.split(".")
                 if lang_code != target_lang_code:
                     new_filename = f"{textdomain}.{target_lang_code}.tr"
@@ -21,4 +21,4 @@ def modify_translation_files(dir_path, target_lang_code):
                                     dst_file.write(line)
 
 # example usage
-modify_translation_files(os.getcwd(), "fr") # change target language code as desired
+modify_translation_files(os.getcwd(), "de") # change target language code as desired

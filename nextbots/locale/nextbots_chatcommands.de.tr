@@ -1,0 +1,12 @@
+# textdomain: nextbots_chatcommands
+
+Spawns @1 at your location with a given target=Bringt @1 an deinem Standort mit einem bestimmten Ziel hervor
+player_name=spieler_name
+Invalid parameters, see "@1"=Ungültige Parameter, siehe "@1".
+The player "@1" either does not exist or is not logged in=Der Spieler "@1" existiert entweder nicht oder ist nicht eingeloggt
+Deletes each nextbot with a certain name (empty name to delete all)=Löscht jeden nextbot mit einem bestimmten Namen (leerer Name, um alle zu löschen)
+nextbot_name=nextbot_name
+No nextbots were found=Es wurden keine nextbots gefunden
+1 nextbot was removed=1 nextbot wurde entfernt
+@1 nextbots were removed=@1 nextbots wurden entfernt
+Finds a player's nextbot=Findet den nextbot eines Spielers
