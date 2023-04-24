@@ -1,3 +1,5 @@
+local S = minetest.get_translator("playerregistrations")
+
 -- HUD stuff
 local function set_hud(player)
 	player:hud_set_flags({hotbar = false, healthbar = false, wielditem = false, crosshair = false, basic_debug = false})
