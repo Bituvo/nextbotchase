@@ -53,7 +53,7 @@ local function get_debug_lines(num_lines)
 end
 
 minetest.register_chatcommand("debug", {
-	description = S("Shows the last <lines> lines of debug.txt"),
+	description = S("Shows the last <lines> lines of the debug file"),
 	privs = {server = true},
 	params = "<lines>",
 

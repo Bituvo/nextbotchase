@@ -1,0 +1,14 @@
+# textdomain: server_chatcommands
+
+Teleport to spawn=Téléporter pour spawn
+Teleported to spawn=Téléporter pour spawn
+List who is currently logged in=Liste des personnes actuellement connectées
+Clients: =Clients : 
+Restarts the server after 20 seconds=Redémarre le serveur après 20 secondes
+reason=Raison
+No reason specified=Aucune raison spécifiée
+The server will restart in 20 seconds!=Le serveur redémarrera dans 20 secondes !
+Reason: @1=Raison : @1
+Server restart requested by @1: @2 (wait three minutes before reconnecting)=Redémarrage du serveur demandé par @1 : @2 (attendre trois minutes avant de se reconnecter)
+Wait three minutes before reconnecting.=Attendez trois minutes avant de vous reconnecter.
+If the server doesn't reboot, Discord PM the admin: @1=Si le serveur ne redémarre pas, Discord PM à l'administrateur : @1

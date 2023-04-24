@@ -1,3 +1,5 @@
+# code written with help by chatgpt my beloved
+
 import os
 
 # function to duplicate and modify translation files
@@ -14,8 +16,7 @@ def modify_translation_files(dir_path, target_lang_code):
                         with open(dst_path, "w", encoding="utf-8") as dst_file:
                             for line in src_file:
                                 if "=" in line:
-                                    key, value = line.split("=")
-                                    dst_file.write(f"{key}={value.strip()}\n")
+                                    dst_file.write(line.split("=")[0] + "=\n")
                                 else:
                                     dst_file.write(line)
 
