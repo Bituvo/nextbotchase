@@ -9,19 +9,23 @@ local common_nextbot_definition = {
 		static_save = false
 	},
 
-	dtime = 0,
-	chase_time = 0,
-	chasing = false,
-	steps = 0,
-	path = {},
+	_dtime = 0,
+	_chase_time = 0,
+	_chasing = false,
+	_steps = 0,
+	_path = {},
 
-	on_reach_target = function(self)
-		self.chasing = false
-		self.target:set_hp(0)
+	_id = 0,
+	_fixed_y_position = 0,
+	_target = nil,
+
+	_on_reach_target = function(self)
+		self._chasing = false
+		self._target:set_hp(0)
 		self.object:set_velocity(vector.new())
 
-		local target_meta = self.target:get_meta()
-		local target_chased_time = target_meta:get_float("chased_time") + self.chase_time
+		local target_meta = self._target:get_meta()
+		local target_chased_time = target_meta:get_float("chased_time") + self._chase_time
 		local target_deaths = target_meta:get_int("deaths") + 1
 		target_meta:set_float("chased_time", target_chased_time)
 		target_meta:set_int("deaths", target_deaths)
@@ -37,7 +41,7 @@ local common_nextbot_definition = {
 		score = score + self.speed / 15
 		target_meta:set_float("score", score)
 
-		minetest.chat_send_all(S("@1 was killed by @2", self.target:get_player_name(), self.formal_name))
+		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self.formal_name))
 
 		-- Remove self
 		minetest.after(2, function()
@@ -50,7 +54,7 @@ local common_nextbot_definition = {
 	end,
 
 	-- If nextbot is stuck in a wall
-	stay_unstuck = function(self)
+	_stay_unstuck = function(self)
 		if minetest.get_node(self.object:get_pos()).name ~= "air" then
 			local origin = vector.round(self.object:get_pos())
 			origin.y = -4

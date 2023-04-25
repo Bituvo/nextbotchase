@@ -8,9 +8,9 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 	pos.y = target:get_pos().y + y_offset
 
 	local new_nextbot = minetest.add_entity(pos, "nextbots:" .. name)
-	new_nextbot:get_luaentity().fixed_y_position = pos.y
-	new_nextbot:get_luaentity().id = current_nextbot_id
-	new_nextbot:get_luaentity().target = target
+	new_nextbot:get_luaentity()._fixed_y_position = pos.y
+	new_nextbot:get_luaentity()._id = current_nextbot_id
+	new_nextbot:get_luaentity()._target = target
 
 	local created_successfully = true
 
@@ -22,7 +22,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		end
 
 		target:get_meta():set_int("being_chased", 1)
-		new_nextbot:get_luaentity().chasing = true
+		new_nextbot:get_luaentity()._chasing = true
 
 		-- Play sound
 		new_nextbot:get_luaentity().sound_handle = minetest.sound_play(name, {
@@ -33,24 +33,24 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		})
 
 		new_nextbot:get_luaentity().on_step = function(self, dtime)
-			self.dtime = self.dtime + dtime
-			self.chase_time = self.chase_time + dtime
+			self._dtime = self._dtime + dtime
+			self._chase_time = self._chase_time + dtime
 
 			-- Step <speed> times every second
-			if self.dtime > 1 / self.speed and self.chasing then
-				self.dtime = 0
+			if self._dtime > 1 / self.speed and self._chasing then
+				self._dtime = 0
 
 				-- Delete self if target is already dead or can't be found
-				if not self.target or not self.target:get_pos() or self.target:get_hp() == 0 then
+				if not self._target or not self._target:get_pos() or self._target:get_hp() == 0 then
 					minetest.sound_stop(self.sound_handle)
-					local id = self.id
+					local id = self._id
 					self.object:remove()
 					nextbots.spawned_nextbots[id] = nil
 					return
 				end
 
 				local bot_pos = vector.round(self.object:get_pos())
-				local target_pos = vector.round(self.target:get_pos())
+				local target_pos = vector.round(self._target:get_pos())
 				-- Set both y-positions to ground level
 				bot_pos.y = -4
 				target_pos.y = -4
@@ -59,31 +59,31 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				-- Check if we have reached the target before pathfinding
 				if distance_to_target < 2 then
 					minetest.sound_fade(self.sound_handle, 1.5, 0)
-					self.on_reach_target(self)
+					self._on_reach_target(self)
 					return
 				end
 
 				-- Set pathfinding frequency depending on distance to target
 				local modulo = math.max(math.min(math.floor(distance_to_target / 10), 5), 1)
 				
-				if self.steps % modulo == 0 then
-					self.path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
+				if self._steps % modulo == 0 then
+					self._path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
 				end
 
 				local next_pos = bot_pos
 
-				if self.path and #self.path > 1 then
-					next_pos = self.path[self.steps % modulo + 2]
-					next_pos.y = self.fixed_y_position
+				if self._path and #self._path > 1 then
+					next_pos = self._path[self._steps % modulo + 2]
+					next_pos.y = self._fixed_y_position
 				else
-					self.stay_unstuck(self)
+					self._stay_unstuck(self)
 					return
 				end
 
 				-- Actually move
 				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self.speed)
 				self.object:set_velocity(velocity)
-				self.steps = self.steps + 1
+				self._steps = self._steps + 1
 			end
 		end
 	end)
