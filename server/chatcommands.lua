@@ -41,16 +41,16 @@ minetest.register_chatcommand("restart", {
 		end
 
         for _, player in ipairs(minetest.get_connected_players()) do
-            -- if not minetest.check_player_privs(player, {server = true}) then
-            minetest.show_formspec(player:get_player_name(), "restart_notification", "formspec_version[5]" ..
-                "size[8, 6]" ..
-                "no_prepend[]" ..
-                "bgcolor[#111a]" ..
-                "label[1, 1;" .. S("The server will restart in 20 seconds!") .. "]" ..
-                "label[1, 2;" .. S("Reason: @1", minetest.wrap_text(reason, 35)) .. "]" ..
-                "button_exit[2.5, 4;3, 1;close_restart_notification;Ok]"
-            )
-            -- end
+            if player:get_player_name() ~= name then
+                minetest.show_formspec(player:get_player_name(), "restart_notification", "formspec_version[5]" ..
+                    "size[8, 6]" ..
+                    "no_prepend[]" ..
+                    "bgcolor[#111a]" ..
+                    "label[1, 1;" .. S("The server will restart in 20 seconds!") .. "]" ..
+                    "label[1, 2;" .. S("Reason: @1", minetest.wrap_text(reason, 35)) .. "]" ..
+                    "button_exit[2.5, 4;3, 1;close_restart_notification;Ok]"
+                )
+            end
         end
 		
         minetest.log("action", name .. " restarted the server (reason: " .. reason .. ")")
