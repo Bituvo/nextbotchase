@@ -12,7 +12,7 @@ minetest.register_chatcommand("spawn", {
         local player = minetest.get_player_by_name(name)
         player:set_pos(server.static_spawn)
 
-        minetest.chat_send_player(name, S("Teleported to spawn"))
+        return true, S("Teleported to spawn")
     end
 })
 
@@ -25,7 +25,7 @@ minetest.register_chatcommand("who", {
             message = message .. player:get_player_name() .. ", "
         end
 
-        minetest.chat_send_player(name, string.sub(message, 1, -3))
+        return true, string.sub(message, 1, -3)
     end
 })
 
@@ -55,14 +55,14 @@ minetest.register_chatcommand("restart", {
 		
         minetest.log("action", name .. " restarted the server (reason: " .. reason .. ")")
 
-        minetest.chat_send_all(minetest.colorize("red",
-            S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason)
-        ))
+        minetest.clear_objects()
         minetest.request_shutdown(
             param .. "\n\n" .. S("Wait three minutes before reconnecting.") .. "\n" ..
             S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
         true, 20)
 
-        minetest.clear_objects()
+        return true, minetest.colorize("red",
+            S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason)
+        )
     end
 })

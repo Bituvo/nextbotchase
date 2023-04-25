@@ -20,7 +20,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 			if target then
 				nextbots.spawn_nextbot(nextbot_name, invoker:get_pos(), target, 1)
 			else
-				minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', target_name))
+				return false, S('The player "@1" either does not exist or is not logged in', target_name)
 			end
 		end
 	})
@@ -43,11 +43,11 @@ minetest.register_chatcommand("clear", {
 		end
 
 		if removed_nextbots == 0 then
-			minetest.chat_send_player(invoker_name, S("No nextbots were found"))
+			return false, S("No nextbots were found")
 		elseif removed_nextbots == 1 then
-			minetest.chat_send_player(invoker_name, S("1 nextbot was removed"))
+			return true, S("1 nextbot was removed")
 		else
-			minetest.chat_send_player(invoker_name, S("@1 nextbots were removed", tostring(removed_nextbots)))
+			return true, S("@1 nextbots were removed", tostring(removed_nextbots))
 		end
 	end
 })
@@ -68,10 +68,10 @@ minetest.register_chatcommand("find", {
 				local nextbot = nextbots.spawned_nextbots[player_nextbot_id]
 				invoker:set_pos(nextbot:get_pos())
 
-				minetest.chat_send_player(invoker_name, "Teleported to " .. minetest.pos_to_string(nextbot:get_pos()))
+				return true, "Teleported to " .. minetest.pos_to_string(nextbot:get_pos())
 			end
 		else
-			minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', player_name))
+			return false, S('The player "@1" either does not exist or is not logged in', player_name)
 		end
 	end
 })
@@ -85,15 +85,15 @@ minetest.register_chatcommand("score", {
 
 		if player_name == "" then
 			local invoker_score = tostring(invoker:get_meta():get_float("score"))
-			minetest.chat_send_player(invoker_name, S("Your score: @1", invoker_score))
+			return true, S("Your score: @1", invoker_score)
 		else
 			local player = minetest.get_player_by_name(player_name)
 
 			if player then
 				local player_score = tostring(invoker:get_meta():get_float("score"))
-				minetest.chat_send_player(invoker_name, S("@1's score: @2", player_name, player_score))
+				return true, S("@1's score: @2", player_name, player_score)
 			else
-				minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', player_name))
+				return false, S('The player "@1" either does not exist or is not logged in', player_name)
 			end
 		end
 	end
