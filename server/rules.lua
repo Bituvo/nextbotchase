@@ -1,18 +1,22 @@
-local translate = minetest.get_translator("rules")
+local S = minetest.get_translator("rules")
 -- Normal translation is not enough, we need hyper-translation (formspec escaping)
-local function S(message)
-	return minetest.formspec_escape(translate(message))
+local function FSS(message, other)
+	if other then
+		return minetest.formspec_escape(S(message, other))
+	else
+		return minetest.formspec_escape(S(message))
+	end
 end
 
 -- Create a formspec textlist at the given y-position
 local function get_rules_textlist(y)
 	return "textlist[1, " .. tostring(y) .. ";8, 2.6;rules" ..
-		";1. " .. S("Don't swear or harass other players") ..
-		",2. " .. S("Don't spam in chat") ..
-		",3. " .. S("Don't use nonsense usernames (\"asjdhsdag\")") ..
-		",4. " .. S("Don't ask for priveleges (\"can I have creative?\")") ..
-		",5. " .. S("Don't roleplay (no exceptions)") ..
-		",6. " .. S("Don't talk about controversial topics") ..
+		";1. " .. FSS("Don't swear or harass other players") ..
+		",2. " .. FSS("Don't spam in chat") ..
+		",3. " .. FSS("Don't use nonsense usernames (\"asjdhsdag\")") ..
+		",4. " .. FSS("Don't ask for priveleges (\"can I have creative?\")") ..
+		",5. " .. FSS("Don't roleplay (no exceptions)") ..
+		",6. " .. FSS("Don't talk about controversial topics") ..
 	"]"
 end
 
@@ -23,12 +27,12 @@ function server.show_new_player_rules(player)
 		"size[10, 8]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
-		"label[1, 1;" .. S("Welcome to Backrooms Chase!") .. "]" ..
-		"label[1, 2;" .. S("Before you begin playing, you must read and agree to the rules:") .. "]" ..
+		"label[1, 1;" .. FSS("Welcome to Backrooms Chase!") .. "]" ..
+		"label[1, 2;" .. FSS("Before you begin playing, you must read and agree to the rules:") .. "]" ..
 		get_rules_textlist(2.5) ..
-		"label[1, 5.6;" .. S("Failure to comply with these rules may result in punishment.") .. "]" ..
-		"button[1, 6;5, 1;rules_agree;" .. S("I have read and agreed to the rules") .. "]" ..
-		"button[6.3, 6;2.7, 1;rules_disagree;" .. S("I disagree") .. "]"
+		"label[1, 5.6;" .. FSS("Failure to comply with these rules may result in punishment.") .. "]" ..
+		"button[1, 6;5, 1;rules_agree;" .. FSS("I have read and agreed to the rules") .. "]" ..
+		"button[6.3, 6;2.7, 1;rules_disagree;" .. FSS("I disagree") .. "]"
 	)
 end
 
@@ -39,14 +43,14 @@ local function show_rules(player)
 		"size[10, 6.5]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
-		"label[1, 1;" .. S("Backrooms Chase rules:") .. "]" ..
+		"label[1, 1;" .. FSS("Backrooms Chase rules:") .. "]" ..
 		get_rules_textlist(1.5) ..
 		"button_exit[1, 4.5;3, 1;exit;OK]"
 	)
 end
 
 minetest.register_chatcommand("rules", {
-	description = "Show the server rules to yourself or another player",
+	description = S("Show the server rules to yourself or another player"),
 	params = "[player_name]",
 	func = function(invoker_name, target_name)
 		if target_name == "" then
@@ -57,12 +61,12 @@ minetest.register_chatcommand("rules", {
 
 			if target then
 				show_rules(target)
-				minetest.chat_send_player(invoker_name, "Showed rules to " .. target_name)
+				minetest.chat_send_player(invoker_name, S("Showed rules to @1", target_name))
 			else
-				minetest.chat_send_player(invoker_name, "The player '" .. target_name .. "' either does not exist or is not logged in")
+				minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', target_name))
 			end
 		else
-			minetest.chat_send_player(invoker_name, "You need the 'server' privilege to show the rules to another player")
+			minetest.chat_send_player(invoker_name, S("You need the 'server' privilege to show the rules to another player"))
 		end
 	end
 })

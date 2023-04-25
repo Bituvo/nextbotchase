@@ -1,4 +1,4 @@
-# textdomain: server
+# textdomain: rules
 
 Welcome to Backrooms Chase!=Willkommen bei Backrooms Chase!
 Before you begin playing, you must read and agree to the rules:=Bevor du anfängst zu spielen, musst du die Regeln lesen und ihnen zustimmen:
@@ -13,3 +13,6 @@ I have read and agreed to the rules=Ich habe die Regeln gelesen und akzeptiere s
 I disagree=Ich stimme nicht zu
 Please read and agree to the rules.=Bitte lies die Regeln und stimme ihnen zu.
 Backrooms Chase rules:=Backrooms Chase Regeln:
+Show the server rules to yourself or another player=Zeigen Sie sich oder einem anderen Spieler die Serverregeln
+The player "@1" either does not exist or is not logged in=Der Spieler "@1" existiert entweder nicht oder ist nicht eingeloggt
+Showed rules to @1=Regeln für @1 angezeigt
