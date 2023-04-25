@@ -1,11 +1,7 @@
 local S = minetest.get_translator("rules")
 -- Normal translation is not enough, we need hyper-translation (formspec escaping)
-local function FSS(message, other)
-	if other then
-		return minetest.formspec_escape(S(message, other))
-	else
-		return minetest.formspec_escape(S(message))
-	end
+local function FSS(...)
+	return minetest.formspec_escape(S(...))
 end
 
 -- Create a formspec textlist at the given y-position

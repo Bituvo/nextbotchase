@@ -75,3 +75,26 @@ minetest.register_chatcommand("find", {
 		end
 	end
 })
+
+minetest.register_chatcommand("score", {
+	description = S("See a player's score or your own"),
+	params = "[" .. S("player") .. "]",
+
+	func = function(invoker_name, player_name)
+		local invoker = minetest.get_player_by_name(invoker_name)
+
+		if player_name == "" then
+			local invoker_score = tostring(invoker:get_meta():get_float("score"))
+			minetest.chat_send_player(invoker_name, S("Your score: @1", invoker_score))
+		else
+			local player = minetest.get_player_by_name(player_name)
+
+			if player then
+				local player_score = tostring(invoker:get_meta():get_float("score"))
+				minetest.chat_send_player(invoker_name, S("@1's score: @2", player_name, player_score))
+			else
+				minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', player_name))
+			end
+		end
+	end
+})
