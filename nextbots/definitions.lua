@@ -26,7 +26,6 @@ local common_nextbot_definition = {
 		target_meta:set_float("chased_time", target_chased_time)
 		target_meta:set_int("deaths", target_deaths)
 		target_meta:set_int("being_chased", 0)
-		target_meta:set_int("nextbot_id", 0)
 
 		-- Score calculation
 		local score = 0
@@ -42,9 +41,11 @@ local common_nextbot_definition = {
 
 		-- Remove self
 		minetest.after(2, function()
-			local target_name = self.target:get_player_name()
+			local player_nextbot_id = target_meta:get_int("nextbot_id")
+
 			self.object:remove()
-			nextbots.spawned_nextbots[target_name] = nil
+			nextbots.spawned_nextbots[player_nextbot_id] = nil
+			target_meta:set_int("nextbot_id", 0)
 		end)
 	end,
 
