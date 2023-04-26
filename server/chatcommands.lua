@@ -1,5 +1,10 @@
 local S = minetest.get_translator("server_chatcommands")
 
+-- Coloring functions
+local err = function(message) return minetest.colorize(server.error_color, message) end
+local suc = function(message) return minetest.colorize(server.success_color, message) end
+local inf = function(message) return minetest.colorize(server.info_color, message) end
+
 -- Remove garbage
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
@@ -12,7 +17,7 @@ minetest.register_chatcommand("spawn", {
         local player = minetest.get_player_by_name(name)
         player:set_pos(server.static_spawn)
 
-        return true, S("Teleported to spawn")
+        return true, suc(S("Teleported to spawn"))
     end
 })
 
@@ -25,7 +30,7 @@ minetest.register_chatcommand("who", {
             message = message .. player:get_player_name() .. ", "
         end
 
-        return true, string.sub(message, 1, -3)
+        return true, inf(string.sub(message, 1, -3))
     end
 })
 
@@ -37,7 +42,7 @@ minetest.register_chatcommand("restart", {
     func = function(name, param)
         local reason = param
         if reason == "" then
-			reason = S("No reason specified")
+			reason = err(S("No reason specified"))
 		end
 
         for _, player in ipairs(minetest.get_connected_players()) do
@@ -61,8 +66,6 @@ minetest.register_chatcommand("restart", {
             S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
         true, 20)
 
-        return true, minetest.colorize("red",
-            S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason)
-        )
+        return true, inf(S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason))
     end
 })

@@ -13,3 +13,5 @@ Finds a player's nextbot=Encuentra el nextbot de un jugador
 See a player's score or your own=Ver la puntuación de un jugador o la tuya propia
 Your score: @1=Tu puntuación: @1
 @1's score: @2=Puntuación de @1: @2
+Successfully spawned @1=Se ha generado @1
+Teleported to @1=Teletransportado a @1

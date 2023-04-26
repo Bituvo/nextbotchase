@@ -4,6 +4,10 @@ local function FSS(...)
 	return minetest.formspec_escape(S(...))
 end
 
+-- Coloring functions
+local err = function(message) return minetest.colorize(server.error_color, message) end
+local suc = function(message) return minetest.colorize(server.success_color, message) end
+
 -- Create a formspec textlist at the given y-position
 local function get_rules_textlist(y)
 	return "textlist[1, " .. tostring(y) .. ";8, 2.6;rules" ..
@@ -57,12 +61,12 @@ minetest.register_chatcommand("rules", {
 
 			if target then
 				show_rules(target)
-				minetest.chat_send_player(invoker_name, S("Showed rules to @1", target_name))
+				minetest.chat_send_player(invoker_name, suc(S("Showed rules to @1", target_name)))
 			else
-				minetest.chat_send_player(invoker_name, S('The player "@1" either does not exist or is not logged in', target_name))
+				minetest.chat_send_player(invoker_name, err(S('The player "@1" either does not exist or is not logged in', target_name)))
 			end
 		else
-			minetest.chat_send_player(invoker_name, S("You need the 'server' privilege to show the rules to another player"))
+			minetest.chat_send_player(invoker_name, err(S("You need the 'server' privilege to show the rules to another player")))
 		end
 	end
 })

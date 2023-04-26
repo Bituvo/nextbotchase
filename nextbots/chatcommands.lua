@@ -1,5 +1,10 @@
 local S = minetest.get_translator("nextbots_chatcommands")
 
+-- Coloring functions
+local err = function(message) return minetest.colorize(server.error_color, message) end
+local suc = function(message) return minetest.colorize(server.success_color, message) end
+local inf = function(message) return minetest.colorize(server.info_color, message) end
+
 -- Register a spawn command for each registered nextbot
 for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 	formal_nextbot_name = data.formal_name
@@ -11,7 +16,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 		func = function(invoker_name, target_name)
 			if target_name == "" then
-				return false, S('Invalid parameters, see "@1"', "/help " .. nextbot_name)
+				return false, err(S('Invalid parameters, see "@1"', "/help " .. nextbot_name))
 			end
 
 			local invoker = minetest.get_player_by_name(invoker_name)
@@ -19,8 +24,9 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 			if target then
 				nextbots.spawn_nextbot(nextbot_name, invoker:get_pos(), target, 1)
+				return true, suc(S("Successfully spawned @1", data.formal_name))
 			else
-				return false, S('The player "@1" either does not exist or is not logged in', target_name)
+				return false, err(S('The player "@1" either does not exist or is not logged in', target_name))
 			end
 		end
 	})
@@ -43,11 +49,11 @@ minetest.register_chatcommand("clear", {
 		end
 
 		if removed_nextbots == 0 then
-			return false, S("No nextbots were found")
+			return false, inf(S("No nextbots were found"))
 		elseif removed_nextbots == 1 then
-			return true, S("1 nextbot was removed")
+			return true, suc(S("1 nextbot was removed"))
 		else
-			return true, S("@1 nextbots were removed", tostring(removed_nextbots))
+			return true, suc(S("@1 nextbots were removed", tostring(removed_nextbots)))
 		end
 	end
 })
@@ -68,10 +74,10 @@ minetest.register_chatcommand("find", {
 				local nextbot = nextbots.spawned_nextbots[player_nextbot_id]
 				invoker:set_pos(nextbot:get_pos())
 
-				return true, "Teleported to " .. minetest.pos_to_string(nextbot:get_pos())
+				return true, suc(S("Teleported to @1", minetest.pos_to_string(nextbot:get_pos())))
 			end
 		else
-			return false, S('The player "@1" either does not exist or is not logged in', player_name)
+			return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
 		end
 	end
 })
@@ -85,15 +91,15 @@ minetest.register_chatcommand("score", {
 
 		if player_name == "" then
 			local invoker_score = tostring(invoker:get_meta():get_float("score"))
-			return true, S("Your score: @1", invoker_score)
+			return true, inf(S("Your score: @1", invoker_score))
 		else
 			local player = minetest.get_player_by_name(player_name)
 
 			if player then
 				local player_score = tostring(invoker:get_meta():get_float("score"))
-				return true, S("@1's score: @2", player_name, player_score)
+				return true, inf(S("@1's score: @2", player_name, player_score))
 			else
-				return false, S('The player "@1" either does not exist or is not logged in', player_name)
+				return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
 			end
 		end
 	end
