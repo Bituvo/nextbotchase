@@ -62,7 +62,7 @@ minetest.register_chatcommand("restart", {
 
         minetest.clear_objects()
         minetest.request_shutdown(
-            param .. "\n\n" .. S("Wait three minutes before reconnecting.") .. "\n" ..
+            reason .. "\n\n" .. S("Wait three minutes before reconnecting.") .. "\n" ..
             S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
         true, 20)
 
