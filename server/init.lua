@@ -5,6 +5,7 @@ server = {
 
 	join_color = "#af6",
 	leave_color = "#f99",
+	death_color = "#f33",
 
 	error_color = "#f88",
 	success_color = "#cfc",

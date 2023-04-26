@@ -1,5 +1,13 @@
 local S = minetest.get_translator("definitions")
 
+-- I'm saving these for when #13462 is merged
+-- local death_messages = {
+-- 	"@1 was killed by @2",
+-- 	"@1 couldn't escape @2",
+-- 	"@2 caught up to @1",
+-- 	"@2 got @1"
+-- }
+
 -- Properties that all nextbots share
 local common_nextbot_definition = {
 	initial_properties = {
@@ -29,7 +37,9 @@ local common_nextbot_definition = {
 
 		nextbots.calculate_score(self._target, self._chase_time, self._speed)
 
-		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
+		minetest.chat_send_all(minetest.colorize(server.death_color,
+			S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
+		)
 		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self._technical_name)
 
 		-- Remove self
