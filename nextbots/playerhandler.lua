@@ -47,4 +47,5 @@ function nextbots.handle_new_player(player)
 	player:set_look_vertical(0)
 
 	nextbots.spawn_nextbot(get_random_nextbot_name(), bot_pos, player, 2)
+	minetest.log("action", "Spawned nextbot for " .. player:get_player_name())
 end

@@ -88,15 +88,17 @@ local function get_new_nextbot_definition(name, formal_name, speed, size)
 	return new_nextbot_definition
 end
 
-function nextbots.register_nextbot(name, formal_name, speed, size)
-	nextbots.registered_nextbots[name] = {
+function nextbots.register_nextbot(technical_name, formal_name, speed, size)
+	nextbots.registered_nextbots[technical_name] = {
 		formal_name = formal_name,
 		speed = speed,
 		size = size
 	}
 
-	local new_nextbot_definition = get_new_nextbot_definition(name, formal_name, speed, size)
-	minetest.register_entity("nextbots:" .. name, new_nextbot_definition)
+	local new_nextbot_definition = get_new_nextbot_definition(technical_name, formal_name, speed, size)
+	minetest.register_entity("nextbots:" .. technical_name, new_nextbot_definition)
+
+	minetest.log("Registered " .. formal_name .. " as " .. technical_name)
 end
 
 -- In order of appearance

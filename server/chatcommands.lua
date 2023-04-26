@@ -17,6 +17,7 @@ minetest.register_chatcommand("spawn", {
         local player = minetest.get_player_by_name(name)
         player:set_pos(server.static_spawn)
 
+        minetest.log("action", name .. " teleported to spawn")
         return true, suc(S("Teleported to spawn"))
     end
 })
@@ -30,6 +31,7 @@ minetest.register_chatcommand("who", {
             message = message .. player:get_player_name() .. ", "
         end
 
+        minetest.log("action", name .. " viewed clients list")
         return true, inf(string.sub(message, 1, -3))
     end
 })

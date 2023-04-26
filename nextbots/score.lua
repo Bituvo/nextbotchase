@@ -30,4 +30,5 @@ function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
 	current_player_data.score = player_score
 
 	storage:set_string(player:get_player_name(), minetest.serialize(current_player_data))
+	minetest.log("action", "Recalculated score for " .. player:get_player_name())
 end

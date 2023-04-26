@@ -23,6 +23,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 			if target then
 				nextbots.spawn_nextbot(nextbot_name, invoker:get_pos(), target, 1)
+				minetest.log("action", invoker_name .. " spawned " .. nextbot_name .. " with target " .. target_name)
 				return true, suc(S("Successfully spawned @1", nextbots.registered_nextbots[nextbot_name].formal_name))
 			else
 				return false, err(S('The player "@1" either does not exist or is not logged in', target_name))
@@ -50,8 +51,10 @@ minetest.register_chatcommand("clear", {
 		if removed_nextbots == 0 then
 			return false, inf(S("No nextbots were found"))
 		elseif removed_nextbots == 1 then
+			minetest.log("action", "/clear: Removed 1 nextbot")
 			return true, suc(S("1 nextbot was removed"))
 		else
+			minetest.log("action", "/clear: Removed " .. removed_nextbots .. " nextbots")
 			return true, suc(S("@1 nextbots were removed", removed_nextbots))
 		end
 	end
@@ -73,6 +76,7 @@ minetest.register_chatcommand("find", {
 				local nextbot = nextbots.spawned_nextbots[player_nextbot_id]
 				invoker:set_pos(nextbot:get_pos())
 
+				minetest.log("action", invoker_name .. " teleported to " .. player_name .. "'s nextbot")
 				return true, suc(S("Teleported to @1", minetest.pos_to_string(nextbot:get_pos())))
 			end
 		else
@@ -101,12 +105,18 @@ minetest.register_chatcommand("score", {
 		local invoker = minetest.get_player_by_name(invoker_name)
 
 		if player_name == "" then
-			return true, inf(S("Your score: @1", get_player_score(invoker_name)))
+			local player_score = get_player_score(invoker_name)
+
+			minetest.log("action", invoker_name .. " viewed their score: " .. player_score)
+			return true, inf(S("Your score: @1", player_score))
 		else
 			local player = minetest.get_player_by_name(player_name)
 
 			if player then
-				return true, inf(S("@1's score: @2", player_name, get_player_score(player_name)))
+				local player_score = get_player_score(player_name)
+
+				minetest.log("action", invoker_name .. " viewed " .. player_name .. "'s score: " .. player_score)
+				return true, inf(S("@1's score: @2", player_name, player_score))
 			else
 				return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
 			end

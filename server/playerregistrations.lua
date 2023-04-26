@@ -61,7 +61,9 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	-- Kick player if they don't agree to the rules
 	if fields.rules_disagree or fields.quit then
 		minetest.kick_player(name, S("Please read and agree to the rules."))
+		minetest.log("action", "Kicked " .. name .. " for not agreeing to the rules")
 	elseif fields.rules_agree then
+		minetest.log("action", name .. " agreed to the rules")
 		player:get_meta():set_int("rules_agreed", 1)
 		minetest.close_formspec(name, "new_player")
 		

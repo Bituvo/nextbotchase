@@ -95,5 +95,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		target:get_meta():set_int("nextbot_id", current_nextbot_id)
 		
 		current_nextbot_id = current_nextbot_id + 1
+	else
+		minetest.log("warning", "Nextbot creation failed")
 	end
 end

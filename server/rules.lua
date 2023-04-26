@@ -22,6 +22,7 @@ end
 
 -- Show the "new player rules list" to a player
 function server.show_new_player_rules(player)
+	minetest.log("action", "Showing server rules to newcomer " .. player:get_player_name())
 	minetest.show_formspec(player:get_player_name(), "new_player",
 		"formspec_version[5]" ..
 		"size[12, 9]" ..
@@ -54,19 +55,21 @@ minetest.register_chatcommand("rules", {
 	params = "[player_name]",
 	func = function(invoker_name, target_name)
 		if target_name == "" then
+			minetest.log("action", "Showing server rules to " .. invoker_name)
 			show_rules(minetest.get_player_by_name(invoker_name))
 		
 		elseif minetest.check_player_privs(invoker_name, {server = true}) then
 			local target = minetest.get_player_by_name(target_name)
 
 			if target then
+				minetest.log("action", invoker_name .. " showed server rules to " .. target_name)
 				show_rules(target)
-				minetest.chat_send_player(invoker_name, suc(S("Showed rules to @1", target_name)))
+				return true, suc(S("Showed rules to @1", target_name))
 			else
-				minetest.chat_send_player(invoker_name, err(S('The player "@1" either does not exist or is not logged in', target_name)))
+				return false, err(S('The player "@1" either does not exist or is not logged in', target_name))
 			end
 		else
-			minetest.chat_send_player(invoker_name, err(S("You need the 'server' privilege to show the rules to another player")))
+			return false, err(S("You need the 'server' privilege to show the rules to another player"))
 		end
 	end
 })
