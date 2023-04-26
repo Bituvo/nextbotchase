@@ -10,7 +10,7 @@ local suc = function(message) return minetest.colorize(server.success_color, mes
 
 -- Create a formspec textlist at the given y-position
 local function get_rules_textlist(y)
-	return "textlist[1, " .. tostring(y) .. ";8, 2.6;rules" ..
+	return "textlist[1, " .. tostring(y) .. ";10, 3.6;rules" ..
 		";1. " .. FSS("Don't swear or harass other players") ..
 		",2. " .. FSS("Don't spam in chat") ..
 		",3. " .. FSS("Don't use nonsense usernames (\"asjdhsdag\")") ..
@@ -24,15 +24,15 @@ end
 function server.show_new_player_rules(player)
 	minetest.show_formspec(player:get_player_name(), "new_player",
 		"formspec_version[5]" ..
-		"size[10, 8]" ..
+		"size[12, 9]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
 		"label[1, 1;" .. FSS("Welcome to Backrooms Chase!") .. "]" ..
 		"label[1, 2;" .. FSS("Before you begin playing, you must read and agree to the rules:") .. "]" ..
 		get_rules_textlist(2.5) ..
-		"label[1, 5.6;" .. FSS("Failure to comply with these rules may result in punishment.") .. "]" ..
-		"button[1, 6;5, 1;rules_agree;" .. FSS("I have read and agreed to the rules") .. "]" ..
-		"button[6.3, 6;2.7, 1;rules_disagree;" .. FSS("I disagree") .. "]"
+		"label[1, 6.6;" .. FSS("Failure to comply with these rules may result in punishment.") .. "]" ..
+		"button[1.5, 7;6, 1;rules_agree;" .. FSS("I have read and agreed to the rules") .. "]" ..
+		"button[7.8, 7;2.7, 1;rules_disagree;" .. FSS("I disagree") .. "]"
 	)
 end
 
@@ -40,12 +40,12 @@ end
 local function show_rules(player)
 	minetest.show_formspec(player:get_player_name(), "rules",
 		"formspec_version[5]" ..
-		"size[10, 6.5]" ..
+		"size[12, 7.5]" ..
 		"no_prepend[]" ..
 		"bgcolor[#111a]" ..
 		"label[1, 1;" .. FSS("Backrooms Chase rules:") .. "]" ..
 		get_rules_textlist(1.5) ..
-		"button_exit[1, 4.5;3, 1;exit;OK]"
+		"button_exit[4.5, 5.5;3, 1;exit;OK]"
 	)
 end
 
