@@ -42,6 +42,7 @@ local common_nextbot_definition = {
 		target_meta:set_float("score", score)
 
 		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self.formal_name))
+		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self.formal_name)
 
 		-- Remove self
 		minetest.after(2, function()
