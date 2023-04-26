@@ -37,7 +37,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 			self._chase_time = self._chase_time + dtime
 
 			-- Step <speed> times every second
-			if self._dtime > 1 / self.speed and self._chasing then
+			if self._dtime > 1 / self._speed and self._chasing then
 				self._dtime = 0
 
 				-- Delete self if target is already dead or can't be found
@@ -81,7 +81,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 				end
 
 				-- Actually move
-				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self.speed)
+				local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self._speed)
 				self.object:set_velocity(velocity)
 				self._steps = self._steps + 1
 			end

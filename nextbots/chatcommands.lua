@@ -7,8 +7,6 @@ local inf = function(message) return minetest.colorize(server.info_color, messag
 
 -- Register a spawn command for each registered nextbot
 for nextbot_name, data in pairs(nextbots.registered_nextbots) do
-	formal_nextbot_name = data.formal_name
-
 	minetest.register_chatcommand(nextbot_name, {
 		description = S("Spawns @1 at your location with a given target", data.formal_name),
 		privs = {server = true},
@@ -24,7 +22,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 			if target then
 				nextbots.spawn_nextbot(nextbot_name, invoker:get_pos(), target, 1)
-				return true, suc(S("Successfully spawned @1", data.formal_name))
+				return true, suc(S("Successfully spawned @1", nextbots.registered_nextbots[nextbot_name].formal_name))
 			else
 				return false, err(S('The player "@1" either does not exist or is not logged in', target_name))
 			end
@@ -40,7 +38,7 @@ minetest.register_chatcommand("clear", {
 	func = function(invoker_name, nextbot_name)
 		local removed_nextbots = 0
 		for id, nextbot in pairs(nextbots.spawned_nextbots) do
-			if nextbot_name == "" or nextbot:get_luaentity().name == "nextbots:" .. nextbot_name then
+			if nextbot_name == "" or nextbot:get_luaentity()._technical_name == nextbot_name then
 				nextbot:remove()
 				nextbots.spawned_nextbots[id] = nil
 

@@ -38,11 +38,11 @@ local common_nextbot_definition = {
 		else
 			score = target_chased_time / (target_deaths + 3)
 		end
-		score = score + self.speed / 15
+		score = score + self._speed / 15
 		target_meta:set_float("score", score)
 
-		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self.formal_name))
-		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self.formal_name)
+		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
+		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self._technical_name)
 
 		-- Remove self
 		minetest.after(2, function()
@@ -93,9 +93,9 @@ local function get_new_nextbot_definition(name, formal_name, speed, size)
 		-0.75, size / -2 + 0.5, -0.75,
 		0.75, size / 2 - 0.5, 0.75
 	}
-	new_nextbot_definition.formal_name = formal_name
-	new_nextbot_definition.real_name = name
-	new_nextbot_definition.speed = speed
+	new_nextbot_definition._formal_name = formal_name
+	new_nextbot_definition._technical_name = name
+	new_nextbot_definition._speed = speed
 
 	return new_nextbot_definition
 end
