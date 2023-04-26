@@ -1,3 +1,4 @@
+local storage = minetest.get_mod_storage()
 local S = minetest.get_translator("nextbots_chatcommands")
 
 -- Coloring functions
@@ -51,7 +52,7 @@ minetest.register_chatcommand("clear", {
 		elseif removed_nextbots == 1 then
 			return true, suc(S("1 nextbot was removed"))
 		else
-			return true, suc(S("@1 nextbots were removed", tostring(removed_nextbots)))
+			return true, suc(S("@1 nextbots were removed", removed_nextbots))
 		end
 	end
 })
@@ -80,6 +81,18 @@ minetest.register_chatcommand("find", {
 	end
 })
 
+local function get_player_score(player_name)
+	local player_data = storage:get_string(player_name)
+	local player_score = 0
+
+	if player_data ~= "" then
+		player_data = minetest.deserialize(player_data)
+		player_score = player_data.score
+	end
+
+	return player_score
+end
+
 minetest.register_chatcommand("score", {
 	description = S("See a player's score or your own"),
 	params = "[" .. S("player") .. "]",
@@ -88,14 +101,12 @@ minetest.register_chatcommand("score", {
 		local invoker = minetest.get_player_by_name(invoker_name)
 
 		if player_name == "" then
-			local invoker_score = tostring(invoker:get_meta():get_float("score"))
-			return true, inf(S("Your score: @1", invoker_score))
+			return true, inf(S("Your score: @1", get_player_score(invoker_name)))
 		else
 			local player = minetest.get_player_by_name(player_name)
 
 			if player then
-				local player_score = tostring(invoker:get_meta():get_float("score"))
-				return true, inf(S("@1's score: @2", player_name, player_score))
+				return true, inf(S("@1's score: @2", player_name, get_player_score(player_name)))
 			else
 				return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
 			end

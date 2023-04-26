@@ -25,21 +25,9 @@ local common_nextbot_definition = {
 		self.object:set_velocity(vector.new())
 
 		local target_meta = self._target:get_meta()
-		local target_chased_time = target_meta:get_float("chased_time") + self._chase_time
-		local target_deaths = target_meta:get_int("deaths") + 1
-		target_meta:set_float("chased_time", target_chased_time)
-		target_meta:set_int("deaths", target_deaths)
 		target_meta:set_int("being_chased", 0)
 
-		-- Score calculation
-		local score = 0
-		if target_deaths < 5 then
-			score = target_chased_time / (target_deaths * 3)
-		else
-			score = target_chased_time / (target_deaths + 3)
-		end
-		score = score + self._speed / 15
-		target_meta:set_float("score", score)
+		nextbots.calculate_score(self._target, self._chase_time, self._speed)
 
 		minetest.chat_send_all(S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
 		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self._technical_name)
