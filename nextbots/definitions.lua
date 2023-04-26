@@ -98,7 +98,7 @@ function nextbots.register_nextbot(technical_name, formal_name, speed, size)
 	local new_nextbot_definition = get_new_nextbot_definition(technical_name, formal_name, speed, size)
 	minetest.register_entity("nextbots:" .. technical_name, new_nextbot_definition)
 
-	minetest.log("Registered " .. formal_name .. " as " .. technical_name)
+	minetest.log("action", "Nextbots: registered " .. formal_name .. " as " .. technical_name)
 end
 
 -- In order of appearance
