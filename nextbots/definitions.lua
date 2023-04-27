@@ -76,6 +76,8 @@ local common_nextbot_definition = {
 				self.object:move_to(forwards)
 			elseif minetest.get_node(backwards).name == "air" then
 				self.object:move_to(backwards)
+			else
+				minetest.log("warning", self._technical_name .. " is stuck at " .. minetest.pos_to_string(origin))
 			end
 		end
 	end
