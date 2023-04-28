@@ -39,9 +39,9 @@ function nextbots.handle_new_player(player)
 		yaw = 270
 	elseif bot_offset.x < 0 then
 		yaw = 90
-    elseif bot_offset.z < 0 then
-        yaw = 180
-    end
+	elseif bot_offset.z < 0 then
+		yaw = 180
+	end
 
 	player:set_look_horizontal(math.rad(yaw))
 	player:set_look_vertical(0)

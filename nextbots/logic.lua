@@ -27,7 +27,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 			created_successfully = false
 			return
 		end
-		
+
 		target_meta:set_int("being_chased", 1)
 		new_nextbot:get_luaentity()._chasing = true
 
