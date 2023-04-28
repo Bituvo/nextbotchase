@@ -110,9 +110,7 @@ minetest.register_chatcommand("score", {
 			minetest.log("action", invoker_name .. " viewed their score: " .. player_score)
 			return true, inf(S("Your score: @1", player_score))
 		else
-			local player = minetest.get_player_by_name(player_name)
-
-			if player then
+			if minetest.player_exists(player_name) then
 				local player_score = get_player_score(player_name)
 
 				minetest.log("action", invoker_name .. " viewed " .. player_name .. "'s score: " .. player_score)
