@@ -4,7 +4,7 @@ function server.admin_chat_send(message)
 	
 	for _, player in ipairs(minetest.get_connected_players()) do
 		if minetest.check_player_privs(player, {server = true}) then
-			minetest.chat_send_player(player, minetest.colorize(server.staff_color))
+			minetest.chat_send_player(player:get_player_name(), minetest.colorize(server.staff_color, message))
 		end
 	end
 end
