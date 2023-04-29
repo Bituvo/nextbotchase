@@ -15,13 +15,19 @@ local offsets = {
 
 -- Get a random nextbot name
 local function get_random_nextbot_name()
-	local nextbot_names = {}
-
-	for nextbot_name, _ in pairs(nextbots.registered_nextbots) do
-		table.insert(nextbot_names, nextbot_name)
+	local total_prob = 0
+	for name, data in pairs(nextbots.registered_nextbots) do
+		total_prob = total_prob + data.probability
 	end
-
-	return nextbot_names[math.random(1, #nextbot_names)]
+	
+	local rand = math.random(1, total_prob)
+	
+	for name, data in pairs(nextbots.registered_nextbots) do
+		rand = rand - data.probability
+		if rand <= 0 then
+			return name
+		end
+	end
 end
 
 -- Do relocating and nextbot spawning when a player is ready
@@ -30,7 +36,7 @@ function nextbots.handle_new_player(player)
 
 	if minetest.check_player_privs(player, {no_nextbot = true}) then return end
 
-	local bot_offset = offsets[math.random(1, 4)]
+	local bot_offset = offsets[math.random(4)]
 	local bot_pos = vector.add(player:get_pos(), bot_offset)
 	local yaw = 0
 

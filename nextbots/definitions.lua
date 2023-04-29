@@ -100,11 +100,12 @@ local function get_new_nextbot_definition(name, formal_name, speed, size)
 	return new_nextbot_definition
 end
 
-function nextbots.register_nextbot(technical_name, formal_name, speed, size)
+function nextbots.register_nextbot(technical_name, formal_name, speed, size, probability)
 	nextbots.registered_nextbots[technical_name] = {
 		formal_name = formal_name,
 		speed = speed,
-		size = size
+		size = size,
+		probability = probability
 	}
 
 	local new_nextbot_definition = get_new_nextbot_definition(technical_name, formal_name, speed, size)
@@ -114,9 +115,10 @@ function nextbots.register_nextbot(technical_name, formal_name, speed, size)
 end
 
 -- In order of appearance
-nextbots.register_nextbot("obunga",    "Obunga", 			   20, 5)
-nextbots.register_nextbot("selene",    "Selene Delgado López", 22, 4)
-nextbots.register_nextbot("thisman",   "This Man",			   22, 5)
-nextbots.register_nextbot("alternate", "Alternate",            20, 4)
-nextbots.register_nextbot("pinhead",   "Pinhead",              23, 4)
-nextbots.register_nextbot("munci",     "Munci",                21, 5)
+-- Technical name, formal name, steps/second, size (nodes), probability
+nextbots.register_nextbot("obunga",    "Obunga", 			   20, 5, 5)
+nextbots.register_nextbot("selene",    "Selene Delgado López", 22, 4, 3)
+nextbots.register_nextbot("thisman",   "This Man",			   22, 5, 2)
+nextbots.register_nextbot("alternate", "Alternate",            20, 4, 4)
+nextbots.register_nextbot("pinhead",   "Pinhead",              23, 4, 1)
+nextbots.register_nextbot("munci",     "Munci",                21, 5, 2)
