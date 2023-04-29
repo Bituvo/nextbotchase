@@ -16,7 +16,6 @@ end
 -- Show a player the rules if they have not agreed to them yet
 minetest.register_on_newplayer(function(player)
 	player:set_physics_override({speed = nextbots.player_speed})
-	player:get_meta():set_int("being_chased", 0)
 	player:get_meta():set_int("nextbot_id", 0)
 	
 	if not minetest.check_player_privs(player, {server = true}) then
@@ -32,7 +31,6 @@ end)
 -- Ditto, but also spawn a nextbot
 minetest.register_on_joinplayer(function(player)
 	player:set_physics_override({speed = nextbots.player_speed})
-	player:get_meta():set_int("being_chased", 0)
 	player:get_meta():set_int("nextbot_id", 0)
 
 	if not minetest.check_player_privs(player, {server = true}) then

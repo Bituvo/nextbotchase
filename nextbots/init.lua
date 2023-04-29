@@ -9,6 +9,7 @@ nextbots = {
 }
 
 dofile(modpath .. "/definitions.lua")
+dofile(modpath .. "/functions.lua")
 dofile(modpath .. "/logic.lua")
 dofile(modpath .. "/spawning.lua")
 dofile(modpath .. "/chatcommands.lua")

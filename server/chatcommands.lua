@@ -25,14 +25,14 @@ minetest.register_chatcommand("spawn", {
 minetest.register_chatcommand("who", {
 	description = S("List who is currently logged in"),
 	func = function(name)
-		local message = S("Clients: ")
+		local message = inf(S("Clients: "))
 
 		for _, player in ipairs(minetest.get_connected_players()) do
 			message = message .. player:get_player_name() .. ", "
 		end
 
 		minetest.log("action", name .. " viewed clients list")
-		return true, inf(string.sub(message, 1, -3))
+		return true, string.sub(message, 1, -3)
 	end
 })
 

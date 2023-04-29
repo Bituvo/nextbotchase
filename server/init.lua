@@ -1,7 +1,7 @@
 local modpath = minetest.get_modpath("server")
 
 server = {
-	static_spawn = {x = 8, y = -4.5, z = 8},
+	static_spawn = {x = -32, y = -4.5, z = -32},
 
 	join_color = "#af6",
 	leave_color = "#f99",

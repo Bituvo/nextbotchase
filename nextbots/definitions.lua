@@ -14,7 +14,8 @@ local common_nextbot_definition = {
 		physical = false,
 		show_on_minimap = true,
 		use_texture_alpha = true,
-		static_save = false
+		static_save = false,
+		selectionbox = {}
 	},
 
 	_dtime = 0,
@@ -27,60 +28,14 @@ local common_nextbot_definition = {
 	_fixed_y_position = 0,
 	_target = nil,
 
-	_on_reach_target = function(self)
-		self._chasing = false
-		self._target:set_hp(0)
-		self.object:set_velocity(vector.new())
+	_formal_name = "",
+	_technical_name = "",
+	_speed = 0,
 
-		local target_meta = self._target:get_meta()
-		target_meta:set_int("being_chased", 0)
-
-		nextbots.calculate_score(self._target, self._chase_time, self._speed)
-
-		minetest.chat_send_all(minetest.colorize(server.death_color,
-			S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
-		)
-		minetest.log("action", self._target:get_player_name() .. " was killed by " .. self._technical_name)
-
-		-- Remove self
-		minetest.after(2, function()
-			local player_nextbot_id = target_meta:get_int("nextbot_id")
-
-			self.object:remove()
-			nextbots.spawned_nextbots[player_nextbot_id] = nil
-			target_meta:set_int("nextbot_id", 0)
-		end)
-	end,
-
-	-- If nextbot is stuck in a wall
-	_stay_unstuck = function(self)
-		if minetest.get_node(self.object:get_pos()).name ~= "air" then
-			local origin = vector.round(self.object:get_pos())
-			origin.y = -4
-
-			local left = origin
-			local right = origin
-			local forwards = origin
-			local backwards = origin
-
-			left.x = left.x - 1
-			right.x = right.x + 1
-			forwards.z = forwards.z + 1
-			backwards.z = backwards.z - 1
-
-			if minetest.get_node(left).name == "air" then
-				self.object:move_to(left)
-			elseif minetest.get_node(right).name == "air" then
-				self.object:move_to(right)
-			elseif minetest.get_node(forwards).name == "air" then
-				self.object:move_to(forwards)
-			elseif minetest.get_node(backwards).name == "air" then
-				self.object:move_to(backwards)
-			else
-				minetest.log("warning", self._technical_name .. " is stuck at " .. minetest.pos_to_string(origin))
-			end
-		end
-	end
+	_sound_handle = nil,
+	
+	_on_reach_target = nil,
+	_stay_unstuck = nil
 }
 
 -- Nextbot definition factory
