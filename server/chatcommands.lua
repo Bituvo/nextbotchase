@@ -44,8 +44,9 @@ minetest.register_chatcommand("restart", {
 	func = function(name, param)
 		local reason = param
 		if reason == "" then
-			reason = err(S("No reason specified"))
+			reason = S("No reason specified")
 		end
+		reason = err(reason)
 
 		for _, player in ipairs(minetest.get_connected_players()) do
 			if player:get_player_name() ~= name then
