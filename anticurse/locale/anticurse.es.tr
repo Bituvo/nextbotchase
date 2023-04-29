@@ -1,5 +1,5 @@
 # textdomain: anticurse
 
 No cursing allowed!=¡Prohibido maldecir!
-You said: @1 ("@2")=Tú lo has dicho: @1 ("@2")
+You said: "@1" (@2)=Tú lo has dicho: "@1" (@2)
 Kicked @1 for cursing ("@2")=Expulsado @1 por maldecir ("@2")
