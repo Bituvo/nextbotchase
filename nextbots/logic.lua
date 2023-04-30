@@ -79,10 +79,12 @@ function nextbots._on_reach_target(self)
 		))
 	end
 
-	minetest.chat_send_all(minetest.colorize(server.death_color,
-		S("@1 was killed by @2", target_name, self._formal_name))
-	)
-	minetest.log("action", target_name .. " was killed by " .. self._technical_name)
+	if not minetest.check_player_privs(target_name, {server = true})
+		minetest.chat_send_all(minetest.colorize(server.death_color,
+			S("@1 was killed by @2", target_name, self._formal_name))
+		)
+		minetest.log("action", target_name .. " was killed by " .. self._technical_name)
+	else
 
 	-- Remove self
 	minetest.after(2, function()
