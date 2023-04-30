@@ -34,7 +34,7 @@ function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
 	minetest.log("action", "Recalculated score for " .. player:get_player_name())
 end
 
-local function get_player_score(player_name)
+function nextbots.get_player_score(player_name)
 	local player_data = storage:get_string(player_name)
 	local player_score = 0
 
@@ -45,7 +45,6 @@ local function get_player_score(player_name)
 
 	return player_score
 end
-
 
 -- Coloring functions
 local err = function(message) return minetest.colorize(server.error_color, message) end
@@ -59,13 +58,13 @@ minetest.register_chatcommand("score", {
 		local invoker = minetest.get_player_by_name(invoker_name)
 
 		if player_name == "" then
-			local player_score = get_player_score(invoker_name)
+			local player_score = nextbots.get_player_score(invoker_name)
 
 			minetest.log("action", invoker_name .. " viewed their score: " .. player_score)
 			return true, inf(S("Your score: @1", player_score))
 		else
 			if minetest.player_exists(player_name) then
-				local player_score = get_player_score(player_name)
+				local player_score = nextbots.get_player_score(player_name)
 
 				minetest.log("action", invoker_name .. " viewed " .. player_name .. "'s score: " .. player_score)
 				return true, inf(S("@1's score: @2", player_name, player_score))

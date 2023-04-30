@@ -15,6 +15,11 @@ local function handle_message(name, message)
 			return true
 		end
 	end
+
+	local player_role = server.get_player_role(name)
+	minetest.chat_send_all(minetest.colorize(player_role.color, "[" .. player_role.role .. "] ") .. name .. ": " .. message)
+	
+	return true
 end
 
 minetest.register_on_chat_message(function(name, message)
