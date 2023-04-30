@@ -1,0 +1,31 @@
+# textdomain: nextbots
+
+### chatcommands.lua ###
+Spawns @1 at your location with a given target=
+player_name=
+Invalid parameters, see "/help @1"=
+Successfully spawned @1=
+The player "@1" either does not exist or is not logged in=
+Deletes each nextbot with a certain name (empty name to delete all)=
+nextbot_name=
+No nextbots were found=
+1 nextbot was removed=
+@1 nextbots were removed=
+Finds a player's nextbot=
+player_name=
+Teleported to @1=
+Nextbot not found=
+
+### logic.lua ###
+@1 was killed by @2=
+@1 is now @2 rank=
+
+### score.lua ###
+See a player's score or your own=
+player=
+Your score: @1=
+@1's score: @2=
+The player "@1" does not exist=
+
+### spawning.lua ###
+Nextbots will not automatically spawn for players with this privilege=

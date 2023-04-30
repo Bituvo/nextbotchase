@@ -14,11 +14,11 @@ def modify_translation_files(dir_path, target_lang_code):
                     dst_path = os.path.join(root, new_filename)
                     with open(src_path, "r", encoding="utf-8") as src_file:
                         with open(dst_path, "w", encoding="utf-8") as dst_file:
-                            for line in src_file:
+                            for i, line in enumerate(list(src_file)):
                                 if "=" in line:
                                     dst_file.write(line.split("=")[0] + "=\n")
                                 else:
                                     dst_file.write(line)
 
 # example usage
-modify_translation_files(os.getcwd(), "de") # change target language code as desired
+modify_translation_files(os.getcwd(), "aa") # change target language code as desired
