@@ -1,3 +1,5 @@
+local S = minetest.get_translator("server")
+
 -- HUD stuff
 local function set_hud(player)
 	player:hud_set_flags({hotbar = false, healthbar = false, wielditem = false, crosshair = false, basic_debug = false})
@@ -28,6 +30,14 @@ end)
 
 -- Ditto, but also spawn a nextbot
 minetest.register_on_joinplayer(function(player)
+	local player_name = player:get_player_name()
+	local formspec_version = minetest.get_player_information(player_name)
+
+	if formspec_version < 6 then
+		minetest.kick_player(player_name, S("Your Minetest/MultiCraft client is outdated. Please update to Minetest 5.7.0"))
+		minetest.log("action", "Kicked " .. player_name .. " for outdated client (formspec version: " .. tostring(formspec_version) .. ")")
+	end
+
 	player:set_physics_override({speed = nextbots.player_speed})
 	player:get_meta():set_int("nextbot_id", 0)
 
