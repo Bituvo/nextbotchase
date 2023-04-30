@@ -26,7 +26,8 @@ function minetest.format_chat_message(name, message)
 	return minetest.colorize(player_rank.color, "[" .. player_rank.rank .. "] ") .. name .. ": " .. message
 end
 
-function server.update_player_nametag(player_name)
+function server.update_player_nametag(player)
+	local player_name = player:get_player_name()
 	local player_rank = server.get_player_rank(player_name)
 
 	player:set_nametag_attributes({
@@ -35,6 +36,4 @@ function server.update_player_nametag(player_name)
 end
 
 -- Set nametags
-minetest.register_on_joinplayer(function(player)
-	server.update_player_nametag(player:get_player_name())
-end)
+minetest.register_on_joinplayer(server.update_player_nametag)
