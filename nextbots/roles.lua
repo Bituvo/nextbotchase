@@ -20,6 +20,12 @@ function server.get_player_role(player_name)
 	return {role = "Survivor", color = "#ffc300"}
 end
 
+-- Chat messages
+function minetest.format_chat_message(name, message)
+	local player_role = server.get_player_role(name)
+	return minetest.colorize(player_role.color, "[" .. player_role.role .. "] ") .. name .. ": " .. message
+end
+
 -- Set nametags
 minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
