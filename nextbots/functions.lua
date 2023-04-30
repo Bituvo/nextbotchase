@@ -68,11 +68,16 @@ function nextbots.find_nextbot(name_or_id)
 	end
 end
 
+local function _set_target_meta(luaentity)
+	local target_meta = luaentity._target:get_meta()
+	target_meta:set_int("nextbot_id", 0)
+end
+
 local function remove_nextbot(object, name_or_id)
 	if object then
 		local luaentity = object:get_luaentity()
-		local target_meta = luaentity._target:get_meta()
-		target_meta:set_int("nextbot_id", 0)
+		-- Player might have left at just the wrong time
+		if not pcall(_set_target_meta, luaentity) then return end
 
 		minetest.sound_stop(luaentity._sound_handle)
 		object:remove()
