@@ -116,6 +116,11 @@ function nextbots._stay_unstuck(self, radius)
 		elseif minetest.get_node(backwards).name == "air" then
 			self.object:move_to(backwards)
 		else
+			if radius > 10 then
+				minetest.log("warning", self._formal_name .. " is stuck at " .. minetest.pos_to_string(origin))
+				return
+			end
+			
 			minetest.log("warning",
 				self._formal_name .. " is stuck at " .. minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius)
 			)
