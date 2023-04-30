@@ -61,9 +61,9 @@ end
 
 -- In order of appearance
 -- Technical name, formal name, steps/second, size (nodes), probability
-nextbots.register_nextbot("obunga",    "Obunga", 			   20, 5, 5)
-nextbots.register_nextbot("selene",    "Selene Delgado López", 22, 4, 3)
-nextbots.register_nextbot("thisman",   "This Man",			   22, 5, 2)
-nextbots.register_nextbot("alternate", "Alternate",            20, 4, 4)
-nextbots.register_nextbot("pinhead",   "Pinhead",              23, 4, 1)
-nextbots.register_nextbot("munci",     "Munci",                21, 5, 2)
+nextbots.register_nextbot("obunga",    "Obunga", 			   20, 5, 1)
+nextbots.register_nextbot("selene",    "Selene Delgado López", 22, 4, 2)
+nextbots.register_nextbot("thisman",   "This Man",			   23, 5, 4)
+nextbots.register_nextbot("alternate", "Alternate",            20, 4, 2)
+nextbots.register_nextbot("pinhead",   "Pinhead",              23, 4, 4)
+nextbots.register_nextbot("munci",     "Munci",                21, 5, 3)
