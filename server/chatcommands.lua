@@ -1,4 +1,4 @@
-local S = minetest.get_translator("server_chatcommands")
+local S = minetest.get_translator("server")
 
 -- Coloring functions
 local err = function(message) return minetest.colorize(server.error_color, message) end

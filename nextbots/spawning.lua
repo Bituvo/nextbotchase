@@ -1,4 +1,4 @@
-local S = minetest.get_translator("spawning")
+local S = minetest.get_translator("nextbots")
 
 minetest.register_privilege("no_nextbot", {
 	description = S("Nextbots will not automatically spawn for players with this privilege"),

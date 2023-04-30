@@ -1,4 +1,4 @@
-local S = minetest.get_translator("score")
+local S = minetest.get_translator("nextbots")
 local storage = minetest.get_mod_storage()
 
 function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
@@ -69,7 +69,7 @@ minetest.register_chatcommand("score", {
 				minetest.log("action", invoker_name .. " viewed " .. player_name .. "'s score: " .. player_score)
 				return true, inf(S("@1's score: @2", player_name, player_score))
 			else
-				return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
+				return false, err(S('The player "@1" does not exist', player_name))
 			end
 		end
 	end

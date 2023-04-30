@@ -1,4 +1,4 @@
-local S = minetest.get_translator("rules")
+local S = minetest.get_translator("server")
 -- Normal translation is not enough, we need hyper-translation (formspec escaping)
 local function FSS(...)
 	return minetest.formspec_escape(S(...))
@@ -52,7 +52,7 @@ end
 
 minetest.register_chatcommand("rules", {
 	description = S("Show the server rules to yourself or another player"),
-	params = "[player_name]",
+	params = "[" .. S("player_name") .. "]",
 	func = function(invoker_name, target_name)
 		if target_name == "" then
 			minetest.log("action", "Showing server rules to " .. invoker_name)
@@ -69,7 +69,24 @@ minetest.register_chatcommand("rules", {
 				return false, err(S('The player "@1" either does not exist or is not logged in', target_name))
 			end
 		else
-			return false, err(S("You need the 'server' privilege to show the rules to another player"))
+			return false, err(S("You need the '@1' privilege to show the rules to another player", "server"))
 		end
 	end
 })
+
+minetest.register_on_player_receive_fields(function(player, formname, fields)
+	if formname ~= "new_player" then return end
+	local name = player:get_player_name()
+
+	-- Kick player if they don't agree to the rules
+	if fields.rules_disagree or fields.quit then
+		minetest.kick_player(name, S("Please read and agree to the rules."))
+		minetest.log("action", "Kicked " .. name .. " for not agreeing to the rules")
+	elseif fields.rules_agree then
+		minetest.log("action", name .. " agreed to the rules")
+		player:get_meta():set_int("rules_agreed", 1)
+		minetest.close_formspec(name, "new_player")
+		
+		nextbots.handle_new_player(player)
+	end
+end)

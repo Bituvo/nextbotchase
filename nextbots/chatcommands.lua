@@ -1,5 +1,5 @@
 local storage = minetest.get_mod_storage()
-local S = minetest.get_translator("nextbots_chatcommands")
+local S = minetest.get_translator("nextbots")
 
 -- Coloring functions
 local err = function(message) return minetest.colorize(server.error_color, message) end
@@ -15,7 +15,7 @@ for nextbot_name, data in pairs(nextbots.registered_nextbots) do
 
 		func = function(invoker_name, target_name)
 			if target_name == "" then
-				return false, err(S('Invalid parameters, see "@1"', "/help " .. nextbot_name))
+				return false, err(S('Invalid parameters, see "/help @1"', nextbot_name))
 			end
 
 			local invoker = minetest.get_player_by_name(invoker_name)

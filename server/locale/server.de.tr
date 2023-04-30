@@ -1,0 +1,48 @@
+# textdomain: server
+
+### chatcommands.lua ###
+Teleport to spawn=Teleport zum Laichplatz
+Teleported to spawn=Zum Spawn teleportiert
+List who is currently logged in=Auflisten, wer gerade eingeloggt ist
+Clients: =Klienten: 
+Restarts the server after 20 seconds=Startet den Server nach 20 Sekunden neu
+reason=Grund
+No reason specified=Kein Grund angegeben
+The server will restart in 20 seconds!=Der Server wird in 20 Sekunden neu gestartet!
+Reason: @1=Grund: @1
+Wait three minutes before reconnecting.=Warte drei Minuten, bevor du dich wieder verbindest.
+If the server doesn't reboot, Discord PM the admin: @1=Wenn der Server nicht neu gestartet wird, schreibe eine Discord-PM an den Admin: @1
+Server restart requested by @1: @2 (wait three minutes before reconnecting)=Server-Neustart angefordert von @1: @2 (warte drei Minuten, bevor du die Verbindung wieder aufnimmst)
+
+### chatstatus.lua ###
+Welcome to BACKROOMS CHASE, =Willkommen bei BACKROOMS CHASE, 
+Type "/who" to see who is online=Gib "/who" ein, um zu sehen, wer online ist
+@1 has joined the chase=@1 hat sich der Verfolgungsjagd angeschlossen
+@1 has joined the game=@1 ist dem Spiel beigetreten
+Say hello to @1=Sag Hallo zu @1
+@1 has arrived=@1 ist angekommen
+@1 couldn't handle the hunt=@1 konnte die Jagd nicht bewältigen
+@1 has left the game=@1 hat das Spiel verlassen
+Say goodbye to @1=Verabschiede dich von @1
+@1 has left=@1 ist gegangen
+ (timed out)= (Zeitüberschreitung)
+
+### rules.lua ###
+Don't swear or harass other players=Fluchen Sie nicht und belästigen Sie andere Spieler nicht
+Don't spam in chat=Nicht im Chat spammen
+Don't use nonsense usernames ("asjdhsdag")=Benutzt keine unsinnigen Benutzernamen ("asjdhsdag")
+Don't ask for priveleges ("can I have creative?")=Fragt nicht nach Privilegien ("kann ich kreativ sein?")
+Don't roleplay (no exceptions)=Keine Rollenspiele (keine Ausnahmen)
+Don't talk about controversial topics=Sprich nicht über kontroverse Themen
+Welcome to Backrooms Chase!=Willkommen bei Backrooms Chase!
+Before you begin playing, you must read and agree to the rules:=Bevor du anfängst zu spielen, musst du die Regeln lesen und ihnen zustimmen:
+Failure to comply with these rules may result in punishment.=Die Nichteinhaltung dieser Regeln kann zu einer Bestrafung führen.
+I have read and agreed to the rules=Ich habe die Regeln gelesen und akzeptiere sie
+I disagree=Ich stimme nicht zu
+Backrooms Chase rules:=Backrooms Chase Regeln:
+Show the server rules to yourself or another player=Zeigen Sie sich oder einem anderen Spieler die Serverregeln
+player_name=Spieler_Name
+Showed rules to @1=Zeige Regeln für @1
+The player "@1" either does not exist or is not logged in=Der Spieler "@1" existiert entweder nicht oder ist nicht eingeloggt
+You need the '@1' privilege to show the rules to another player=Du brauchst das '@1'-Privileg, um die Regeln einem anderen Spieler zu zeigen
+Please read and agree to the rules.=Bitte lesen und akzeptieren Sie die Regeln.

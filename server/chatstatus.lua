@@ -1,4 +1,4 @@
-local S = minetest.get_translator("chatstatus")
+local S = minetest.get_translator("server")
 
 function minetest.get_server_status(name, joined)
 	local message = minetest.colorize("#ff0", S("Welcome to BACKROOMS CHASE, ")) .. name

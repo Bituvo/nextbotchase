@@ -1,4 +1,4 @@
-local S = minetest.get_translator("logic")
+local S = minetest.get_translator("nextbots")
 
 function nextbots._on_step(self, dtime)
 	self._dtime = self._dtime + dtime

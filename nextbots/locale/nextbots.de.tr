@@ -1,0 +1,30 @@
+# textdomain: nextbots
+
+### chatcommands.lua ###
+Spawns @1 at your location with a given target=Bringt @1 an deinem Standort mit einem bestimmten Ziel hervor
+player_name=spieler_name
+Invalid parameters, see "/help @1"=Ungültige Parameter, siehe "/help @1"
+Successfully spawned @1=Erfolgreich gespawnt @1
+The player "@1" either does not exist or is not logged in=Der Spieler "@1" existiert entweder nicht oder ist nicht eingeloggt
+Deletes each nextbot with a certain name (empty name to delete all)=Löscht jeden nextbot mit einem bestimmten Namen (leerer Name, um alle zu löschen)
+nextbot_name=nextbot_name
+No nextbots were found=Es wurden keine nextbots gefunden
+1 nextbot was removed=1 nextbot wurde entfernt
+@1 nextbots were removed=@1 nextbots wurden entfernt
+Finds a player's nextbot=Findet den nextbot eines Spielers
+player_name=spieler_name
+Teleported to @1=Teleportiert zu @1
+Nextbot not found=Nextbot nicht gefunden
+
+### logic.lua ###
+@1 was killed by @2=@1 wurde von @2 getötet
+
+### score.lua ###
+See a player's score or your own=Sehen Sie den Punktestand eines Spielers oder Ihren eigenen
+player=spieler
+Your score: @1=Ihr Spielstand: @1
+@1's score: @2=@1's Punktestand: @2
+The player "@1" does not exist=Der Spieler "@1" existiert nicht
+
+### spawning.lua ###
+Nextbots will not automatically spawn for players with this privilege=Nextbots werden nicht automatisch für Spieler mit diesem Privileg spawnen

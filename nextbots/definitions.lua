@@ -1,13 +1,3 @@
-local S = minetest.get_translator("definitions")
-
--- I'm saving these for when #13462 is merged
--- local death_messages = {
--- 	"@1 was killed by @2",
--- 	"@1 couldn't escape @2",
--- 	"@2 caught up to @1",
--- 	"@2 got @1"
--- }
-
 -- Properties that all nextbots share
 local common_nextbot_definition = {
 	initial_properties = {
