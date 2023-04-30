@@ -46,7 +46,7 @@ function nextbots._on_step(self, dtime)
 			next_pos = self._path[self._steps % modulo + 2]
 			next_pos.y = self._fixed_y_position
 		else
-			self._stay_unstuck(self)
+			self._stay_unstuck(self, 1)
 			return
 		end
 
@@ -92,7 +92,7 @@ function nextbots._on_reach_target(self)
 	end)
 end
 
-function nextbots._stay_unstuck(self)
+function nextbots._stay_unstuck(self, radius)
 	if minetest.get_node(self.object:get_pos()).name ~= "air" then
 		local origin = vector.round(self.object:get_pos())
 		origin.y = -4
@@ -102,10 +102,10 @@ function nextbots._stay_unstuck(self)
 		local forwards = origin
 		local backwards = origin
 
-		left.x = left.x - 1
-		right.x = right.x + 1
-		forwards.z = forwards.z + 1
-		backwards.z = backwards.z - 1
+		left.x = left.x - radius
+		right.x = right.x + radius
+		forwards.z = forwards.z + radius
+		backwards.z = backwards.z - radius
 
 		if minetest.get_node(left).name == "air" then
 			self.object:move_to(left)
@@ -116,7 +116,10 @@ function nextbots._stay_unstuck(self)
 		elseif minetest.get_node(backwards).name == "air" then
 			self.object:move_to(backwards)
 		else
-			minetest.log("warning", self._technical_name .. " is stuck at " .. minetest.pos_to_string(origin))
+			minetest.log("warning",
+				self._formal_name .. " is stuck at " .. minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius)
+			)
+			nextbots._stay_unstuck(self, radius + 1)
 		end
 	end
 end
