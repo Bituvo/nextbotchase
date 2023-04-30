@@ -23,7 +23,7 @@ function nextbots._on_step(self, dtime)
 		local distance_to_target = vector.distance(bot_pos, target_pos)
 
 		-- Check if we have reached the target before pathfinding
-		if distance_to_target < 2 then
+		if distance_to_target < 1.5 then
 			self._on_reach_target(self)
 			return
 		end
