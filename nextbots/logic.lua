@@ -84,7 +84,7 @@ function nextbots._on_reach_target(self)
 			S("@1 was killed by @2", target_name, self._formal_name))
 		)
 		minetest.log("action", target_name .. " was killed by " .. self._technical_name)
-	else
+	end
 
 	-- Remove self
 	minetest.after(2, function()
