@@ -7,9 +7,9 @@ function server.get_player_rank(player_name)
 
 	local player_score = nextbots.get_player_score(player_name)
 
-	if player_score < 5 then
+	if player_score < 8 then
 		return {rank = "Runner", color = "#ff5733"}
-	elseif player_score < 10 then
+	elseif player_score < 15 then
 		return {rank = "Evader", color = "#00ff7f"}
 	elseif player_score < 20 then
 		return {rank = "Dodger", color = "#00bfff"}
