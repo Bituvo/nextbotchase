@@ -8,6 +8,8 @@ local inf = function(message) return minetest.colorize(server.info_color, messag
 -- Remove garbage
 minetest.unregister_chatcommand("spawn")
 minetest.unregister_chatcommand("killme")
+minetest.unregister_chatcommand("clearobjects")
+minetest.unregister_chatcommand("ban")
 
 minetest.register_chatcommand("spawn", {
 	description = S("Teleport to spawn"),
