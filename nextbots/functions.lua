@@ -62,8 +62,8 @@ function nextbots.find_nextbot(name_or_id)
 		return nextbots.spawned_nextbots[name_or_id]
 	end
 
-	for target_name, nextbot in ipairs(nextbots.spawned_nextbots) do
-		if target_name == name_or_id then
+	for _, nextbot in ipairs(nextbots.spawned_nextbots) do
+		if nextbot:get_luaentity()._target:get_player_name() == name_or_id then
 			return nextbot
 		end
 	end
@@ -86,8 +86,8 @@ local function remove_nextbot(object, name_or_id)
 		if type(name_or_id) == "number" then
 			nextbots.spawned_nextbots[name_or_id] = nil
 		else
-			for target_name, nextbot in ipairs(nextbots.spawned_nextbots) do
-				if target_name == name_or_id then
+			for _, nextbot in ipairs(nextbots.spawned_nextbots) do
+				if nextbot:get_luaentity()._target:get_player_name() == name_or_id then
 					nextbots.spawned_nextbots[nextbot:get_luaentity()._id] = nil
 				end
 			end
