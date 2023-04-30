@@ -26,12 +26,15 @@ function minetest.format_chat_message(name, message)
 	return minetest.colorize(player_role.color, "[" .. player_role.role .. "] ") .. name .. ": " .. message
 end
 
--- Set nametags
-minetest.register_on_joinplayer(function(player)
-	local player_name = player:get_player_name()
+function server.update_player_nametag(player_name)
 	local player_role = server.get_player_role(player_name)
 
 	player:set_nametag_attributes({
 		text = minetest.colorize(player_role.color, "[" .. player_role.role .. "] ") .. player_name
 	})
+end
+
+-- Set nametags
+minetest.register_on_joinplayer(function(player)
+	server.update_player_nametag(player:get_player_name())
 end)

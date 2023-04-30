@@ -18,6 +18,7 @@ Nextbot not found=Nextbot non trouvé
 
 ### logic.lua ###
 @1 was killed by @2=@1 a été tué par @2
+@1 is now @2 rank=@1 est maintenant @2
 
 ### score.lua ###
 See a player's score or your own=Voir le score d'un joueur ou le vôtre

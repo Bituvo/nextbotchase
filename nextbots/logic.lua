@@ -58,11 +58,24 @@ function nextbots._on_reach_target(self)
 	self.object:set_velocity(vector.new())
 
 	minetest.sound_fade(self._sound_handle, 1.5, 0)
+	local target_name = self._target:get_player_name()
+
+	local previous_role = server.get_player_role(target_name)
 	nextbots.calculate_score(self._target, self._chase_time, self._speed)
+	local current_role = server.get_player_role(target_name)
+
+	if previous_role.role ~= current_role.role then
+		-- Player role updated
+		minetest.log("action", target_name .. " is now at " .. current_role.role .. " rank")
+		minetest.chat_send_all(S("@1 is now @2 rank",
+			target_name, minetest.colorize(current_role.color, "[" .. current_role.role .. "]")
+		))
+	end
+
 	minetest.chat_send_all(minetest.colorize(server.death_color,
-		S("@1 was killed by @2", self._target:get_player_name(), self._formal_name))
+		S("@1 was killed by @2", target_name, self._formal_name))
 	)
-	minetest.log("action", self._target:get_player_name() .. " was killed by " .. self._technical_name)
+	minetest.log("action", target_name .. " was killed by " .. self._technical_name)
 
 	-- Remove self
 	minetest.after(2, function()
