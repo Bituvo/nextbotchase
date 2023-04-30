@@ -31,7 +31,7 @@ end)
 -- Ditto, but also spawn a nextbot
 minetest.register_on_joinplayer(function(player)
 	local player_name = player:get_player_name()
-	local formspec_version = minetest.get_player_information(player_name)
+	local formspec_version = minetest.get_player_information(player_name).formspec_version
 
 	if formspec_version < 6 then
 		minetest.kick_player(player_name, S("Your Minetest/MultiCraft client is outdated. Please update to Minetest 5.7.0"))
