@@ -22,10 +22,10 @@ local leave_messages = {
 }
 
 function minetest.send_join_message(player_name)
-	local player_role = server.get_player_role(player_name)
+	local player_rank = server.get_player_rank(player_name)
 
 	minetest.chat_send_all(minetest.get_color_escape_sequence(server.join_color) .. " =>" ..
-		minetest.get_color_escape_sequence(player_role.color) .. " [" .. player_role.role .. "] " ..
+		minetest.get_color_escape_sequence(player_rank.color) .. " [" .. player_rank.rank .. "] " ..
 		minetest.get_color_escape_sequence(server.join_color) .. S(join_messages[math.random(1, 4)], player_name)
 	)
 end

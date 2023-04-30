@@ -60,15 +60,15 @@ function nextbots._on_reach_target(self)
 	minetest.sound_fade(self._sound_handle, 1.5, 0)
 	local target_name = self._target:get_player_name()
 
-	local previous_role = server.get_player_role(target_name)
+	local previous_rank = server.get_player_rank(target_name)
 	nextbots.calculate_score(self._target, self._chase_time, self._speed)
-	local current_role = server.get_player_role(target_name)
+	local current_rank = server.get_player_rank(target_name)
 
-	if previous_role.role ~= current_role.role then
-		-- Player role updated
-		minetest.log("action", target_name .. " is now at " .. current_role.role .. " rank")
+	if previous_rank.rank ~= current_rank.rank then
+		-- Player rank updated
+		minetest.log("action", target_name .. " is now at " .. current_rank.rank .. " rank")
 		minetest.chat_send_all(S("@1 is now @2 rank",
-			target_name, minetest.colorize(current_role.color, "[" .. current_role.role .. "]")
+			target_name, minetest.colorize(current_rank.color, "[" .. current_rank.rank .. "]")
 		))
 	end
 
