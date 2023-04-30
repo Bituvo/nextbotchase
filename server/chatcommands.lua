@@ -30,7 +30,8 @@ minetest.register_chatcommand("who", {
 		local message = inf(S("Clients: "))
 
 		for _, player in ipairs(minetest.get_connected_players()) do
-			message = message .. player:get_player_name() .. ", "
+			local player_role_color = server.get_player_role(player:get_player_name()).color
+			message = message .. minetest.colorize(player_role_color, player:get_player_name()) .. ", "
 		end
 
 		minetest.log("action", name .. " viewed clients list")
