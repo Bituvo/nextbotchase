@@ -68,12 +68,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		nextbots.handle_new_player(player)
 	end
 end)
-
--- Prevent staff from taking damage
-minetest.register_on_player_hpchange(function(player, hp_change)
-	if minetest.check_player_privs(player, {server = true}) then
-		return 0
-	end
-
-	return hp_change
-end, true)
