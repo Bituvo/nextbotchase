@@ -103,6 +103,6 @@ end)
 
 minetest.register_on_chat_message(function(name, message)
 	local chat = io.open(chat_path, "a")
-	chat:write(minetest.format_chat_message(name, message) .. "\n")
+	chat:write(minetest.strip_colors(minetest.format_chat_message(name, message) .. "\n"))
 	chat:close()
 end)
