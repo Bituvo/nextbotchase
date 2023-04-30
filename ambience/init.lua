@@ -1,13 +1,15 @@
 local function play_ambient_noise(player)
-	local sound_pos = vector.add(player:get_pos(),
-		vector.new(math.random(-5, 5), math.random(-5, 5), math.random(-5, 5))
-	)
+	if player:get_hp() > 0 then
+		local sound_pos = vector.add(player:get_pos(),
+			vector.new(math.random(-5, 5), math.random(-5, 5), math.random(-5, 5))
+		)
 
-	minetest.sound_play("ambient", {
-		to_player = player:get_player_name(),
-		pos = sound_pos,
-		gain = 10 / vector.distance(player:get_pos(), sound_pos)
-	})
+		minetest.sound_play("ambient", {
+			to_player = player:get_player_name(),
+			pos = sound_pos,
+			gain = 10 / vector.distance(player:get_pos(), sound_pos)
+		})
+	end
 
 	minetest.after(math.random(30, 60), function()
 		play_ambient_noise(player)
