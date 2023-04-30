@@ -4,7 +4,7 @@ local function show_selection_formspec(player)
 	local context = skins.get_formspec_context(player)
 	local name = player:get_player_name()
 	local skin = skins.get_player_skin(player)
-	local formspec = "size[8,8]"..skins.get_skin_info_formspec(skin)
+	local formspec = "size[9,8]"..skins.get_skin_info_formspec(skin)
 	formspec = formspec..skins.get_skin_selection_formspec(player, context, 3.5)
 	minetest.show_formspec(name, 'skinsdb_show_ui', formspec)
 end

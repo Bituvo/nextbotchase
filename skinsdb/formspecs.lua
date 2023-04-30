@@ -51,19 +51,19 @@ end
 function skins.get_skin_selection_formspec(player, context, perplayer_formspec)
 	context.skins_list = skins.get_skinlist_for_player(player:get_player_name())
 	context.total_pages = 1
-	local xoffs = 0
-	local yoffs = 4
+	local xoffs = 0.5
+	local yoffs = 3
 	local xspc = 1
 	local yspc = 2
 	local skinwidth = 1
 	local skinheight = 2
 	local xscale = 1 -- luacheck: ignore
-	local btn_y = 8.15
-	local drop_y = 8
+	local btn_y = 7.15
+	local drop_y = 7
 	local btn_width = 1
-	local droppos = 1
+	local droppos = 1.5
 	local droplen = 6.25
-	local btn_right = 7
+	local btn_right = 7.5
 	local maxdisp = 16
 
 	local ctrls_height = 0.5
