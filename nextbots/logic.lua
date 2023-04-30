@@ -79,7 +79,7 @@ function nextbots._on_reach_target(self)
 		))
 	end
 
-	if not minetest.check_player_privs(target_name, {server = true})
+	if not minetest.check_player_privs(target_name, {server = true}) then
 		minetest.chat_send_all(minetest.colorize(server.death_color,
 			S("@1 was killed by @2", target_name, self._formal_name))
 		)
