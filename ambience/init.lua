@@ -1,4 +1,6 @@
 local function play_ambient_noise(player)
+	if not player:get_pos() then return end
+
 	if player:get_hp() > 0 then
 		local sound_pos = vector.add(player:get_pos(),
 			vector.new(math.random(-5, 5), math.random(-5, 5), math.random(-5, 5))
