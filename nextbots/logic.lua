@@ -9,10 +9,15 @@ function nextbots._on_step(self, dtime)
 		self._dtime = 0
 
 		-- Delete self if target is already dead or can't be found
-		if not self._target or not self._target:get_pos() or self._target:get_hp() == 0 then
-			local id = self._id
-			nextbots.remove_nextbot(id)
+		if not self._target or not self._target:get_pos() then
+			minetest.log("warning", "Prematurely removing nextbot (target not found")
+			self._remove_self(self)
 			return
+		end
+
+		if self._target:get_hp() == 0 then
+			minetest.log("warning", "Prematurely removing nextbot (target is dead)")
+			self._remove_self(self)
 		end
 
 		local bot_pos = vector.round(self.object:get_pos())
@@ -50,6 +55,10 @@ function nextbots._on_step(self, dtime)
 	end
 end
 
+function nextbots._remove_self(self)
+	nextbots.remove_nextbot(self._id)
+end
+
 function nextbots._on_reach_target(self)
 	self._chasing = false
 	self._target:set_hp(0)
@@ -77,7 +86,7 @@ function nextbots._on_reach_target(self)
 
 	-- Remove self
 	minetest.after(2, function()
-		nextbots.remove_nextbot(self._id)
+		self._remove_self(self)
 	end)
 end
 

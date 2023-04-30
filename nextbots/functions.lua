@@ -41,6 +41,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 		-- Logic
 		luaentity.on_step = nextbots._on_step
+		luaentity._remove_self = nextbots._remove_self
 		luaentity._on_reach_target = nextbots._on_reach_target
 		luaentity._stay_unstuck = nextbots._stay_unstuck
 	end)
