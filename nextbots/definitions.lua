@@ -64,6 +64,6 @@ end
 nextbots.register_nextbot("obunga",    "Obunga", 			   22, 5, 1)
 nextbots.register_nextbot("selene",    "Selene Delgado López", 24, 4, 2)
 nextbots.register_nextbot("thisman",   "This Man",			   25, 5, 4)
-nextbots.register_nextbot("alternate", "Alternate",            22, 4, 2)
+nextbots.register_nextbot("alternate", "Alternate",            23, 4, 2)
 nextbots.register_nextbot("pinhead",   "Pinhead",              25, 4, 4)
-nextbots.register_nextbot("munci",     "Munci",                23, 5, 3)
+nextbots.register_nextbot("munci",     "Munci",                22, 5, 3)
