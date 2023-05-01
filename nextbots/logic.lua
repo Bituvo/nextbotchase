@@ -50,7 +50,9 @@ function nextbots._on_step(self, dtime)
 			return
 		end
 
-		self.object:move_to(next_pos)
+		-- Actually move
+		local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self._speed)
+		self.object:set_velocity(velocity)
 		self._steps = self._steps + 1
 	end
 end
