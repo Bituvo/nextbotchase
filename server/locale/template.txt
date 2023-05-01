@@ -49,3 +49,19 @@ Showed rules to @1=
 The player "@1" either does not exist or is not logged in=
 You need the '@1' privilege to show the rules to another player=
 Please read and agree to the rules.=
+
+### tipoftheday.lua ###
+Run as long as you can to increase your rank=
+Do "/skin" to change your skin=
+Nextbots use the A* algorithm=
+Do "/rules" to see the server rules=
+You have a two second head start=
+You may hear something behind you=
+There are six different nextbots=
+Each nextbot has a different size and speed=
+Don't run into the traps=
+Don't get lost in the shadow areas=
+Nextbots never give up=
+Mods can see your chat messages=
+Do "/score" to see your or another player's score=
+Tip of the day: =

@@ -49,3 +49,19 @@ Showed rules to @1=A montré les règles à @1
 The player "@1" either does not exist or is not logged in=Le joueur "@1" n'existe pas ou n'est pas connecté.
 You need the '@1' privilege to show the rules to another player=Vous avez besoin du privilège '@1' pour montrer les règles à un autre joueur.
 Please read and agree to the rules.=Veuillez lire et accepter les règles.
+
+### tipoftheday.lua ###
+Run as long as you can to increase your rank=Courez aussi longtemps que vous le pouvez pour augmenter votre rang
+Do "/skin" to change your skin=Faites "/skin" pour changer de peau
+Nextbots use the A* algorithm=Les Nextbots utilisent l'algorithme A*
+Do "/rules" to see the server rules=Faites "/rules" pour voir les règles du serveur
+You have a two second head start=Vous avez deux secondes d'avance
+You may hear something behind you=Vous pouvez entendre quelque chose derrière vous
+There are six different nextbots=Il existe six nextbots différents
+Each nextbot has a different size and speed=Chaque nextbot a une taille et une vitesse différentes
+Don't run into the traps=Ne tombez pas dans les pièges
+Don't get lost in the shadow areas=Ne te perds pas dans les zones d'ombre
+Nextbots never give up=Les nextbots n'abandonnent jamais
+Mods can see your chat messages=Les mods peuvent voir tes messages de chat
+Do "/score" to see your or another player's score=Faites "/score" pour voir votre score ou celui d'un autre joueur
+Tip of the day: =Astuce du jour : 
