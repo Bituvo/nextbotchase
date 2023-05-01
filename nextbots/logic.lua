@@ -94,14 +94,14 @@ function nextbots._on_reach_target(self)
 end
 
 function nextbots._stay_unstuck(self, radius)
-	if minetest.get_node(self.object:get_pos()).name ~= "air" then
-		local origin = vector.round(self.object:get_pos())
-		origin.y = -4
+	local origin = vector.round(self.object:get_pos())
+	origin.y = -4
 
-		local left = origin
-		local right = origin
-		local forwards = origin
-		local backwards = origin
+	if minetest.get_node(origin).name ~= "air" then
+		local left = vector.new(origin)
+		local right = vector.new(origin)
+		local forwards = vector.new(origin)
+		local backwards = vector.new(origin)
 
 		left.x = left.x - radius
 		right.x = right.x + radius
