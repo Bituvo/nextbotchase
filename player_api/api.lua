@@ -193,7 +193,7 @@ function player_api.globalstep()
 			end
 
 			-- Apply animations based on what the player is doing
-			if player:get_hp() == 0 or player:get_meta():get_int("laying") == 1 then
+			if player:get_hp() == 0 then
 				player_set_animation(player, "lay")
 			elseif controls.up or controls.down or controls.left or controls.right then
 				if controls.LMB or controls.RMB then
@@ -213,6 +213,10 @@ end
 -- Mods can modify the globalstep by overriding player_api.globalstep
 minetest.register_globalstep(function(...)
 	player_api.globalstep(...)
+end)
+
+minetest.register_on_dieplayer(function(player)
+	player_set_animation(player, "lay")
 end)
 
 for _, api_function in pairs({"get_animation", "set_animation", "set_model", "set_textures"}) do
