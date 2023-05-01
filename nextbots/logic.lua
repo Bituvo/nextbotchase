@@ -98,10 +98,10 @@ function nextbots._stay_unstuck(self, radius)
 	origin.y = -4
 
 	if minetest.get_node(origin).name ~= "air" then
-		local left = vector.new(origin)
-		local right = vector.new(origin)
-		local forwards = vector.new(origin)
-		local backwards = vector.new(origin)
+		local left = vector.copy(origin)
+		local right = vector.copy(origin)
+		local forwards = vector.copy(origin)
+		local backwards = vector.copy(origin)
 
 		left.x = left.x - radius
 		right.x = right.x + radius
