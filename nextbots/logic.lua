@@ -74,6 +74,7 @@ function nextbots._on_reach_target(self)
 	if previous_rank.rank ~= current_rank.rank then
 		-- Player rank updated
 		minetest.log("action", target_name .. " is now at " .. current_rank.rank .. " rank")
+		server.update_player_nametag(self._target)
 		minetest.chat_send_all(S("@1 is now @2 rank",
 			target_name, minetest.colorize(current_rank.color, "[" .. current_rank.rank .. "]")
 		))
