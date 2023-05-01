@@ -1,3 +1,4 @@
+local storage = minetest.get_mod_storage()
 local S = minetest.get_translator("server")
 
 -- Coloring functions
@@ -26,6 +27,7 @@ minetest.register_chatcommand("spawn", {
 
 minetest.register_chatcommand("who", {
 	description = S("List who is currently logged in"),
+
 	func = function(name)
 		local message = inf(S("Clients: "))
 
@@ -44,15 +46,15 @@ minetest.register_chatcommand("restart", {
 	description = S("Restarts the server after 20 seconds"),
 	privs = {server = true},
 	params = "[" .. S("reason") .. "]",
-	func = function(name, param)
-		local reason = param
+
+	func = function(invoker_name, reason)
 		if reason == "" then
 			reason = S("No reason specified")
 		end
 		reason = err(reason)
 
 		for _, player in ipairs(minetest.get_connected_players()) do
-			if player:get_player_name() ~= name then
+			if player:get_player_name() ~= invoker_name then
 				minetest.show_formspec(player:get_player_name(), "restart_notification", "formspec_version[5]" ..
 					"size[8, 6]" ..
 					"no_prepend[]" ..
@@ -64,7 +66,7 @@ minetest.register_chatcommand("restart", {
 			end
 		end
 		
-		minetest.log("action", name .. " restarted the server (reason: " .. reason .. ")")
+		minetest.log("action", invoker_name .. " restarted the server (reason: " .. reason .. ")")
 
 		minetest.clear_objects()
 		minetest.request_shutdown(
@@ -72,6 +74,17 @@ minetest.register_chatcommand("restart", {
 			S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
 		true, 20)
 
-		return true, inf(S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", name, reason))
+		return true, inf(S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", invoker_name, reason))
+	end
+})
+
+minetest.register_chatcommand("analytics", {
+	description = S("View server analytics"),
+	privs = {server = true},
+	
+	func = function(invoker_name)
+		return true,
+			inf(S("MultiCraft clients: @1", tostring(storage:get_int("multicraft")))) .. "\n" ..
+			inf(S("Minetest clients: @1", tostring(storage:get_int("minetest"))))
 	end
 })

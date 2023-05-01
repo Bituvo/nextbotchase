@@ -13,6 +13,9 @@ Reason: @1=Grund: @1
 Wait three minutes before reconnecting.=Warte drei Minuten, bevor du dich wieder verbindest.
 If the server doesn't reboot, Discord PM the admin: @1=Wenn der Server nicht neu gestartet wird, schreibe eine Discord-PM an den Admin: @1
 Server restart requested by @1: @2 (wait three minutes before reconnecting)=Server-Neustart angefordert von @1: @2 (warte drei Minuten, bevor du die Verbindung wieder aufnimmst)
+View server analytics=Server-Analysen anzeigen
+MultiCraft clients: @1=MultiCraft-Kunden: @1
+Minetest clients: @1=Minetest-Kunden: @1
 
 ### chatstatus.lua ###
 Welcome to BACKROOMS CHASE, =Willkommen bei BACKROOMS CHASE, 
