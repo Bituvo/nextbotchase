@@ -30,15 +30,6 @@ if minetest.is_creative_enabled() or br_core.mapgen == "flat" then
 end
 br_core.fullbright = 0
 
-minetest.register_on_joinplayer(function(player)
-    if not minetest.check_player_privs(player, {server = true}) then
-        minetest.sound_play("hum", {
-            to_player = player:get_player_name(),
-            loop = true
-        })
-    end
-end)
-
 dofile(mod_path .. DIR_DELIM .. "mapgen" .. DIR_DELIM .. "mapgen.lua")
 -- makes nodes
 dofile(mod_path .. DIR_DELIM .. "nodes" .. DIR_DELIM .. "main_nodes.lua")
