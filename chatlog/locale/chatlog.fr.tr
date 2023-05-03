@@ -1,6 +1,7 @@
 # textdomain: chatlog
 
 Chat log is empty=Le journal de chat est vide
+Chat log not found (path: @1)=Le journal de chat n'a pas été trouvé (chemin : @1)
 Show the last <lines> lines of the chat log=Afficher les dernières <lignes> du journal du chat
 Invalid line count=Nombre de lignes invalide
 Last @1 lines of the chat:=Dernières @1 lignes du chat :

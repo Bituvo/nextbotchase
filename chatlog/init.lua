@@ -3,19 +3,41 @@ local chat_path = minetest.get_worldpath() .. "/chat.txt"
 
 local function get_chat_lines(num_lines)
 	local lines = {}
-	local lines_read = 0
+	local file = io.open(chat_path, "r")
 
-	for line in io.lines(chat_path) do
-		if #lines <= num_lines then
-			table.insert(lines, line)
-			lines_read = lines_read + 1
+	if file then
+		local pos = file:seek("end")
+		local lines_read = 0
+
+		while pos > 0 and lines_read <= num_lines do
+			local line = ""
+
+			while true do
+				pos = pos - 1
+				file:seek("set", pos)
+				local char = file:read(1)
+
+				if char == "\n" or pos == 0 then
+					if line ~= "" then
+						table.insert(lines, 1, line)
+						lines_read = lines_read + 1
+						break
+					end
+				else
+					line = char .. line
+				end
+			end
 		end
-	end
 
-	if lines_read > 0 then
-		return lines
+		file:close()
+
+		if lines_read > 0 then
+			return lines
+		else
+			return {S("Chat log is empty")}
+		end
 	else
-		return {S("Chat log is empty")}
+		return {S("Chat log not found (path: @1)", chat_path)}
 	end
 end
 
@@ -34,6 +56,7 @@ minetest.register_chatcommand("chatlog", {
 
 		local formspec = "formspec_version[5]" ..
 			"size[15, 10.5]" ..
+			"no_prepend[]" ..
 			"bgcolor[#111a]" ..
 			"label[1, 1;" .. S("Last @1 lines of the chat:", lines) .. "]" ..
 			"button_exit[10, 8.5;4, 1;exit_chatlog;" .. S("Close") .. "]" ..

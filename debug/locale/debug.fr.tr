@@ -1,6 +1,7 @@
 # textdomain: debug
 
 The debug file is empty=Le fichier de débogage est vide
+Debug file not found (path: @1)=Fichier de débogage introuvable (chemin : @1)
 Shows the last <lines> lines of the debug file=Affiche les dernières <lignes> du fichier de débogage
 Invalid line count=Nombre de lignes invalide
 Last @1 lines of debug file:=Dernières @1 lignes du fichier de débogage :
