@@ -1,7 +1,6 @@
 # textdomain: debug
 
 The debug file is empty=El archivo de depuración está vacío
-Debug file not found (path: @1)=Archivo de depuración no encontrado (ruta: @1)
 Shows the last <lines> lines of the debug file=Muestra las últimas <líneas> de debug.txt
 Invalid line count=Recuento de líneas no válido
 Last @1 lines of debug file:=Últimas @1 líneas del archivo de depuración:

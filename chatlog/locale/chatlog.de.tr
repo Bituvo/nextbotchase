@@ -1,7 +1,6 @@
 # textdomain: chatlog
 
 Chat log is empty=Chatprotokoll ist leer
-Chat log not found (path: @1)=Chatprotokoll nicht gefunden (Pfad: @1)
 Show the last <lines> lines of the chat log=Zeige die letzten <Zeilen> Zeilen des Chatprotokolls
 Invalid line count=Ungültige Zeilenzahl
 Last @1 lines of the chat:=Letzte @1 Zeilen des Chats:

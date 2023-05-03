@@ -4,51 +4,38 @@ local debug_path = minetest.get_worldpath() .. "/debug.txt"
 -- Get the last <num_lines> lines of debug.txt (etim3 put it in the worldpath)
 local function get_debug_lines(num_lines)
 	local lines = {}
-	local file = io.open(debug_path, "r")
+	local lines_read = 0
 
-	if file then
-		local pos = file:seek("end")
-		local lines_read = 0
+	for line in io.lines(debug_path) do
+		if #lines <= num_lines then
+			if line == "  Separator" then
+				table.insert(lines, "")
+				table.insert(lines, "#00ff00Server restarted")
+				table.insert(lines, "")
+				lines_read = lines_read + 3
+			else
+				line = line:sub(22, -1)
 
-		while pos > 0 and lines_read <= num_lines do
-			local line = ""
-
-			while true do
-				pos = pos - 1
-				file:seek("set", pos)
-				local char = file:read(1)
-
-				if char == "\n" or pos == 0 then
-					if line ~= "" then
-						line = line:sub(22, -1)
-
-						if line:sub(1, 5) == "ERROR" then
-							line = "#ff0000" .. line
-						elseif line:sub(1, 7) == "WARNING" then
-							line = "#ffff00" .. line
-						elseif line:sub(1, 6) == "ACTION" then
-							line = "#aaffaa" .. line
-						end
-
-						table.insert(lines, 1, line)
-						lines_read = lines_read + 1
-						break
+				if line ~= "" then
+					if line:sub(1, 5) == "ERROR" then
+						line = "#ff0000" .. line
+					elseif line:sub(1, 7) == "WARNING" then
+						line = "#ffff00" .. line
+					elseif line:sub(1, 6) == "ACTION" then
+						line = "#aaffaa" .. line
 					end
-				else
-					line = char .. line
+
+					table.insert(lines, line)
+					lines_read = lines_read + 1
 				end
 			end
 		end
+	end
 
-		file:close()
-
-		if lines_read > 0 then
-			return lines
-		else
-			return {S("The debug file is empty")}
-		end
+	if lines_read > 0 then
+		return lines
 	else
-		return {S("Debug file not found (path: @1)", debug_path)}
+		return {S("The debug file is empty")}
 	end
 end
 
@@ -83,6 +70,7 @@ minetest.register_chatcommand("debug", {
 
 		formspec = formspec:sub(1, -2)
 		formspec = formspec .. "]"
+
 		minetest.show_formspec(name, "debug", formspec)
 	end
 })
