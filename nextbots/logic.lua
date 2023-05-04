@@ -10,7 +10,7 @@ function nextbots._on_step(self, dtime)
 
 		-- Delete self if target is already dead or can't be found
 		if not self._target or not self._target:get_pos() then
-			minetest.log("warning", "Prematurely removing nextbot (target not found")
+			minetest.log("warning", "Prematurely removing nextbot (target not found)")
 			self._remove_self(self)
 			return
 		end
@@ -120,7 +120,7 @@ function nextbots._stay_unstuck(self, radius)
 			self.object:move_to(backwards)
 		else
 			if radius > 10 then
-				minetest.log("warning", self._formal_name .. " is stuck at " .. minetest.pos_to_string(origin))
+				minetest.log("warning", self._formal_name .. " is stuck in" .. minetest.get_node(origin).name .. " at " .. minetest.pos_to_string(origin))
 				return
 			end
 			
