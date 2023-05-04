@@ -96,7 +96,7 @@ function nextbots._on_reach_target(self)
 end
 
 function nextbots._stay_unstuck(self, radius)
-	local origin = vector.round(self.object:get_pos())
+	local origin = vector.round(vector.add(self.object:get_pos(), {x = 0, y = 1, z = 0})
 	origin.y = -4
 
 	if minetest.get_node(origin).name ~= "air" then
