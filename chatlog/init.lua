@@ -1,44 +1,27 @@
 local S = minetest.get_translator("chatlog")
-local chat_path = minetest.get_worldpath() .. "/chat.txt"
+local chatlog_path = minetest.get_worldpath() .. "/chat.txt"
 
 local function get_chat_lines(num_lines)
-	local lines = {}
-	local file = io.open(chat_path, "r")
-
-	if file then
-		local pos = file:seek("end")
-		local lines_read = 0
-
-		while pos > 0 and lines_read <= num_lines do
-			local line = ""
-
-			while true do
-				pos = pos - 1
-				file:seek("set", pos)
-				local char = file:read(1)
-
-				if char == "\n" or pos == 0 then
-					if line ~= "" then
-						table.insert(lines, 1, line)
-						lines_read = lines_read + 1
-						break
-					end
-				else
-					line = char .. line
-				end
-			end
-		end
-
-		file:close()
-
-		if lines_read > 0 then
-			return lines
-		else
-			return {S("Chat log is empty")}
-		end
-	else
-		return {S("Chat log not found (path: @1)", chat_path)}
+	local total_lines = 0
+	for _ in io.lines(chatlog_path) do
+		total_lines = total_lines + 1
 	end
+
+	local lines = {}
+	local current_line = 0
+	for line in io.lines(chatlog_path) do
+		current_line = current_line + 1
+
+		if current_line > total_lines - num_lines then
+			table.insert(lines, line)
+		end
+	end
+
+	if current_line == 0 then
+		return {S("Chat log is empty")}
+	end
+
+	return lines
 end
 
 minetest.register_chatcommand("chatlog", {
@@ -97,12 +80,12 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 	-- Clear chatlog confirmation
 	elseif minetest.check_player_privs(player, {server = true}) and formname == "clear_chatlog_confirmation" and fields.confirm_clear_chatlog then
 		minetest.close_formspec(player:get_player_name(), "clear_chatlog_confirmation")
-		io.open(chat_path, "w"):close()
+		io.open(chatlog_path, "w"):close()
 	end
 end)
 
 minetest.register_on_chat_message(function(name, message)
-	local chat = io.open(chat_path, "a")
+	local chat = io.open(chatlog_path, "a")
 	chat:write(minetest.strip_colors(minetest.format_chat_message(name, message) .. "\n"))
 	chat:close()
 end)

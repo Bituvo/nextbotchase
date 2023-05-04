@@ -3,53 +3,36 @@ local debug_path = minetest.get_worldpath() .. "/debug.txt"
 
 -- Get the last <num_lines> lines of debug.txt (etim3 put it in the worldpath)
 local function get_debug_lines(num_lines)
-	local lines = {}
-	local file = io.open(debug_path, "r")
-
-	if file then
-		local pos = file:seek("end")
-		local lines_read = 0
-
-		while pos > 0 and lines_read <= num_lines do
-			local line = ""
-
-			while true do
-				pos = pos - 1
-				file:seek("set", pos)
-				local char = file:read(1)
-
-				if char == "\n" or pos == 0 then
-					if line ~= "" then
-						line = line:sub(22, -1)
-
-						if line:sub(1, 5) == "ERROR" then
-							line = "#ff0000" .. line
-						elseif line:sub(1, 7) == "WARNING" then
-							line = "#ffff00" .. line
-						elseif line:sub(1, 6) == "ACTION" then
-							line = "#aaffaa" .. line
-						end
-
-						table.insert(lines, 1, line)
-						lines_read = lines_read + 1
-						break
-					end
-				else
-					line = char .. line
-				end
-			end
-		end
-
-		file:close()
-
-		if lines_read > 0 then
-			return lines
-		else
-			return {S("The debug file is empty")}
-		end
-	else
-		return {S("Debug file not found (path: @1)", debug_path)}
+	local total_lines = 0
+	for _ in io.lines(debug_path) do
+		total_lines = total_lines + 1
 	end
+
+	local lines = {}
+	local current_line = 0
+	for line in io.lines(debug_path) do
+		current_line = current_line + 1
+
+		if current_line > total_lines - num_lines then
+			line = line:sub(22, -1)
+
+			if line:sub(1, 5) == "ERROR" then
+				line = "#ff0000" .. line
+			elseif line:sub(1, 7) == "WARNING" then
+				line = "#ffff00" .. line
+			elseif line:sub(1, 6) == "ACTION" then
+				line = "#aaffaa" .. line
+			end
+
+			table.insert(lines, line)
+		end
+	end
+
+	if current_line == 0 then
+		return {S("The debug file is empty")}
+	end
+
+	return lines
 end
 
 minetest.register_chatcommand("debug", {
