@@ -52,7 +52,7 @@ function nextbots._on_step(self, dtime)
 
 		local temp_pos = self.object:get_pos()
 		temp_pos.y = self._fixed_y_position
-		self.obect:set_pos(bot_pos)
+		self.object:set_pos(temp_pos)
 
 		-- Actually move
 		local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self._speed)
