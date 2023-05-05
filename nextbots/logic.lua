@@ -52,6 +52,7 @@ function nextbots._on_step(self, dtime)
 
 		-- Actually move
 		local velocity = vector.multiply(vector.subtract(next_pos, self.object:get_pos()), self._speed)
+		velocity.y = 0
 		self.object:set_velocity(velocity)
 		self._steps = self._steps + 1
 	end
@@ -98,8 +99,9 @@ end
 function nextbots._stay_unstuck(self, radius)
 	local origin = vector.round(vector.add(self.object:get_pos(), {x = 0, y = 1, z = 0}))
 	origin.y = -4
+	local node_name = minetest.get_node(origin).name
 
-	if minetest.get_node(origin).name ~= "air" then
+	if node_name ~= "air" and node_name ~= "ignore" then
 		local left = vector.copy(origin)
 		local right = vector.copy(origin)
 		local forwards = vector.copy(origin)
