@@ -78,7 +78,8 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		minetest.after(0.1, function() show_clear_chatlog_confirmation_formspec(player) end)
 
 	-- Clear chatlog confirmation
-	elseif minetest.check_player_privs(player, {server = true}) and formname == "clear_chatlog_confirmation" and fields.confirm_clear_chatlog then
+	elseif minetest.check_player_privs(player, {server = true}) and
+	  formname == "clear_chatlog_confirmation" and fields.confirm_clear_chatlog then
 		minetest.close_formspec(player:get_player_name(), "clear_chatlog_confirmation")
 		io.open(chatlog_path, "w"):close()
 	end

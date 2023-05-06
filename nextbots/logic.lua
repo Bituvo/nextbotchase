@@ -37,7 +37,7 @@ function nextbots._on_step(self, dtime)
 
 		-- Set pathfinding frequency depending on distance to target
 		local modulo = math.max(math.min(math.floor(distance_to_target / 10), 5), 1)
-		
+
 		if self._steps % modulo == 0 then
 			self._path = minetest.find_path(bot_pos, target_pos, 10, 0, 0, "A*")
 		end
@@ -123,12 +123,13 @@ function nextbots._stay_unstuck(self, radius)
 			self.object:move_to(backwards)
 		else
 			if radius > 10 then
-				minetest.log("warning", self._formal_name .. " is stuck in" .. minetest.get_node(origin).name .. " at " .. minetest.pos_to_string(origin))
+				minetest.log("warning", self._formal_name .. " is stuck in " ..
+					node_name .. " at " .. minetest.pos_to_string(origin))
 				return
 			end
-			
-			minetest.log("warning",
-				self._formal_name .. " is stuck at " .. minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius)
+
+			minetest.log("warning", self._formal_name .. " is stuck in" ..
+				node_name .. " at " .. minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius)
 			)
 			nextbots._stay_unstuck(self, radius + 1)
 		end

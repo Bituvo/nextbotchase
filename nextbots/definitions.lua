@@ -23,7 +23,7 @@ local common_nextbot_definition = {
 	_speed = 0,
 
 	_sound_handle = nil,
-	
+
 	_on_reach_target = nil,
 	_stay_unstuck = nil
 }
@@ -31,7 +31,7 @@ local common_nextbot_definition = {
 -- Nextbot definition factory
 local function get_new_nextbot_definition(name, formal_name, speed, size)
 	local new_nextbot_definition = table.copy(common_nextbot_definition)
-	
+
 	new_nextbot_definition.initial_properties.textures = {name .. ".png"}
 	new_nextbot_definition.initial_properties.visual_size = {x = size, y = size}
 	new_nextbot_definition.initial_properties.selectionbox = {

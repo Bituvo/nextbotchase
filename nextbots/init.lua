@@ -2,7 +2,7 @@ local modpath = minetest.get_modpath("nextbots")
 
 nextbots = {
 	player_spawn_offset = 20,
-	
+
 	registered_nextbots = {},
 	spawned_nextbots = {}
 }

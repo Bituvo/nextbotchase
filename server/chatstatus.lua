@@ -1,6 +1,6 @@
 local S = minetest.get_translator("server")
 
-function minetest.get_server_status(name, joined)
+function minetest.get_server_status(name)
 	local message = minetest.colorize("#ff0", S("Welcome to BACKROOMS CHASE, ")) .. name
 	message = message .. " | " .. minetest.colorize("#9ef", S('Type "/who" to see who is online'))
 

@@ -1,4 +1,3 @@
-local storage = minetest.get_mod_storage()
 local S = minetest.get_translator("nextbots")
 
 -- Coloring functions
@@ -37,7 +36,7 @@ minetest.register_chatcommand("clear", {
 	privs = {server = true},
 	params = "[" .. S("nextbot_name") .. "]",
 
-	func = function(invoker_name, nextbot_name)
+	func = function(_, nextbot_name)
 		local removed_nextbots = 0
 		for id, nextbot in pairs(nextbots.spawned_nextbots) do
 			if nextbot_name == "" or nextbot:get_luaentity()._technical_name == nextbot_name then

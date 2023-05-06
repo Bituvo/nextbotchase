@@ -1,4 +1,3 @@
-local storage = minetest.get_mod_storage()
 local S = minetest.get_translator("server")
 -- Normal translation is not enough, we need hyper-translation (formspec escaping)
 local function FSS(...)
@@ -58,7 +57,7 @@ minetest.register_chatcommand("rules", {
 		if target_name == "" then
 			minetest.log("action", "Showing server rules to " .. invoker_name)
 			show_rules(minetest.get_player_by_name(invoker_name))
-		
+
 		elseif minetest.check_player_privs(invoker_name, {server = true}) then
 			local target = minetest.get_player_by_name(target_name)
 
@@ -87,7 +86,7 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		minetest.log("action", name .. " agreed to the rules")
 		player:get_meta():set_int("rules_agreed", 1)
 		minetest.close_formspec(name, "new_player")
-		
+
 		nextbots.handle_new_player(player)
 	end
 end)
@@ -96,10 +95,10 @@ end)
 minetest.register_on_newplayer(function(player)
 	player:set_physics_override({speed = server.player_speed})
 	player:get_meta():set_int("nextbot_id", 0)
-	
+
 	if not minetest.check_player_privs(player, {server = true}) then
 		server.prepare_player(player)
-		
+
 		player:get_meta():set_int("rules_agreed", 0)
 		player:set_pos(server.static_spawn)
 		server.show_new_player_rules(player)
@@ -127,7 +126,7 @@ minetest.register_on_joinplayer(function(player)
 
 	if not minetest.check_player_privs(player, {server = true}) then
 		server.prepare_player(player)
-		
+
 		if player:get_hp() > 0 then
 			if player:get_meta():get_int("rules_agreed") == 0 then
 				server.show_new_player_rules(player)

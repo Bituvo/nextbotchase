@@ -16,12 +16,12 @@ local offsets = {
 -- Get a random nextbot name
 local function get_random_nextbot_name()
 	local total_prob = 0
-	for name, data in pairs(nextbots.registered_nextbots) do
+	for _, data in pairs(nextbots.registered_nextbots) do
 		total_prob = total_prob + data.probability
 	end
-	
+
 	local rand = math.random(1, total_prob)
-	
+
 	for name, data in pairs(nextbots.registered_nextbots) do
 		rand = rand - data.probability
 		if rand <= 0 then

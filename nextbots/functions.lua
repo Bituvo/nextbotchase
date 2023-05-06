@@ -23,7 +23,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 		end
 
 		local target_meta = target:get_meta()
-		
+
 		if not target_meta then
 			created_successfully = false
 			return
@@ -49,7 +49,7 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 	if created_successfully then
 		nextbots.spawned_nextbots[current_nextbot_id] = new_nextbot
 		target:get_meta():set_int("nextbot_id", current_nextbot_id)
-		
+
 		current_nextbot_id = current_nextbot_id + 1
 	else
 		minetest.log("warning", "Nextbot creation failed")
@@ -82,7 +82,7 @@ local function remove_nextbot(object, name_or_id)
 
 		minetest.sound_stop(luaentity._sound_handle)
 		object:remove()
-		
+
 		if type(name_or_id) == "number" then
 			nextbots.spawned_nextbots[name_or_id] = nil
 		else

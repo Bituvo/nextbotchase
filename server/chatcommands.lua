@@ -1,4 +1,4 @@
-local storage = minetest.get_mod_storage()
+-- local storage = minetest.get_mod_storage()
 local S = minetest.get_translator("server")
 
 -- Coloring functions
@@ -15,7 +15,7 @@ minetest.unregister_chatcommand("ban")
 minetest.register_chatcommand("spawn", {
 	description = S("Teleport to spawn"),
 	privs = {server = true},
-	
+
 	func = function(name)
 		local player = minetest.get_player_by_name(name)
 		player:set_pos(server.static_spawn)
@@ -65,7 +65,7 @@ minetest.register_chatcommand("restart", {
 				)
 			end
 		end
-		
+
 		minetest.log("action", invoker_name .. " restarted the server (reason: " .. reason .. ")")
 
 		minetest.clear_objects()
@@ -74,17 +74,18 @@ minetest.register_chatcommand("restart", {
 			S("If the server doesn't reboot, Discord PM the admin: @1", "Thresher#9632"),
 		true, 20)
 
-		return true, inf(S("Server restart requested by @1: @2 (wait three minutes before reconnecting)", invoker_name, reason))
+		return true, inf(S("Server restart requested by @1: @2 (wait three minutes before reconnecting)",
+			invoker_name, reason))
 	end
 })
 
-minetest.register_chatcommand("analytics", {
-	description = S("View server analytics"),
-	privs = {server = true},
-	
-	func = function(invoker_name)
-		return true,
-			inf(S("MultiCraft clients: @1", tostring(storage:get_int("multicraft")))) .. "\n" ..
-			inf(S("Minetest clients: @1", tostring(storage:get_int("minetest"))))
-	end
-})
+-- minetest.register_chatcommand("analytics", {
+-- 	description = S("View server analytics"),
+-- 	privs = {server = true},
+
+-- 	func = function(_)
+-- 		return true,
+-- 			inf(S("MultiCraft clients: @1", tostring(storage:get_int("multicraft")))) .. "\n" ..
+-- 			inf(S("Minetest clients: @1", tostring(storage:get_int("minetest"))))
+-- 	end
+-- })

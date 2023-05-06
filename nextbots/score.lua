@@ -2,8 +2,6 @@ local S = minetest.get_translator("nextbots")
 local storage = minetest.get_mod_storage()
 
 function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
-	local player_meta = player:get_meta()
-
 	local current_player_data = storage:get_string(player:get_player_name())
 	if current_player_data == "" then
 		current_player_data = {
@@ -61,8 +59,6 @@ minetest.register_chatcommand("score", {
 	params = "[" .. S("player") .. "]",
 
 	func = function(invoker_name, player_name)
-		local invoker = minetest.get_player_by_name(invoker_name)
-
 		if player_name == "" then
 			local player_score = nextbots.get_player_score(invoker_name)
 
@@ -87,12 +83,12 @@ end
 
 minetest.register_chatcommand("highscores", {
 	description = S("See the leaderboard"),
-	
+
 	func = function(invoker_name)
 		minetest.log(invoker_name .. " viewed highscores")
 
 		local scores = {}
-		
+
 		for _, player_name in ipairs(storage:get_keys()) do
 			local player_data = get_player_data(player_name)
 			player_data.name = player_name
