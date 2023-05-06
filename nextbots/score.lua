@@ -34,16 +34,22 @@ function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
 	minetest.log("action", "Recalculated score for " .. player:get_player_name())
 end
 
-function nextbots.get_player_score(player_name)
+local function get_player_data(player_name)
 	local player_data = storage:get_string(player_name)
-	local player_score = 0
 
 	if player_data ~= "" then
-		player_data = minetest.deserialize(player_data)
-		player_score = player_data.score
+		return minetest.deserialize(player_data)
+	end
+end
+
+function nextbots.get_player_score(player_name)
+	local player_data = get_player_data(player_name)
+
+	if player_data then
+		return player_data.score
 	end
 
-	return player_score
+	return 0
 end
 
 -- Coloring functions
@@ -72,5 +78,50 @@ minetest.register_chatcommand("score", {
 				return false, err(S('The player "@1" does not exist', player_name))
 			end
 		end
+	end
+})
+
+local function compare_scores(a, b)
+	return a.score > b.score
+end
+
+minetest.register_chatcommand("highscores", {
+	description = S("See the leaderboard"),
+	
+	func = function(invoker_name)
+		minetest.log(invoker_name .. " viewed highscores")
+
+		local scores = {}
+		
+		for _, player_name in ipairs(storage:get_keys()) do
+			local player_data = get_player_data(player_name)
+			player_data.name = player_name
+
+			table.insert(scores, player_data)
+		end
+
+		table.sort(scores, compare_scores)
+
+		local formspec = "formspec_version[5]" ..
+			"size[17, 10]" ..
+			"bgcolor[#111a]" ..
+			"label[1.15, 1;" .. S("Player name") .. "]" ..
+			"label[7.05, 1;" .. S("Score") .. "]" ..
+			"label[10.1, 1;" .. S("Death count") .. "]" ..
+			"label[13.15, 1;" .. S("Seconds chased") .. "]" ..
+			"button_exit[12, 8;4, 1;exit_highscores;" .. S("Close") .. "]" ..
+			"tablecolumns[text,width=20;text,width=10;text,width=10;text,width=10]" ..
+			"table[1, 1.5;15, 6;highscores;"
+
+		local formspec_table_data = {}
+		for _, player_data in ipairs(scores) do
+			table.insert(formspec_table_data, player_data.name)
+			table.insert(formspec_table_data, string.format("%.2f", player_data.score))
+			table.insert(formspec_table_data, player_data.deaths)
+			table.insert(formspec_table_data, string.format("%.2f", player_data.chased_time))
+		end
+
+		formspec = formspec .. table.concat(formspec_table_data, ",") .. "]"
+		minetest.show_formspec(invoker_name, "highscores", formspec)
 	end
 })
