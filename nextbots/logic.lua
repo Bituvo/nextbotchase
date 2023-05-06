@@ -2,7 +2,6 @@ local S = minetest.get_translator("nextbots")
 
 function nextbots._on_step(self, dtime)
 	self._dtime = self._dtime + dtime
-	minetest.chat_send_all(self._target:get_player_name())
 
 	-- Don't move if not chasing
 	if not self._chasing then
@@ -105,40 +104,51 @@ function nextbots._on_reach_target(self)
 end
 
 function nextbots._stay_unstuck(self, radius)
-	local origin = vector.round(vector.add(self.object:get_pos(), {x = 0, y = 1, z = 0}))
-	origin.y = -4
-	local node_name = minetest.get_node(origin).name
+    local origin = vector.round(vector.add(self.object:get_pos(), {x = 0, y = 1, z = 0}))
+    origin.y = -4
+    local node_name = minetest.get_node(origin).name
 
-	if node_name ~= "air" and node_name ~= "ignore" then
-		local left = vector.copy(origin)
-		local right = vector.copy(origin)
-		local forwards = vector.copy(origin)
-		local backwards = vector.copy(origin)
+    while node_name ~= "air" and node_name ~= "ignore" do
+        local left = vector.copy(origin)
+        local right = vector.copy(origin)
+        local forwards = vector.copy(origin)
+        local backwards = vector.copy(origin)
 
-		left.x = left.x - radius
-		right.x = right.x + radius
-		forwards.z = forwards.z + radius
-		backwards.z = backwards.z - radius
+        left.x = left.x - radius
+        right.x = right.x + radius
+        forwards.z = forwards.z + radius
+        backwards.z = backwards.z - radius
 
-		if minetest.get_node(left).name == "air" then
-			self.object:move_to(left)
-		elseif minetest.get_node(right).name == "air" then
-			self.object:move_to(right)
-		elseif minetest.get_node(forwards).name == "air" then
-			self.object:move_to(forwards)
-		elseif minetest.get_node(backwards).name == "air" then
-			self.object:move_to(backwards)
-		else
-			if radius > 10 then
-				minetest.log("warning", self._formal_name .. " is stuck in " ..
-					node_name .. " at " .. minetest.pos_to_string(origin))
-				return
-			end
+        if minetest.get_node(left).name == "air" then
+			left.y = self._fixed_y_position
+            self.object:move_to(left)
+            return true
+        elseif minetest.get_node(right).name == "air" then
+			right.y = self._fixed_y_position
+            self.object:move_to(right)
+            return true
+        elseif minetest.get_node(forwards).name == "air" then
+			forwards.y = self._fixed_y_position
+            self.object:move_to(forwards)
+            return true
+        elseif minetest.get_node(backwards).name == "air" then
+			backwards.y = self._fixed_y_position
+            self.object:move_to(backwards)
+            return true
+        else
+            if radius > 10 then
+                minetest.log("warning", self._formal_name .. " is stuck in " ..
+                    node_name .. " at " .. minetest.pos_to_string(origin))
+                return false
+            end
 
-			minetest.log("warning", self._formal_name .. " is stuck in" ..
-				node_name .. " at " .. minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius)
-			)
-			nextbots._stay_unstuck(self, radius + 1)
-		end
-	end
+            minetest.log("warning", self._formal_name .. " is stuck in " .. node_name .. " at " ..
+                minetest.pos_to_string(origin) .. ", trying again with radius=" .. tostring(radius))
+
+            radius = radius + 1
+            node_name = minetest.get_node(origin).name
+        end
+    end
+
+    return true
 end
