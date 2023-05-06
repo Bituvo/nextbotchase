@@ -2,6 +2,7 @@ local S = minetest.get_translator("nextbots")
 
 function nextbots._on_step(self, dtime)
 	self._dtime = self._dtime + dtime
+	minetest.chat_send_all(self._target:get_player_name())
 
 	-- Don't move if not chasing
 	if not self._chasing then

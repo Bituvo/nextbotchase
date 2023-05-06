@@ -4,8 +4,7 @@ minetest.register_on_respawnplayer(function(player)
 end)
 
 minetest.register_on_leaveplayer(function(player)
-	local nextbot_id = player:get_meta():get_int("nextbot_id")
-	nextbots.remove_nextbot(nextbot_id)
+	nextbots.remove_nextbot(player:get_player_name())
 end)
 
 -- Pause nextbots when player opens formspec, resume when formspec closes

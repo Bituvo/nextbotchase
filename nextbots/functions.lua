@@ -48,8 +48,6 @@ function nextbots.spawn_nextbot(name, pos, target, wait_time)
 
 	if created_successfully then
 		nextbots.spawned_nextbots[current_nextbot_id] = new_nextbot
-		target:get_meta():set_int("nextbot_id", current_nextbot_id)
-
 		current_nextbot_id = current_nextbot_id + 1
 	else
 		minetest.log("warning", "Nextbot creation failed")
@@ -70,16 +68,9 @@ function nextbots.find_nextbot(name_or_id)
 	end
 end
 
-local function _set_target_meta(luaentity)
-	local target_meta = luaentity._target:get_meta()
-	target_meta:set_int("nextbot_id", 0)
-end
-
 local function remove_nextbot(object, name_or_id)
 	if object then
 		local luaentity = object:get_luaentity()
-		-- Player might have left at just the wrong time
-		if not pcall(_set_target_meta, luaentity) then return end
 
 		minetest.sound_stop(luaentity._sound_handle)
 		object:remove()

@@ -57,28 +57,29 @@ minetest.register_chatcommand("clear", {
 	end
 })
 
-minetest.register_chatcommand("find", {
-	description = S("Finds a player's nextbot"),
-	privs = {server = true},
-	params = "<" .. S("player_name") .. ">",
+-- I have no idea why but this isn't working
+-- minetest.register_chatcommand("find", {
+-- 	description = S("Finds a player's nextbot"),
+-- 	privs = {server = true},
+-- 	params = "<" .. S("player_name") .. ">",
 
-	func = function(invoker_name, player_name)
-		local invoker = minetest.get_player_by_name(invoker_name)
-		local player = minetest.get_player_by_name(player_name)
+-- 	func = function(invoker_name, player_name)
+-- 		local invoker = minetest.get_player_by_name(invoker_name)
+-- 		local player = minetest.get_player_by_name(player_name)
 
-		if player then
-			local nextbot = nextbots.find_nextbot(player_name)
+-- 		if player then
+-- 			local nextbot = nextbots.find_nextbot(player_name)
 
-			if nextbot then
-				invoker:set_pos(nextbot:get_pos())
+-- 			if nextbot then
+-- 				invoker:set_pos(nextbot:get_pos())
 
-				minetest.log("action", invoker_name .. " teleported to " .. player_name .. "'s nextbot")
-				return true, suc(S("Teleported to @1", minetest.pos_to_string(nextbot:get_pos())))
-			else
-				return false, err(S("Nextbot not found"))
-			end
-		else
-			return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
-		end
-	end
-})
+-- 				minetest.log("action", invoker_name .. " teleported to " .. player_name .. "'s nextbot")
+-- 				return true, suc(S("Teleported to @1", minetest.pos_to_string(nextbot:get_pos())))
+-- 			else
+-- 				return false, err(S("Nextbot not found"))
+-- 			end
+-- 		else
+-- 			return false, err(S('The player "@1" either does not exist or is not logged in', player_name))
+-- 		end
+-- 	end
+-- })
