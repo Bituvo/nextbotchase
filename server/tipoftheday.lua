@@ -13,7 +13,8 @@ local tips = {
 	S("Don't get lost in the shadow areas"),
 	S("Nextbots never give up"),
 	S("Mods can see your chat messages"),
-	S('Do "/score" to see your or another player\'s score')
+	S('Do "/score" to see your or another player\'s score'),
+	S('Do "/highscores" to see player highscores')
 }
 
 minetest.register_on_joinplayer(function(player)

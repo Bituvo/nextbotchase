@@ -26,6 +26,12 @@ player=
 Your score: @1=
 @1's score: @2=
 The player "@1" does not exist=
+See the leaderboard=
+Player name=
+Score=
+Death count=
+Seconds chased=
+Close=
 
 ### spawning.lua ###
 Nextbots will not automatically spawn for players with this privilege=

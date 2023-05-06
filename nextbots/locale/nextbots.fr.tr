@@ -26,6 +26,12 @@ player=joueur
 Your score: @1=Votre score : @1
 @1's score: @2=Le score de @1 : @2
 The player "@1" does not exist=Le joueur "@1" n'existe pas
+See the leaderboard=Voir le classement
+Player name=Nom du joueur
+Score=Score
+Death count=Nombre de morts
+Seconds chased=Secondes poursuivies
+Close=Sortie
 
 ### spawning.lua ###
 Nextbots will not automatically spawn for players with this privilege=Les Nextbots n'apparaîtront pas automatiquement pour les joueurs disposant de ce privilège

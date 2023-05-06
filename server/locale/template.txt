@@ -67,4 +67,5 @@ Don't get lost in the shadow areas=
 Nextbots never give up=
 Mods can see your chat messages=
 Do "/score" to see your or another player's score=
+Do "/highscores" to see player highscores=
 Tip of the day: =
