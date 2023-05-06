@@ -64,7 +64,7 @@ function nextbots.find_nextbot(name_or_id)
 
 	for _, nextbot in ipairs(nextbots.spawned_nextbots) do
 		local luaentity = nextbot:get_luaentity()
-		if luaentity and nextbot:get_luaentity()._target:get_player_name() == name_or_id then
+		if luaentity and luaentity._target and luaentity._target:get_player_name() == name_or_id then
 			return nextbot
 		end
 	end
