@@ -17,7 +17,7 @@ function nextbots.calculate_score(player, player_chased_time, nextbot_speed)
 	current_player_data.deaths = current_player_data.deaths + 1
 
 	local player_score = current_player_data.score
-	local player_chased_time = current_player_data.chased_time
+	player_chased_time = current_player_data.chased_time
 	local player_deaths = current_player_data.deaths
 	if current_player_data.deaths < 5 then
 		player_score = player_chased_time / (player_deaths * 3)

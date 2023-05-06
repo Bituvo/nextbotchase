@@ -1,4 +1,4 @@
-read_globals = {
+globals = {
     "DIR_DELIM", "INIT",
 
     "minetest", "core",
