@@ -7,3 +7,17 @@ minetest.register_on_leaveplayer(function(player)
 	local nextbot_id = player:get_meta():get_int("nextbot_id")
 	nextbots.remove_nextbot(nextbot_id)
 end)
+
+-- Pause nextbots when player opens formspec, resume when formspec closes
+minetest.register_on_player_receive_fields(function(player, _, fields)
+	local player_nextbot = nextbots.find_nextbot(player:get_player_name())
+	if not player_nextbot then return end
+	local nextbot_luaentity = player_nextbot:get_luaentity()
+	if not nextbot_luaentity then return end
+
+	if fields.quit == "true" then
+		nextbot_luaentity._chasing = true
+	else
+		nextbot_luaentity._chasing = false
+	end
+end)

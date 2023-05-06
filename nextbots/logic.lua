@@ -2,10 +2,16 @@ local S = minetest.get_translator("nextbots")
 
 function nextbots._on_step(self, dtime)
 	self._dtime = self._dtime + dtime
-	self._chase_time = self._chase_time + dtime
+
+	-- Don't move if not chasing
+	if not self._chasing then
+		self.object:set_velocity(vector.new())
+		return
+	end
 
 	-- Step <speed> times every second
-	if self._dtime > 1 / self._speed and self._chasing then
+	if self._dtime > 1 / self._speed then
+		self._chase_time = self._chase_time + dtime
 		self._dtime = 0
 
 		-- Delete self if target can't be found
