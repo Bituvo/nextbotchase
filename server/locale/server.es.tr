@@ -19,7 +19,7 @@ Minetest clients: @1=Clientes Minetest: @1
 
 ### chatstatus.lua ###
 Welcome to BACKROOMS CHASE, =Bienvenido a BACKROOMS CHASE, 
-Type "/who" to see who is online=Escriba "/quién" para ver quién está en línea
+Type "/who" to see who is online, "/skin" to change your skin=Escribe "/who" para ver quién está conectado, "/skin" para cambiar tu skin
 @1 has joined the chase=@1 se ha unido a la persecución
 @1 has joined the game=@1 se ha unido al juego
 Say hello to @1=Saluda a @1
