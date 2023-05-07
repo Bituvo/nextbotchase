@@ -1,3 +1,7 @@
+ignore = {
+    "311"
+}
+
 globals = {
     "DIR_DELIM", "INIT",
 

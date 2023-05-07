@@ -89,10 +89,9 @@ minetest.register_chatcommand("highscores", {
 
 		local scores = {}
 
-		for _, player_name in ipairs(storage:get_keys()) do
-			local player_data = get_player_data(player_name)
+		for player_name, player_data in pairs(storage:to_table()["fields"]) do
+			player_data = minetest.deserialize(player_data)
 			player_data.name = player_name
-
 			table.insert(scores, player_data)
 		end
 
@@ -102,11 +101,11 @@ minetest.register_chatcommand("highscores", {
 			"size[17, 10]" ..
 			"bgcolor[#111a]" ..
 			"label[1.15, 1;" .. S("Player name") .. "]" ..
-			"label[7.05, 1;" .. S("Score") .. "]" ..
-			"label[10.1, 1;" .. S("Death count") .. "]" ..
-			"label[13.15, 1;" .. S("Seconds chased") .. "]" ..
+			"label[7.2, 1;" .. S("Score") .. "]" ..
+			"label[10.25, 1;" .. S("Death count") .. "]" ..
+			"label[13.4, 1;" .. S("Seconds chased") .. "]" ..
 			"button_exit[12, 8;4, 1;exit_highscores;" .. S("Close") .. "]" ..
-			"tablecolumns[text,width=20;text,width=10;text,width=10;text,width=10]" ..
+			"tablecolumns[text,width=18;text,width=9;text,width=9;text]" ..
 			"table[1, 1.5;15, 6;highscores;"
 
 		local formspec_table_data = {}

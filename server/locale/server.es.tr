@@ -30,9 +30,6 @@ Say goodbye to @1=Despídete de @1
 @1 has left=@1 se ha ido
  (timed out)= (agotado el tiempo)
 
-### playerregistrations.lua ###
-Your Minetest/MultiCraft client is outdated. Please update to Minetest 5.7.0=Tu cliente Minetest/MultiCraft no está actualizado. Por favor, actualice a Minetest 5.7.0
-
 ### rules.lua ###
 Don't swear or harass other players=No insultes ni acoses a otros jugadores
 Don't spam in chat=No hagas spam en el chat
